@@ -36,4 +36,4 @@ jobs:
         source: "dist/spa/*"
         target: ${{ secrets.SERVER_PATH }}
         overwrite: 1
-        strip_components: 1
+        strip_components: 2
