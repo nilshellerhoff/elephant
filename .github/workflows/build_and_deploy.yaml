@@ -33,7 +33,7 @@ jobs:
         username: ${{ secrets.SERVER_USERNAME }}
         key: ${{ secrets.SERVER_KEY }}
         port: 22
-        source: "dist/*"
+        source: "dist/spa/*"
         target: ${{ secrets.SERVER_PATH }}
         overwrite: 1
         strip_components: 1
