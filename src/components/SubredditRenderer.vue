@@ -1,7 +1,7 @@
 <template>
   <q-pull-to-refresh @refresh="load">
     <q-list>
-      <q-infinite-scroll @load="loadNext" :offset="100">
+      <q-infinite-scroll @load="loadNext" :offset="300">
         <PostListItem
           v-for="post in posts"
           :key="post.data.name"
@@ -33,7 +33,7 @@ const props = defineProps<Props>();
 const isLoading = ref(false);
 const posts: Ref<Post[]> = ref([]);
 const after: Ref<string | undefined> = ref(undefined);
-const load = () => {
+const load = (done) => {
   isLoading.value = true;
   redditGetResponse<SubredditResponse>(
     `https://reddit.com/r/${props.subreddit}.json`
@@ -44,11 +44,16 @@ const load = () => {
     })
     .finally(() => {
       isLoading.value = false;
+      done();
     });
 };
 
 const loadNext = (index, done) => {
   console.log('loadnext');
+  if (isLoading.value) {
+    done();
+    return;
+  }
   isLoading.value = true;
   redditGetResponse<SubredditResponse>(
     `https://reddit.com/r/${props.subreddit}.json?after=${after.value}`
@@ -59,6 +64,7 @@ const loadNext = (index, done) => {
     })
     .finally(() => {
       isLoading.value = false;
+      done();
     });
 };
 
