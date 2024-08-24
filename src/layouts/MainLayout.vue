@@ -1,19 +1,13 @@
 <template>
   <q-layout view="hHh lpR fFf">
-    <HeaderBar
-      type="main"
-      @toggle="toggleLeftDrawer"
-    />
-    <q-drawer show-if-above
-              v-model="leftDrawerOpen"
-              side="left"
-              elevated>
+    <HeaderBar type="main" @toggle="toggleLeftDrawer" />
+    <q-drawer show-if-above v-model="leftDrawerOpen" side="left" elevated>
       <!-- drawer content -->
     </q-drawer>
 
     <q-page-container>
       <keep-alive>
-      <router-view />
+        <router-view />
       </keep-alive>
     </q-page-container>
 
@@ -34,8 +28,16 @@ export default {
       leftDrawerOpen,
       toggleLeftDrawer() {
         leftDrawerOpen.value = !leftDrawerOpen.value;
-      }
+      },
     };
-  }
+  },
 };
 </script>
+
+<style>
+// Disable Safari pull to refresh
+html,
+body {
+  overscroll-behavior: none;
+}
+</style>
