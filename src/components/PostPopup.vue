@@ -79,7 +79,7 @@ interface Props {
   postPermalink: string | undefined;
 }
 const props = defineProps<Props>();
-const emit = defineEmits(['close']);
+defineEmits(['back']);
 
 const isLoading = ref(false);
 

@@ -14,7 +14,6 @@
       </template>
     </q-list>
   </q-pull-to-refresh>
-  <router-view />
 </template>
 
 <script setup lang="ts">

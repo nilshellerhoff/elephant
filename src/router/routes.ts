@@ -9,17 +9,25 @@ const routes: RouteRecordRaw[] = [
       {
         path: 'r/:subreddit',
         component: () => import('pages/SubredditPage.vue'),
-        children: [
-          {
-            path: 'comments/:commentsid/:seo?',
-            component: () => import('pages/PostPage.vue'),
-          },
-        ],
+        // children: [
+        //   {
+        //     path: 'comments/:commentsid/:seo?',
+        //     component: () => import('pages/PostPage.vue'),
+        //   },
+        // ],
       },
       { path: 'popular', component: () => import('pages/SubredditPage.vue') },
       { path: 'search', component: () => import('pages/SearchPage.vue') },
+      {
+        path: '/r/:subreddit/comments/:commentsid/:seo?',
+        redirect: (to) => ({
+          path: `r/${to.params.subreddit}`,
+          query: { post: to.fullPath },
+        }),
+      },
     ],
   },
+
   // {
   //   path: '/r/:subreddit/comments/', component: () => import('layouts/PopupLayout.vue'),
   //   children: [

@@ -1,5 +1,8 @@
 <template>
-  <q-item clickable :to="post.data.permalink">
+  <q-item
+    clickable
+    @click="$router.push({ query: { post: post.data.permalink } })"
+  >
     <q-item-section thumbnail>
       <q-img style="width: 60px; margin: 5px" :ratio="1" :src="thumbnail" />
     </q-item-section>
