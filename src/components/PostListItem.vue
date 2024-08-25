@@ -1,5 +1,5 @@
 <template>
-  <q-item clickable @click="openPost">
+  <q-item clickable :to="post.data.permalink">
     <q-item-section thumbnail>
       <q-img style="width: 60px; margin: 5px" :ratio="1" :src="thumbnail" />
     </q-item-section>
@@ -14,11 +14,6 @@
       </q-item-label>
     </q-item-section>
   </q-item>
-  <PostPopup
-    :open="isPopupOpen"
-    :post-permalink="post.data.permalink"
-    @close="isPopupOpen = false"
-  />
 </template>
 <script setup lang="ts">
 import { Post } from 'src/types/reddit/base';
@@ -31,9 +26,6 @@ interface Props {
 
 const props = defineProps<Props>();
 
-const isPopupOpen = ref(false);
-
-const openPost = () => (isPopupOpen.value = true);
 const isDefaultThumbnail = (thumbnail: string) => {
   return thumbnail == 'self' || thumbnail == 'default' || thumbnail == 'image';
 };

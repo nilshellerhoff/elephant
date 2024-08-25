@@ -1,12 +1,12 @@
 <template>
   <q-dialog
-    :model-value="props.open"
+    :model-value="true"
     persistent
     maximized
     style="margin-bottom: 200px"
   >
     <q-layout view="hHh lpR fFf">
-      <HeaderBar type="popup" @toggle="close" />
+      <HeaderBar type="popup" @toggle="$emit('back')" />
       <FooterBar />
 
       <q-page-container style="background-color: #fff; min-height: 100%">
@@ -111,12 +111,6 @@ watch(
   },
   { immediate: true }
 );
-
-const close = () => {
-  emit('close');
-  console.log('close');
-  data.value = null;
-};
 </script>
 
 <style lang="scss">
