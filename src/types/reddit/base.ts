@@ -50,6 +50,7 @@ export type IComment = {
     permalink: string;
     created_utc: number;
     score: number;
+    score_hidden: boolean;
     ups: number;
     depth: number;
   };

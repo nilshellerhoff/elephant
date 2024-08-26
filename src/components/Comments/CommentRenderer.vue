@@ -20,7 +20,10 @@
           <q-item-label>
             <CommentContentRenderer :html="comment.data.body_html" />
           </q-item-label>
-          <div><q-icon name="arrow_upward" /> {{ comment.data.ups }}</div>
+          <div>
+            <q-icon name="arrow_upward" />
+            {{ comment.data.score_hidden ? '?' : comment.data.ups }}
+          </div>
         </template>
         <template v-else>(expand)</template>
       </template>
