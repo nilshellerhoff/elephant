@@ -29,6 +29,7 @@ export type Post = {
 export type CommentMore = {
   kind: 'more';
   data: {
+    children: string[];
     count: number;
     depth: number;
     id: string;
@@ -53,6 +54,7 @@ export type IComment = {
     score_hidden: boolean;
     ups: number;
     depth: number;
+    link_id: string;
   };
 };
 
