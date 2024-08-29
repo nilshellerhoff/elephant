@@ -36,6 +36,25 @@
           </q-item-section>
         </q-item>
 
+        <div>
+          <q-btn
+            color="primary"
+            icon="open_in_new"
+            label="Reddit"
+            style="margin: 10px; width: 120px"
+            :href="'https://reddit.com' + postData?.permalink"
+            target="_blank"
+          />
+          <q-btn
+            v-if="postData?.url"
+            color="primary"
+            icon="link"
+            label="Link"
+            style="margin: 10px; width: 120px; float: right"
+            :href="postData?.url"
+            target="_blank"
+          />
+        </div>
         <!-- Comments -->
         <q-list>
           <CommentRepliesRenderer

@@ -20,6 +20,7 @@ export type PostData = {
   thumbnail: string | 'self' | 'default';
   permalink: string;
   link_id: string;
+  url: string;
 };
 
 export type Post = {
