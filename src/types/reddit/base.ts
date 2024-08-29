@@ -19,6 +19,7 @@ export type PostData = {
   num_comments: number;
   thumbnail: string | 'self' | 'default';
   permalink: string;
+  link_id: string;
 };
 
 export type Post = {

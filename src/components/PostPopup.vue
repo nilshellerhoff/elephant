@@ -3,7 +3,7 @@
     :model-value="true"
     persistent
     maximized
-    style="margin-bottom: 200px"
+    style="margin-bottom: 200px; overflow-wrap: break-word; overflow: hidden"
   >
     <q-layout view="hHh lpR fFf">
       <HeaderBar type="popup" @toggle="$emit('back')" />
@@ -38,10 +38,9 @@
 
         <!-- Comments -->
         <q-list>
-          <CommentRenderer
-            v-for="comment in comments"
-            :key="comment.data.id"
-            :comment="comment"
+          <CommentRepliesRenderer
+            :link-id="postData?.name"
+            :replies="comments"
           />
         </q-list>
 
@@ -71,8 +70,8 @@ import { computed, ComputedRef, ref, Ref, watch } from 'vue';
 import { redditGetResponse } from 'src/util/api';
 import { PostResponse } from 'src/types/reddit/post';
 import { IComment, PostData } from 'src/types/reddit/base';
-import CommentRenderer from 'components/Comments/CommentRenderer.vue';
 import PostListItemLoading from 'components/PostListItemLoading.vue';
+import CommentRepliesRenderer from 'components/Comments/CommentRepliesRenderer.vue';
 
 interface Props {
   open: boolean;
