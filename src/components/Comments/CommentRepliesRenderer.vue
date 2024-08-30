@@ -17,6 +17,7 @@ import { computed, ref, Ref } from 'vue';
 import { redditGetResponse } from 'src/util/api';
 import CommentBase from 'components/Comments/CommentBase.vue';
 import CommentRenderer from 'components/Comments/CommentRenderer.vue';
+import { reorderCommentTree } from 'src/util/comments';
 
 interface Props {
   replies: (IComment | CommentMore)[];
@@ -35,7 +36,8 @@ const loadMoreComments = (reply: CommentMore) => {
   const childrenStr = reply.data.children.join(',');
   const url = `https://reddit.com/api/morechildren.json?api_type=json&children=${childrenStr}&link_id=${props.linkId}`;
   redditGetResponse(url).then((response) => {
-    moreReplies.value = response.data.json.data.things;
+    const newComments = response.data.json.data.things;
+    moreReplies.value = reorderCommentTree(newComments);
   });
 };
 </script>
