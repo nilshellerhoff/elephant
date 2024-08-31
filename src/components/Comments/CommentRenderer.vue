@@ -30,11 +30,11 @@
 </template>
 
 <script setup lang="ts">
-import { IComment, isComment } from 'src/types/reddit/base';
 import CommentContentRenderer from 'components/Comments/CommentContentRenderer.vue';
 import { ref } from 'vue';
 import CommentBase from 'components/Comments/CommentBase.vue';
 import CommentRepliesRenderer from 'components/Comments/CommentRepliesRenderer.vue';
+import { IComment, isComment } from '../../types/reddit/comment';
 interface Props {
   comment: IComment;
 }

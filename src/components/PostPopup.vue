@@ -87,10 +87,10 @@ import HeaderBar from 'components/HeaderBar.vue';
 import FooterBar from 'components/FooterBar.vue';
 import { computed, ComputedRef, ref, Ref, watch } from 'vue';
 import { redditGetResponse } from 'src/util/api';
-import { PostResponse } from 'src/types/reddit/post';
-import { IComment, PostData } from 'src/types/reddit/base';
+import { PostData, PostResponse } from 'src/types/reddit/post';
 import PostListItemLoading from 'components/PostListItemLoading.vue';
 import CommentRepliesRenderer from 'components/Comments/CommentRepliesRenderer.vue';
+import { IComment } from '../types/reddit/comment';
 
 interface Props {
   open: boolean;

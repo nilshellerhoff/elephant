@@ -10,9 +10,9 @@
 </template>
 
 <script setup lang="ts">
-import { CommentMore, IComment, isComment } from 'src/types/reddit/base';
 import CommentRenderer from 'components/Comments/CommentRenderer.vue';
 import CommentBase from 'components/Comments/CommentBase.vue';
+import { CommentMore, IComment, isComment } from '../../types/reddit/comment';
 
 interface Props {
   comment: IComment | CommentMore;

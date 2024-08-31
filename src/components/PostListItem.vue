@@ -19,9 +19,9 @@
   </q-item>
 </template>
 <script setup lang="ts">
-import { Post } from 'src/types/reddit/base';
 import { computed, ref } from 'vue';
 import PostPopup from 'components/PostPopup.vue';
+import { Post } from '../types/reddit/post';
 
 interface Props {
   post: Post;

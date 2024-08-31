@@ -1,8 +1,8 @@
 <template></template>
 
 <script setup lang="ts">
-import { IComment } from 'src/types/reddit/base';
 import { Ref, ref, watch } from 'vue';
+import { IComment } from '../../types/reddit/comment';
 
 interface Props {
   comments: IComment[];

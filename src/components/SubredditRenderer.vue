@@ -23,10 +23,10 @@
 <script setup lang="ts">
 import { SubredditResponse } from 'src/types/reddit/subreddit';
 import { Ref, ref, watch } from 'vue';
-import { Post } from 'src/types/reddit/base';
 import PostListItem from 'components/PostListItem.vue';
 import { redditGetResponse } from 'src/util/api';
 import PostListItemLoading from 'components/PostListItemLoading.vue';
+import { Post } from '../types/reddit/post';
 
 interface Props {
   subreddit: string;

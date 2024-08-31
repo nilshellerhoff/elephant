@@ -1,4 +1,4 @@
-import { IComment } from 'src/types/reddit/base';
+import { IComment } from '../types/reddit/comment';
 
 /** reorder comments such that replies are shown as children of their parents.
  * Uses name, parent_id and depth fields

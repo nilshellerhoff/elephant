@@ -1,4 +1,4 @@
-import { Post } from 'src/types/reddit/base';
+import { Post } from './post';
 
 export type SubredditResponse = {
   data: {

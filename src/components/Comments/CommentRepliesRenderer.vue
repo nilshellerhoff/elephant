@@ -12,12 +12,12 @@
 </template>
 
 <script setup lang="ts">
-import { CommentMore, IComment, isComment } from 'src/types/reddit/base';
 import { computed, ref, Ref } from 'vue';
 import { redditGetResponse } from 'src/util/api';
 import CommentBase from 'components/Comments/CommentBase.vue';
 import CommentRenderer from 'components/Comments/CommentRenderer.vue';
 import { reorderCommentTree } from 'src/util/comments';
+import { CommentMore, IComment, isComment } from '../../types/reddit/comment';
 
 interface Props {
   replies: (IComment | CommentMore)[];
