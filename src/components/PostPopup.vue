@@ -20,6 +20,7 @@
               style="width: 60px; margin: 5px"
               :ratio="1"
               :src="postData.thumbnail"
+              @click="openMedia"
             />
           </q-item-section>
           <q-item-section>
@@ -35,7 +36,6 @@
             </q-item-label>
           </q-item-section>
         </q-item>
-
         <div>
           <q-btn
             color="primary"
@@ -80,6 +80,11 @@
       </q-page-container>
     </q-layout>
   </q-dialog>
+  <ImageViewer
+    :open="imageViewerOpen"
+    :url="postData?.url"
+    @update:model-value="imageViewerOpen = !imageViewerOpen"
+  />
 </template>
 
 <script setup lang="ts">
@@ -91,6 +96,8 @@ import { PostData, PostResponse } from 'src/types/reddit/post';
 import PostListItemLoading from 'components/PostListItemLoading.vue';
 import CommentRepliesRenderer from 'components/Comments/CommentRepliesRenderer.vue';
 import { IComment } from '../types/reddit/comment';
+import { isImage } from 'src/util/post_images';
+import ImageViewer from 'components/Post/ImageViewer.vue';
 
 interface Props {
   open: boolean;
@@ -101,6 +108,7 @@ defineEmits(['back']);
 
 const isLoading = ref(false);
 
+const imageViewerOpen = ref(false);
 const data: Ref<PostResponse | null> = ref(null);
 const postData: ComputedRef<PostData | undefined> = computed(
   () => data.value?.[0].data.children[0].data
@@ -108,6 +116,11 @@ const postData: ComputedRef<PostData | undefined> = computed(
 const comments: ComputedRef<IComment[] | undefined> = computed(
   () => data.value?.[1].data.children
 );
+
+const openMedia = () => {
+  if (isImage(postData.value.url)) imageViewerOpen.value = true;
+  else console.log('unsupported media');
+};
 
 watch(
   [() => props.postPermalink, () => props.open],
