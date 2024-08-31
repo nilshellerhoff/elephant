@@ -6,7 +6,10 @@
       :depth="reply.data.depth"
       @click="loadMoreComments(reply)"
     >
-      load {{ reply.data.count }} more comments
+      <div>
+        load {{ reply.data.count }} more comments
+        <q-spinner v-if="moreLoading" color="primary" />
+      </div>
     </CommentBase>
   </template>
 </template>
@@ -32,12 +35,16 @@ const allReplies = computed(() =>
     ? props.replies
     : props.replies.concat(moreReplies.value)
 );
+const moreLoading = ref(false);
 const loadMoreComments = (reply: CommentMore) => {
   const childrenStr = reply.data.children.join(',');
   const url = `https://reddit.com/api/morechildren.json?api_type=json&children=${childrenStr}&link_id=${props.linkId}`;
-  redditGetResponse(url).then((response) => {
-    const newComments = response.data.json.data.things;
-    moreReplies.value = reorderCommentTree(newComments);
-  });
+  moreLoading.value = true;
+  redditGetResponse(url)
+    .then((response) => {
+      const newComments = response.data.json.data.things;
+      moreReplies.value = reorderCommentTree(newComments);
+    })
+    .finally(() => (moreLoading.value = false));
 };
 </script>
