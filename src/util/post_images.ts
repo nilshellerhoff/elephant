@@ -8,6 +8,10 @@ export const IMAGE_EXTRACTORS: {
     expression: /i.redd.it/,
     extractor: defaultExtractor,
   },
+  {
+    expression: /i.imgur.com/,
+    extractor: defaultExtractor,
+  },
 ];
 
 export const IMAGE_HOSTS = IMAGE_EXTRACTORS.map(
