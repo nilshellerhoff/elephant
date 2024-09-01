@@ -37,7 +37,10 @@
           </q-item-section>
         </q-item>
 
-        <CommentContentRenderer :html="postData?.selftext_html ?? ''" />
+        <CommentContentRenderer
+          style="padding: 4px"
+          :html="postData?.selftext_html ?? ''"
+        />
 
         <div>
           <q-btn

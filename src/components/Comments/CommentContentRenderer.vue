@@ -1,5 +1,5 @@
 <template>
-  <span class="comment-content" v-html="html"></span>
+  <div class="comment-content" v-html="html"></div>
 </template>
 
 <script setup lang="ts">
@@ -38,6 +38,12 @@ const unescapeHTML = (input: string) => {
     font-size: 18px;
     font-weight: bold;
     line-height: initial;
+  }
+
+  table {
+    width: 100%;
+    overflow-x: auto;
+    display: inline-block;
   }
 }
 </style>
