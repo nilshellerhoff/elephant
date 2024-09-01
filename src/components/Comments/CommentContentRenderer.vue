@@ -1,5 +1,5 @@
 <template>
-  <span class="comment-content" v-html="unescapeHTML(html)"></span>
+  <span class="comment-content" v-html="html"></span>
 </template>
 
 <script setup lang="ts">
@@ -19,7 +19,9 @@ const unescapeHTML = (input: string) => {
 <style lang="scss">
 .comment-content {
   .md {
-    display: block !important;
+    display: initial !important;
+    font-family: Roboto, Arial, sans-serif;
+    font-size: 14px;
   }
 
   p {
@@ -30,6 +32,12 @@ const unescapeHTML = (input: string) => {
     margin: 0 8px;
     padding-left: 4px;
     border-left: 3px solid #aaa;
+  }
+
+  h1 {
+    font-size: 18px;
+    font-weight: bold;
+    line-height: initial;
   }
 }
 </style>

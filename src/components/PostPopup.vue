@@ -36,6 +36,9 @@
             </q-item-label>
           </q-item-section>
         </q-item>
+
+        <CommentContentRenderer :html="postData?.selftext_html ?? ''" />
+
         <div>
           <q-btn
             color="primary"
@@ -98,6 +101,7 @@ import CommentRepliesRenderer from 'components/Comments/CommentRepliesRenderer.v
 import { IComment } from '../types/reddit/comment';
 import { isImage } from 'src/util/post_images';
 import ImageViewer from 'components/Post/ImageViewer.vue';
+import CommentContentRenderer from 'components/Comments/CommentContentRenderer.vue';
 
 interface Props {
   open: boolean;

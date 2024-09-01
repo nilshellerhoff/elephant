@@ -5,6 +5,7 @@ export type PostData = {
   subreddit: string;
   title: string;
   selftext: string;
+  selftext_html: string;
   ups: number;
   upvote_ratio: number;
   name: string;
