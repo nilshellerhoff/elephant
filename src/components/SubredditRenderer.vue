@@ -1,11 +1,11 @@
 <template>
-  <q-pull-to-refresh @refresh="load">
-    <template v-if="error">
-      An error occurred loading posts.
-      <q-btn label="Retry" @click="load" color="primary" />
-    </template>
+  <template v-if="error">
+    <InlineError message="An error occured loading posts" @retry="load" />
+  </template>
+
+  <q-pull-to-refresh @refresh="loadAll">
     <q-list>
-      <q-infinite-scroll @load="loadNext" :offset="300">
+      <q-infinite-scroll @load="loadNext" :offset="300" :disable="error">
         <PostListItem
           v-for="post in posts"
           :key="post.data.name"
@@ -27,6 +27,7 @@ import PostListItem from 'components/PostListItem.vue';
 import { redditGetResponse } from 'src/util/api';
 import PostListItemLoading from 'components/PostListItemLoading.vue';
 import { Post } from '../types/reddit/post';
+import InlineError from 'components/InlineError.vue';
 
 interface Props {
   subreddit: string;
@@ -39,7 +40,12 @@ const error = ref(false);
 const posts: Ref<Post[]> = ref([]);
 const after: Ref<string | undefined> = ref(undefined);
 
-const load = (done) => {
+const load = (...args) => {
+  if (after.value) loadNext(...args);
+  loadAll(...args);
+};
+
+const loadAll = (done) => {
   error.value = false;
   isLoading.value = true;
   redditGetResponse<SubredditResponse>(
@@ -61,7 +67,9 @@ const load = (done) => {
 const loadNext = (index, done) => {
   console.log('loadnext');
   if (isLoading.value || !after.value) {
-    done();
+    try {
+      done();
+    } catch {}
     return;
   }
   isLoading.value = true;
@@ -72,11 +80,14 @@ const loadNext = (index, done) => {
       posts.value.push(...response.data.data.children);
       after.value = response.data.data.after;
     })
+    .catch(() => (error.value = true))
     .finally(() => {
       isLoading.value = false;
-      done();
+      try {
+        done();
+      } catch {}
     });
 };
 
-watch(() => props.subreddit, load, { immediate: true });
+watch(() => props.subreddit, loadAll, { immediate: true });
 </script>
