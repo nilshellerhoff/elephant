@@ -6,7 +6,7 @@
       :depth="reply.data.depth"
       @click="loadMoreComments(reply)"
     >
-      <div>
+      <div style="height: 18px">
         load {{ reply.data.count }} more comments
         <q-spinner v-if="moreLoading" color="primary" />
       </div>
