@@ -1,5 +1,5 @@
 <template>
-  <div class="comment-content" v-html="html"></div>
+  <div class="comment-content" v-html="html" v-links-in-new-window></div>
 </template>
 
 <script setup lang="ts">
