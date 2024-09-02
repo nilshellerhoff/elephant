@@ -7,6 +7,5 @@ export const redditGetResponse = <T>(
 ): Promise<AxiosResponse<T>> => {
   const urlObj = new URL(url);
   urlObj.searchParams.set('raw_json', 1);
-  const proxiedUrl = `https://corsproxy.io/?${encodeURIComponent(urlObj)}`;
-  return axios.get(proxiedUrl);
+  return axios.get(urlObj);
 };

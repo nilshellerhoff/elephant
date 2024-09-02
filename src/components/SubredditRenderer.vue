@@ -49,7 +49,7 @@ const loadAll = (done) => {
   error.value = false;
   isLoading.value = true;
   redditGetResponse<SubredditResponse>(
-    `https://reddit.com/r/${props.subreddit}.json`
+    `https://www.reddit.com/r/${props.subreddit}.json`
   )
     .then((response) => {
       posts.value = response.data.data.children;
@@ -74,7 +74,7 @@ const loadNext = (index, done) => {
   }
   isLoading.value = true;
   redditGetResponse<SubredditResponse>(
-    `https://reddit.com/r/${props.subreddit}.json?after=${after.value}`
+    `https://www.reddit.com/r/${props.subreddit}.json?after=${after.value}`
   )
     .then((response) => {
       posts.value.push(...response.data.data.children);

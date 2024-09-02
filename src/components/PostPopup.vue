@@ -136,7 +136,7 @@ watch(
       if (props.postPermalink) {
         isLoading.value = true;
         redditGetResponse<PostResponse>(
-          `https://reddit.com/${props.postPermalink}.json`
+          `https://www.reddit.com/${props.postPermalink}.json`
         )
           .then((response) => {
             data.value = response.data;

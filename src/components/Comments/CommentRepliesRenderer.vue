@@ -38,7 +38,7 @@ const allReplies = computed(() =>
 const moreLoading = ref(false);
 const loadMoreComments = (reply: CommentMore) => {
   const childrenStr = reply.data.children.join(',');
-  const url = `https://reddit.com/api/morechildren.json?api_type=json&children=${childrenStr}&link_id=${props.linkId}`;
+  const url = `https://www.reddit.com/api/morechildren.json?api_type=json&children=${childrenStr}&link_id=${props.linkId}`;
   moreLoading.value = true;
   redditGetResponse(url)
     .then((response) => {
