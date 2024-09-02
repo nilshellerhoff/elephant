@@ -4,7 +4,6 @@ const removeLinksFromEl = (el: Node): void => {
   const anchors = el.querySelectorAll('a');
   anchors.forEach((anchor) => {
     anchor.target = '_blank';
-    console.log(anchor.href);
   });
 };
 
