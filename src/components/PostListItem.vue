@@ -15,10 +15,16 @@
       <q-item-label lines="3">
         <b>{{ post.data.title }}</b>
       </q-item-label>
-      <q-item-label>r/{{ post.data.subreddit }}</q-item-label>
+      <q-item-label
+        >r/{{ post.data.subreddit }} •
+        {{ displayTimeAgo(post.data.created_utc) }} •
+        <FlairRenderer :post="post" />
+      </q-item-label>
       <q-item-label>
-        {{ post.data.ups }} ({{ post.data.upvote_ratio * 100 }}%) •
-        {{ post.data.num_comments }} comments
+        {{ post.data.ups }} <q-icon name="arrow_upward" /> ({{
+          post.data.upvote_ratio * 100
+        }}%) • {{ post.data.num_comments }}
+        <q-icon name="chat_bubble_outline" />
       </q-item-label>
     </q-item-section>
   </q-item>
@@ -29,6 +35,8 @@ import { Post } from '../types/reddit/post';
 import { isImage } from 'src/util/post_images';
 import { Dialog } from 'quasar';
 import ImageViewer from './Post/ImageViewer.vue';
+import { displayTimeAgo } from 'src/util/time';
+import FlairRenderer from './Post/FlairRenderer.vue';
 
 interface Props {
   post: Post;

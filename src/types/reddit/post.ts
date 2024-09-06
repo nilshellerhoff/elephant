@@ -15,6 +15,11 @@ export type PostData = {
   link_id: string;
   url: string;
   is_video: boolean;
+  created: number;
+  created_utc: number;
+  link_flair_background_color: string;
+  link_flair_text: string;
+  link_flair_text_color: 'dark' | 'light';
 };
 
 export type PostInformation = {
