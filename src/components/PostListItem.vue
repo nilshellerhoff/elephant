@@ -4,7 +4,12 @@
     @click="$router.push({ query: { post: post.data.permalink } })"
   >
     <q-item-section thumbnail>
-      <q-img style="width: 60px; margin: 5px" :ratio="1" :src="thumbnail" />
+      <q-img
+        style="width: 60px; margin: 5px"
+        :ratio="1"
+        :src="thumbnail"
+        @click.stop="openMedia(post.data.url)"
+      />
     </q-item-section>
     <q-item-section>
       <q-item-label lines="3">
@@ -19,9 +24,11 @@
   </q-item>
 </template>
 <script setup lang="ts">
-import { computed, ref } from 'vue';
-import PostPopup from 'components/PostPopup.vue';
+import { computed } from 'vue';
 import { Post } from '../types/reddit/post';
+import { isImage } from 'src/util/post_images';
+import { Dialog } from 'quasar';
+import ImageViewer from './Post/ImageViewer.vue';
 
 interface Props {
   post: Post;
@@ -38,4 +45,15 @@ const thumbnail = computed(() =>
     ? 'https://cdn.quasar.dev/img/mountains.jpg'
     : props.post.data.thumbnail
 );
+
+const openMedia = (url: string) => {
+  if (isImage(url)) {
+    Dialog.create({
+      component: ImageViewer,
+      componentProps: {
+        url,
+      },
+    });
+  } else console.log('unsupported media');
+};
 </script>

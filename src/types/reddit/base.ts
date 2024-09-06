@@ -8,3 +8,12 @@ export type Listing<T> = {
     children: T[];
   };
 };
+
+export type MoreChildren<T> = {
+  json: {
+    errors: [];
+    data: {
+      things: T[];
+    };
+  };
+};

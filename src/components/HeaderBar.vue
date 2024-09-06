@@ -19,8 +19,8 @@ import { computed } from 'vue';
 interface Props {
   type: 'main' | 'popup';
 }
-
 const props = defineProps<Props>();
+defineEmits(['toggle']);
 
 const toggleIcon = computed(() =>
   props.type == 'popup' ? 'arrow_back' : 'menu'

@@ -1,6 +1,6 @@
 import { boot } from 'quasar/wrappers';
 
-const removeLinksFromEl = (el: Node): void => {
+const removeLinksFromEl = (el: HTMLElement): void => {
   const anchors = el.querySelectorAll('a');
   anchors.forEach((anchor) => {
     anchor.target = '_blank';

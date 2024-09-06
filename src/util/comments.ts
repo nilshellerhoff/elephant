@@ -14,7 +14,7 @@ export const reorderCommentTree = (comments: IComment[]): IComment[] => {
         (parent) => parent.data.name == comment.data.parent_id
       );
 
-      if (parent.data.replies === '') {
+      if (parent?.data.replies === '') {
         parent.data.replies = {
           kind: 'Listing',
           data: {
@@ -25,7 +25,7 @@ export const reorderCommentTree = (comments: IComment[]): IComment[] => {
         };
       }
 
-      parent.data.replies.data.children.push(comment);
+      parent?.data.replies.data.children.push(comment);
     }
   });
 

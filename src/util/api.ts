@@ -6,6 +6,6 @@ export const redditGetResponse = <T>(
   url: string
 ): Promise<AxiosResponse<T>> => {
   const urlObj = new URL(url);
-  urlObj.searchParams.set('raw_json', 1);
-  return axios.get(urlObj);
+  urlObj.searchParams.set('raw_json', '1');
+  return axios.get(urlObj.toString());
 };

@@ -14,28 +14,7 @@
           <PostListItemLoading />
         </template>
 
-        <q-item v-if="postData">
-          <q-item-section thumbnail>
-            <q-img
-              style="width: 60px; margin: 5px"
-              :ratio="1"
-              :src="postData.thumbnail"
-              @click="openMedia"
-            />
-          </q-item-section>
-          <q-item-section>
-            <q-item-label :to="`/r/${postData.subreddit}`">
-              r/{{ postData.subreddit }}
-            </q-item-label>
-            <q-item-label>
-              <b>{{ postData.title }}</b>
-            </q-item-label>
-            <q-item-label>
-              {{ postData.ups }} ({{ postData.upvote_ratio * 100 }}%) •
-              {{ postData.num_comments }} comments
-            </q-item-label>
-          </q-item-section>
-        </q-item>
+        <PostListItem v-if="post" :post="post" />
 
         <CommentContentRenderer
           style="padding: 4px"
@@ -64,7 +43,8 @@
         <!-- Comments -->
         <q-list>
           <CommentRepliesRenderer
-            :link-id="postData?.name"
+            v-if="postData && comments"
+            :link-id="postData.name"
             :replies="comments"
           />
         </q-list>
@@ -86,11 +66,6 @@
       </q-page-container>
     </q-layout>
   </q-dialog>
-  <ImageViewer
-    :open="imageViewerOpen"
-    :url="postData?.url"
-    @update:model-value="imageViewerOpen = !imageViewerOpen"
-  />
 </template>
 
 <script setup lang="ts">
@@ -98,13 +73,12 @@ import HeaderBar from 'components/HeaderBar.vue';
 import FooterBar from 'components/FooterBar.vue';
 import { computed, ComputedRef, ref, Ref, watch } from 'vue';
 import { redditGetResponse } from 'src/util/api';
-import { PostData, PostResponse } from 'src/types/reddit/post';
+import { Post, PostData, PostResponse } from 'src/types/reddit/post';
 import PostListItemLoading from 'components/PostListItemLoading.vue';
 import CommentRepliesRenderer from 'components/Comments/CommentRepliesRenderer.vue';
 import { IComment } from '../types/reddit/comment';
-import { isImage } from 'src/util/post_images';
-import ImageViewer from 'components/Post/ImageViewer.vue';
 import CommentContentRenderer from 'components/Comments/CommentContentRenderer.vue';
+import PostListItem from 'components/PostListItem.vue';
 
 interface Props {
   open: boolean;
@@ -115,19 +89,16 @@ defineEmits(['back']);
 
 const isLoading = ref(false);
 
-const imageViewerOpen = ref(false);
 const data: Ref<PostResponse | null> = ref(null);
+const post: ComputedRef<Post | undefined> = computed(
+  () => data.value?.[0].data.children[0]
+);
 const postData: ComputedRef<PostData | undefined> = computed(
-  () => data.value?.[0].data.children[0].data
+  () => post.value?.data
 );
 const comments: ComputedRef<IComment[] | undefined> = computed(
   () => data.value?.[1].data.children
 );
-
-const openMedia = () => {
-  if (isImage(postData.value.url)) imageViewerOpen.value = true;
-  else console.log('unsupported media');
-};
 
 watch(
   [() => props.postPermalink, () => props.open],

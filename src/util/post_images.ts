@@ -2,7 +2,7 @@ const defaultExtractor = (url: string): string => url;
 
 export const IMAGE_EXTRACTORS: {
   expression: RegExp;
-  extractor: (string) => string;
+  extractor: (url: string) => string;
 }[] = [
   {
     expression: /i.redd.it/,

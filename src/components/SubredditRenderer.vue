@@ -40,12 +40,12 @@ const error = ref(false);
 const posts: Ref<Post[]> = ref([]);
 const after: Ref<string | undefined> = ref(undefined);
 
-const load = (...args) => {
-  if (after.value) loadNext(...args);
-  loadAll(...args);
+const load = (...args: any[]) => {
+  if (after.value) loadNext(args[0], args[1]);
+  loadAll(args[0]);
 };
 
-const loadAll = (done) => {
+const loadAll = (done: () => void) => {
   error.value = false;
   isLoading.value = true;
   redditGetResponse<SubredditResponse>(
@@ -64,12 +64,14 @@ const loadAll = (done) => {
     });
 };
 
-const loadNext = (index, done) => {
+const loadNext = (_: number, done: () => void) => {
   console.log('loadnext');
   if (isLoading.value || !after.value) {
     try {
       done();
-    } catch {}
+    } catch {
+      // no empty
+    }
     return;
   }
   isLoading.value = true;
@@ -85,7 +87,9 @@ const loadNext = (index, done) => {
       isLoading.value = false;
       try {
         done();
-      } catch {}
+      } catch {
+        // no empty
+      }
     });
 };
 
