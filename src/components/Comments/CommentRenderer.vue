@@ -1,16 +1,14 @@
 <template>
   <CommentBase :depth="comment.data.depth" @click="isCollapsed = !isCollapsed">
-    <template v-if="!isCollapsed">
-      <q-item-label class="username">
-        <span>u/{{ comment.data.author }}</span>
-        <span style="float: right">
-          <CommentTopRight :comment="comment" />
-        </span>
-      </q-item-label>
-      <q-item-label>
-        <CommentContentRenderer :html="comment.data.body_html" />
-      </q-item-label>
-    </template>
+    <q-item-label class="username">
+      <span>u/{{ comment.data.author }}</span>
+      <span style="float: right">
+        <CommentTopRight :comment="comment" />
+      </span>
+    </q-item-label>
+    <q-item-label v-if="!isCollapsed">
+      <CommentContentRenderer :html="comment.data.body_html" />
+    </q-item-label>
     <template v-else>(expand)</template>
   </CommentBase>
 
@@ -36,7 +34,7 @@ import CommentTopRight from 'components/Comments/CommentTopRight.vue';
 import { ref } from 'vue';
 import CommentBase from 'components/Comments/CommentBase.vue';
 import CommentRepliesRenderer from 'components/Comments/CommentRepliesRenderer.vue';
-import { IComment, isComment } from '../../types/reddit/comment';
+import { IComment, isComment } from 'src/types/reddit/comment';
 interface Props {
   comment: IComment;
 }
