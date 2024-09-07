@@ -4,14 +4,14 @@
     :style="{ marginLeft: depth * 10 + 'px', padding: 0 }"
     @click="$emit('click')"
   >
-    <q-item-section side>
+    <q-item-section side style="padding: 0">
       <div
         :style="`width: 4px; min-height: 100%; background-color: ${getCommentColor(
           depth
         )}`"
       ></div>
     </q-item-section>
-    <q-item-section style="padding: 8px 0">
+    <q-item-section style="padding: 8px 12px">
       <slot></slot>
     </q-item-section>
   </q-item>

@@ -19,6 +19,7 @@ export type IComment = {
     link_id: string;
     parent_id: string;
     name: string;
+    controversiality: number;
   };
 };
 export type CommentMore = {

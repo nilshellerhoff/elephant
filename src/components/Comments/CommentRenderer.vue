@@ -1,14 +1,15 @@
 <template>
   <CommentBase :depth="comment.data.depth" @click="isCollapsed = !isCollapsed">
     <template v-if="!isCollapsed">
-      <q-item-label class="username">u/{{ comment.data.author }}</q-item-label>
+      <q-item-label class="username">
+        <span>u/{{ comment.data.author }}</span>
+        <span style="float: right">
+          <CommentTopRight :comment="comment" />
+        </span>
+      </q-item-label>
       <q-item-label>
         <CommentContentRenderer :html="comment.data.body_html" />
       </q-item-label>
-      <div>
-        <q-icon name="arrow_upward" />
-        {{ comment.data.score_hidden ? '?' : comment.data.ups }}
-      </div>
     </template>
     <template v-else>(expand)</template>
   </CommentBase>
@@ -31,6 +32,7 @@
 
 <script setup lang="ts">
 import CommentContentRenderer from 'components/Comments/CommentContentRenderer.vue';
+import CommentTopRight from 'components/Comments/CommentTopRight.vue';
 import { ref } from 'vue';
 import CommentBase from 'components/Comments/CommentBase.vue';
 import CommentRepliesRenderer from 'components/Comments/CommentRepliesRenderer.vue';
