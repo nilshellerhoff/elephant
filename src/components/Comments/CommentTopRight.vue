@@ -1,5 +1,5 @@
 <template>
-  <template v-if="comment.data.controversiality > 0">🕇 • </template>
+  <b><template v-if="comment.data.controversiality > 0">♰ • </template></b>
   <b> {{ comment.data.score_hidden ? '?' : comment.data.ups }} </b>
   •
   <span> {{ displayTimeAgo(comment.data.created_utc) }}</span>
