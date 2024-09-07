@@ -8,7 +8,7 @@ export type IComment = {
     replies: Listing<IComment> | '';
     author: string;
     body: string;
-    edited: boolean;
+    edited: false | number;
     body_html: string;
     permalink: string;
     created_utc: number;

@@ -1,13 +1,15 @@
 <template>
   <template v-if="comment.data.controversiality > 0">🕇 • </template>
   <b> {{ comment.data.score_hidden ? '?' : comment.data.ups }} </b>
-
   •
-  {{ displayTimeAgo(comment.data.created_utc) }}
+  <span> {{ displayTimeAgo(comment.data.created_utc) }}</span>
+  <span v-if="comment.data.edited">
+    ({{ displayTimeAgo(comment.data.edited) }})
+  </span>
 </template>
 
 <script setup lang="ts">
-import { IComment } from '../../types/reddit/comment';
+import { IComment } from 'src/types/reddit/comment';
 import { displayTimeAgo } from 'src/util/time';
 
 interface Props {
