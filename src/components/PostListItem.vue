@@ -4,10 +4,17 @@
     @click="$router.push({ query: { post: post.data.permalink } })"
   >
     <q-item-section thumbnail>
+      <q-icon
+        v-if="isDefaultThumbnail(props.post.data.thumbnail)"
+        name="subject"
+        size="50px"
+        style="width: 60px; margin: 5px"
+      />
       <q-img
+        v-else
         style="width: 60px; margin: 5px"
         :ratio="1"
-        :src="thumbnail"
+        :src="props.post.data.thumbnail"
         @click.stop="openMedia(post)"
       />
     </q-item-section>
@@ -30,7 +37,6 @@
   </q-item>
 </template>
 <script setup lang="ts">
-import { computed } from 'vue';
 import { Post } from '../types/reddit/post';
 import { getGalleryUrls, isGallery, isImage } from 'src/util/post_images';
 import { Dialog } from 'quasar';
@@ -49,12 +55,6 @@ const props = defineProps<Props>();
 const isDefaultThumbnail = (thumbnail: string) => {
   return thumbnail == 'self' || thumbnail == 'default' || thumbnail == 'image';
 };
-
-const thumbnail = computed(() =>
-  isDefaultThumbnail(props.post.data.thumbnail)
-    ? 'https://cdn.quasar.dev/img/mountains.jpg'
-    : props.post.data.thumbnail
-);
 
 const openMedia = (post: Post) => {
   if (isImage(post)) {
