@@ -21,6 +21,12 @@ export type LinkFlairRichtextPart =
   | LinkFlairRichtextPartEmoji
   | LinkFlairRichtextPartUnknown;
 
+export type MediaEntryImage = {
+  u: string;
+  x: number;
+  y: number;
+};
+
 export type PostData = {
   subreddit: string;
   title: string;
@@ -42,6 +48,16 @@ export type PostData = {
   link_flair_text_color: 'dark' | 'light';
   link_flair_type: 'richtext';
   link_flair_richtext: LinkFlairRichtextPart[];
+  media_metadata: {
+    [id: string]: {
+      e: 'Image';
+      id: string;
+      m: string;
+      p: MediaEntryImage[];
+      s: MediaEntryImage;
+      status: 'valid';
+    };
+  };
 };
 
 export type PostInformation = {

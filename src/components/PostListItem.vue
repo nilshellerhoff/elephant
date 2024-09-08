@@ -8,7 +8,7 @@
         style="width: 60px; margin: 5px"
         :ratio="1"
         :src="thumbnail"
-        @click.stop="openMedia(post.data.url)"
+        @click.stop="openMedia(post)"
       />
     </q-item-section>
     <q-item-section>
@@ -32,11 +32,12 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { Post } from '../types/reddit/post';
-import { isImage } from 'src/util/post_images';
+import { getGalleryUrls, isGallery, isImage } from 'src/util/post_images';
 import { Dialog } from 'quasar';
 import ImageViewer from './Post/ImageViewer.vue';
 import { displayTimeAgo } from 'src/util/time';
 import FlairRenderer from './Post/FlairRenderer.vue';
+import GalleryViewer from 'components/Post/GalleryViewer.vue';
 
 interface Props {
   post: Post;
@@ -55,13 +56,17 @@ const thumbnail = computed(() =>
     : props.post.data.thumbnail
 );
 
-const openMedia = (url: string) => {
-  if (isImage(url)) {
+const openMedia = (post: Post) => {
+  if (isImage(post)) {
     Dialog.create({
       component: ImageViewer,
-      componentProps: {
-        url,
-      },
+      componentProps: { url: post.data.url },
+    });
+  } else if (isGallery(post)) {
+    console.log('gallery');
+    Dialog.create({
+      component: GalleryViewer,
+      componentProps: { urls: getGalleryUrls(post) },
     });
   } else console.log('unsupported media');
 };

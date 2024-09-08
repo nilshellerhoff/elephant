@@ -1,22 +1,43 @@
-const defaultExtractor = (url: string): string => url;
+import { Post } from 'src/types/reddit/post';
+
+export const urlTest = (expression: RegExp) => (post: Post) =>
+  expression.test(post.data.url);
+const defaultExtractor = (post: Post): string => post.data.url;
+const redditGalleryExtractor = (post: Post): string[] => {
+  return Object.values(post.data.media_metadata).map((entry) => entry.s.u);
+};
 
 export const IMAGE_EXTRACTORS: {
-  expression: RegExp;
-  extractor: (url: string) => string;
+  test: (post: Post) => boolean;
+  extractor: (post: Post) => string;
 }[] = [
   {
-    expression: /i.redd.it/,
+    test: urlTest(/i.redd.it/),
     extractor: defaultExtractor,
   },
   {
-    expression: /i.imgur.com/,
+    test: urlTest(/i.imgur.com/),
     extractor: defaultExtractor,
   },
 ];
 
-export const IMAGE_HOSTS = IMAGE_EXTRACTORS.map(
-  (extractor) => extractor.expression
-);
+export const GALLERY_EXTRACTORS: {
+  test: (post: Post) => boolean;
+  extractor: (post: Post) => string[];
+}[] = [
+  {
+    test: urlTest(/https:\/\/www.reddit.com\/gallery/),
+    extractor: redditGalleryExtractor,
+  },
+];
 
-export const isImage = (url: string) =>
-  IMAGE_HOSTS.some((exp) => exp.test(url));
+export const isImage = (post: Post) =>
+  IMAGE_EXTRACTORS.some((extractor) => extractor.test(post));
+export const isGallery = (post: Post) =>
+  GALLERY_EXTRACTORS.some((extractor) => extractor.test(post));
+export const getGalleryUrls = (post: Post): string[] | undefined => {
+  const extractor = GALLERY_EXTRACTORS.find((extractor) =>
+    extractor.test(post)
+  );
+  if (extractor) return extractor.extractor(post);
+};
