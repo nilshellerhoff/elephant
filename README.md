@@ -1,6 +1,8 @@
 # Elephant (elephant)
 
-A simple read-only reddit client
+A simple, read-only PWA client for Reddit, built using Vue & Quasar. Work in progress
+
+https://elephant.floreen.de
 
 ## Install the dependencies
 ```bash
