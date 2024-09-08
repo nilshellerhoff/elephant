@@ -5,6 +5,12 @@ const removeLinksFromEl = (el: HTMLElement): void => {
   anchors.forEach((anchor) => {
     anchor.target = '_blank';
   });
+
+  const images = el.querySelectorAll('img');
+  images.forEach((image) => {
+    image.removeAttribute('height');
+    image.style.maxWidth = '100%';
+  });
 };
 
 export default boot(({ app }) => {
