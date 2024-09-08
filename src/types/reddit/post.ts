@@ -48,6 +48,12 @@ export type PostData = {
   link_flair_text_color: 'dark' | 'light';
   link_flair_type: 'richtext';
   link_flair_richtext: LinkFlairRichtextPart[];
+  gallery_data: {
+    items: {
+      media_id: string;
+      id: number;
+    }[];
+  };
   media_metadata: {
     [id: string]: {
       e: 'Image';

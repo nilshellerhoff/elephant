@@ -4,7 +4,10 @@ export const urlTest = (expression: RegExp) => (post: Post) =>
   expression.test(post.data.url);
 const defaultExtractor = (post: Post): string => post.data.url;
 const redditGalleryExtractor = (post: Post): string[] => {
-  return Object.values(post.data.media_metadata).map((entry) => entry.s.u);
+  // images need sorting based on gallery_data object
+  return post.data.gallery_data.items.map(
+    (item) => post.data.media_metadata[item.media_id].s.u
+  );
 };
 
 export const IMAGE_EXTRACTORS: {
