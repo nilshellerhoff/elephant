@@ -10,6 +10,7 @@
           v-for="post in posts"
           :key="post.data.name"
           :post="post"
+          :max-lines="3"
         />
       </q-infinite-scroll>
 
@@ -40,9 +41,9 @@ const error = ref(false);
 const posts: Ref<Post[]> = ref([]);
 const after: Ref<string | undefined> = ref(undefined);
 
-const load = (...args: any[]) => {
-  if (after.value) loadNext(args[0], args[1]);
-  loadAll(args[0]);
+const load = (done: () => void) => {
+  if (after.value) loadNext(0, done);
+  loadAll(done);
 };
 
 const loadAll = (done: () => void) => {

@@ -12,7 +12,7 @@
       />
     </q-item-section>
     <q-item-section>
-      <q-item-label lines="3">
+      <q-item-label :lines="maxLines">
         <b>{{ post.data.title }}</b>
       </q-item-label>
       <q-item-label
@@ -40,6 +40,7 @@ import FlairRenderer from './Post/FlairRenderer.vue';
 
 interface Props {
   post: Post;
+  maxLines?: number;
 }
 
 const props = defineProps<Props>();
