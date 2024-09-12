@@ -4,8 +4,8 @@
     @hide="onDialogHide"
     maximized
     style="background-color: rgba(0, 0, 0, 0.6)"
-    v-touch-swipe.down="onDialogOK"
   >
+    <ImagePopupToolbar @close="onDialogOK" @reset-zoom="reset" />
     <q-carousel
       animated
       v-model="slide"
@@ -22,11 +22,7 @@
         :key="idx"
         style="padding: 0"
       >
-        <q-img
-          style="transform: translateY(calc(50vh - 50%))"
-          fit="scale-down"
-          :src="url"
-        />
+        <ImageViewerZoomable ref="zoomable" :url="url" @close="onDialogOK" />
       </q-carousel-slide>
     </q-carousel>
   </q-dialog>
@@ -35,6 +31,8 @@
 <script setup lang="ts">
 import { useDialogPluginComponent } from 'quasar';
 import { ref } from 'vue';
+import ImagePopupToolbar from 'components/Media/ImagePopupToolbar.vue';
+import ImageViewerZoomable from 'components/Post/ImageViewerZoomable.vue';
 
 interface Props {
   urls: string[];
@@ -45,4 +43,10 @@ defineEmits([...useDialogPluginComponent.emits]);
 const { dialogRef, onDialogHide, onDialogOK } = useDialogPluginComponent();
 
 const slide = ref(0);
+
+const zoomable = ref();
+
+const reset = () => {
+  zoomable.value[0].reset();
+};
 </script>
