@@ -13,6 +13,8 @@
       navigation
       swipeable
       style="background-color: #00000000"
+      transition-prev="slide-right"
+      transition-next="slide-left"
     >
       <q-carousel-slide
         v-for="(url, idx) in urls"
