@@ -15,7 +15,13 @@
     style="overflow: hidden"
     v-touch-swipe.down="onSwipeDown"
   >
-    <img :ref="imageElement" :src="url" draggable="false" />
+    <q-img
+      class="image"
+      :ref="imageElement"
+      :src="url"
+      :draggable="false"
+      spinner-color="white"
+    />
   </PinchScrollZoom>
   <div
     style="
@@ -106,7 +112,7 @@ defineExpose({ reset });
 </script>
 
 <style scoped>
-img {
+.image {
   max-width: 100%;
   max-height: 100%;
   position: relative;
