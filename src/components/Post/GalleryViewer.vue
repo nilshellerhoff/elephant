@@ -3,7 +3,7 @@
     ref="dialogRef"
     @hide="onDialogHide"
     maximized
-    style="background-color: rgba(0, 0, 0, 0.6)"
+    backdrop-filter="brightness(20%)"
   >
     <ImagePopupToolbar @close="close" @reset-zoom="reset" />
     <q-carousel
