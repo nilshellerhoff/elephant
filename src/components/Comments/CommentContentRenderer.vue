@@ -45,5 +45,11 @@ const unescapeHTML = (input: string) => {
     overflow-x: auto;
     display: inline-block;
   }
+
+  code {
+    display: inline-block;
+    width: 100%;
+    overflow-x: auto;
+  }
 }
 </style>
