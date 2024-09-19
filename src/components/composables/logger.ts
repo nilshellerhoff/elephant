@@ -1,8 +1,8 @@
 import { LogMessage, Severity } from 'src/types/logger';
 import { ref, Ref } from 'vue';
 
-const consoleLoggingEnabled = true;
-const overlayLoggingEnabled = true;
+const consoleLoggingEnabled = import.meta.env.VITE_CONSOLE_LOGGING == 'true';
+const overlayLoggingEnabled = import.meta.env.VITE_OVERLAY_LOGGING == 'true';
 const logEntries: Ref<LogMessage[]> = ref([]);
 
 export const useLogger = () => {
