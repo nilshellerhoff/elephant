@@ -27,6 +27,20 @@ export type MediaEntryImage = {
   y: number;
 };
 
+export type MediaRedditVideo = {
+  bitrate_kbps: number;
+  fallback_url: string;
+  has_audio: boolean;
+  height: number;
+  width: number;
+  scrubber_media_url: string;
+  dash_url: string;
+  duration: number;
+  hls_url: string;
+  is_gif: boolean;
+  transcoding_status: 'completed';
+};
+
 export type PostData = {
   subreddit: string;
   title: string;
@@ -63,6 +77,9 @@ export type PostData = {
       s: MediaEntryImage;
       status: 'valid';
     };
+  };
+  media: {
+    reddit_video: MediaRedditVideo;
   };
 };
 

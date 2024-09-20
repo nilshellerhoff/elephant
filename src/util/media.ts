@@ -1,4 +1,5 @@
 import { Post } from 'src/types/reddit/post';
+import { VideoExtractor } from 'src/types/media';
 
 export const urlTest = (expression: RegExp) => (post: Post) =>
   expression.test(post.data.url);
@@ -50,3 +51,27 @@ export const getGalleryUrls = (post: Post): string[] | undefined => {
   );
   if (extractor) return extractor.extractor(post);
 };
+
+// Videos
+export const redditM3u8Extractor: VideoExtractor = (post) => {
+  return {
+    type: 'application/x-mpegURL',
+    url: post.data.media.reddit_video.hls_url,
+  };
+};
+
+export const VIDEO_EXTRACTORS: {
+  test: (post: Post) => boolean;
+  extractor: VideoExtractor;
+}[] = [
+  {
+    test: urlTest(/https:\/\/v.redd.it\//),
+    extractor: redditM3u8Extractor,
+  },
+];
+
+export const isVideo = (post: Post) =>
+  VIDEO_EXTRACTORS.some((extractor) => extractor.test(post));
+
+export const getVideoExtractor = (post: Post) =>
+  VIDEO_EXTRACTORS.find((extractor) => extractor.test(post));

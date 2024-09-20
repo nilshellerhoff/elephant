@@ -38,12 +38,19 @@
 </template>
 <script setup lang="ts">
 import { Post } from '../types/reddit/post';
-import { getGalleryUrls, isGallery, isImage, isVideo } from 'src/util/media';
+import {
+  getVideoExtractor,
+  getGalleryUrls,
+  isGallery,
+  isImage,
+  isVideo,
+} from 'src/util/media';
 import { Dialog } from 'quasar';
 import ImageViewer from './Post/ImageViewer.vue';
 import { displayTimeAgo } from 'src/util/time';
 import FlairRenderer from './Post/FlairRenderer.vue';
 import GalleryViewer from 'components/Post/GalleryViewer.vue';
+import VideoPlayer from 'components/Media/VideoPlayer/VideoPlayer.vue';
 
 interface Props {
   post: Post;
@@ -68,6 +75,16 @@ const openMedia = (post: Post) => {
       component: GalleryViewer,
       componentProps: { urls: getGalleryUrls(post) },
     });
+  } else if (isVideo(post)) {
+    console.log('video');
+    const extractor = getVideoExtractor(post);
+    if (extractor) {
+      const { type, url } = extractor.extractor(post);
+      Dialog.create({
+        component: VideoPlayer,
+        componentProps: { url, type },
+      });
+    }
   } else console.log('unsupported media');
 };
 </script>
