@@ -38,7 +38,7 @@
 </template>
 <script setup lang="ts">
 import { Post } from '../types/reddit/post';
-import { getGalleryUrls, isGallery, isImage } from 'src/util/post_images';
+import { getGalleryUrls, isGallery, isImage, isVideo } from 'src/util/media';
 import { Dialog } from 'quasar';
 import ImageViewer from './Post/ImageViewer.vue';
 import { displayTimeAgo } from 'src/util/time';
