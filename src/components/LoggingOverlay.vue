@@ -59,7 +59,7 @@ const getTimeString = (message: LogMessage) => {
   height: 100vh;
   pointer-events: none;
   color: #ff0000;
-  font-size: 16px;
+  font-size: 12px;
   top: 0;
   left: 0;
   z-index: 100000;
