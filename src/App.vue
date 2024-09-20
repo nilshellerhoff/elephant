@@ -4,8 +4,8 @@
 </template>
 
 <script setup lang="ts">
-import { useStatusbar } from 'components/composables/statusbar';
-import { useLogger } from 'components/composables/logger';
+import { useStatusbar } from 'src/composables/statusbar';
+import { useLogger } from 'src/composables/logger';
 import LoggingOverlay from 'components/LoggingOverlay.vue';
 
 const statusBar = useStatusbar();

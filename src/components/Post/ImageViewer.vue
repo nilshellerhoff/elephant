@@ -15,7 +15,7 @@ import { useDialogPluginComponent } from 'quasar';
 import ImageViewerZoomable from 'components/Post/ImageViewerZoomable.vue';
 import { onMounted, ref } from 'vue';
 import ImagePopupToolbar from 'components/Media/ImagePopupToolbar.vue';
-import { useStatusbar } from 'components/composables/statusbar';
+import { useStatusbar } from 'src/composables/statusbar';
 
 interface Props {
   url: string;

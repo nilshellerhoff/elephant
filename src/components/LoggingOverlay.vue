@@ -25,7 +25,7 @@
 
 <script setup lang="ts">
 import { LogMessage } from 'src/types/logger';
-import { useLogger } from 'components/composables/logger';
+import { useLogger } from 'src/composables/logger';
 import { computed, ref } from 'vue';
 
 const logger = useLogger();

@@ -33,7 +33,7 @@ import PinchScrollZoom, {
   type PinchScrollZoomExposed,
 } from '@coddicat/vue-pinch-scroll-zoom';
 import { TouchSwipeValue } from 'quasar';
-import { useLogger } from 'components/composables/logger';
+import { useLogger } from 'src/composables/logger';
 
 interface Props {
   url: string;
