@@ -7,9 +7,12 @@
   >
     <ImagePopupToolbar @close="close" />
 
-    <div style="width: 100%; height: 100%">
-      <VideoJsPlayer :sources="[{ url, type }]" :options="options" />
-    </div>
+    <VideoJsPlayer
+      :sources="[{ url, type }]"
+      :options="options"
+      muted
+      v-touch-swipe.down="close"
+    />
   </q-dialog>
 </template>
 
@@ -32,7 +35,13 @@ const statusBar = useStatusbar();
 
 const options = {
   width: window.innerWidth,
-  height: window.innerHeight,
+  height: window.innerHeight - 34, // stay away from ios bottom touch area (TODO)
+  playsinline: true, // ios safari plays fullscreen otherwise
+  controlBar: {
+    pictureInPictureToggle: false,
+    fullscreenToggle: false,
+    volumePanel: false,
+  },
 };
 onMounted(() => statusBar.setColor('#000'));
 
