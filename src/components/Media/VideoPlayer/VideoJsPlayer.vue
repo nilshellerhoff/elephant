@@ -54,8 +54,8 @@ onMounted(() => {
 const addMuteButton = (player: Player, muted = false) => {
   var Button = videojs.getComponent('Button');
   var button = new Button(player, {
-    clickHandler: () => {
-      videojs.log('Clicked');
+    // no arrow-function here because of 'this'
+    clickHandler: function () {
       if (player) {
         if (player.muted()) {
           // unmuting the player
