@@ -5,19 +5,14 @@
       height: thumbnailSize,
       position: 'relative',
     }"
+    @click.stop="$emit('openMedia', post)"
   >
     <q-icon
       v-if="isDefaultThumbnail(post.data.thumbnail)"
       name="subject"
       :size="thumbnailSize"
     />
-    <q-img
-      v-else
-      :ratio="1"
-      :fit="'cover'"
-      :src="post.data.thumbnail"
-      @click.stop="$emit('openMedia', post)"
-    />
+    <q-img v-else :ratio="1" :fit="'cover'" :src="post.data.thumbnail" />
     <div
       v-if="!isDefaultThumbnail(post.data.thumbnail)"
       style="
