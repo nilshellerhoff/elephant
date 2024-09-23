@@ -35,7 +35,19 @@ const unescapeHTML = (input: string) => {
   }
 
   h1 {
+    font-size: 20px;
+    font-weight: bold;
+    line-height: initial;
+  }
+
+  h2 {
     font-size: 18px;
+    font-weight: bold;
+    line-height: initial;
+  }
+
+  h3 {
+    font-size: 16px;
     font-weight: bold;
     line-height: initial;
   }
