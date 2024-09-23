@@ -3,19 +3,10 @@
     clickable
     @click="$router.push({ query: { post: post.data.permalink } })"
   >
-    <q-item-section thumbnail>
-      <q-icon
-        v-if="isDefaultThumbnail(props.post.data.thumbnail)"
-        name="subject"
-        size="50px"
-        style="width: 60px; margin: 5px"
-      />
-      <q-img
-        v-else
-        style="width: 60px; margin: 5px"
-        :ratio="1"
-        :src="props.post.data.thumbnail"
-        @click.stop="openMedia(post)"
+    <q-item-section side>
+      <ThumbnailRenderer
+        :post="post"
+        @open-media="(thisPost) => openMedia(thisPost)"
       />
     </q-item-section>
     <q-item-section>
@@ -51,17 +42,14 @@ import { displayTimeAgo } from 'src/util/time';
 import FlairRenderer from './Post/FlairRenderer.vue';
 import GalleryViewer from 'components/Post/GalleryViewer.vue';
 import VideoPlayer from 'components/Media/VideoPlayer/VideoPlayer.vue';
+import ThumbnailRenderer from 'components/Post/ThumbnailRenderer.vue';
 
 interface Props {
   post: Post;
   maxLines?: number;
 }
 
-const props = defineProps<Props>();
-
-const isDefaultThumbnail = (thumbnail: string) => {
-  return thumbnail == 'self' || thumbnail == 'default' || thumbnail == 'image';
-};
+defineProps<Props>();
 
 const openMedia = (post: Post) => {
   if (isImage(post)) {
