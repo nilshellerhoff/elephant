@@ -79,6 +79,7 @@ import CommentRepliesRenderer from 'components/Comments/CommentRepliesRenderer.v
 import { IComment } from '../types/reddit/comment';
 import CommentContentRenderer from 'components/Comments/CommentContentRenderer.vue';
 import PostListItem from 'components/PostListItem.vue';
+import { useVisitedStore } from 'stores/visited-store';
 
 interface Props {
   open: boolean;
@@ -86,6 +87,8 @@ interface Props {
 }
 const props = defineProps<Props>();
 defineEmits(['back']);
+
+const visitedStore = useVisitedStore();
 
 const isLoading = ref(false);
 
@@ -111,6 +114,7 @@ watch(
         )
           .then((response) => {
             data.value = response.data;
+            if (postData.value) visitedStore.markVisited(postData.value.name);
           })
           .finally(() => (isLoading.value = false));
       }

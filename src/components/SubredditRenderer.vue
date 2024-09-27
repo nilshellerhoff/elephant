@@ -11,6 +11,7 @@
           :key="post.data.name"
           :post="post"
           :max-lines="3"
+          :mark-visited="true"
         />
       </q-infinite-scroll>
 

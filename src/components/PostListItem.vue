@@ -11,7 +11,7 @@
     </q-item-section>
     <q-item-section>
       <q-item-label :lines="maxLines">
-        <b>{{ post.data.title }}</b>
+        <b :style="{ color: headerColor }">{{ post.data.title }}</b>
       </q-item-label>
       <q-item-label
         >r/{{ post.data.subreddit }} •
@@ -43,13 +43,30 @@ import FlairRenderer from './Post/FlairRenderer.vue';
 import GalleryViewer from 'components/Post/GalleryViewer.vue';
 import VideoPlayer from 'components/Media/VideoPlayer/VideoPlayer.vue';
 import ThumbnailRenderer from 'components/Post/ThumbnailRenderer.vue';
+import { useVisitedStore } from 'stores/visited-store';
+import { computed } from 'vue';
 
 interface Props {
   post: Post;
-  maxLines?: number;
+  maxLines: number;
+  markVisited: boolean;
 }
 
-defineProps<Props>();
+const props = withDefaults(defineProps<Props>(), {
+  maxLines: undefined,
+  markVisited: false,
+});
+
+const visitedStore = useVisitedStore();
+
+const headerColor = computed(() => {
+  if (
+    props.markVisited &&
+    visitedStore.visitedPosts.includes(props.post.data.name)
+  )
+    return '#888';
+  else return '#000';
+});
 
 const openMedia = (post: Post) => {
   if (isImage(post)) {
