@@ -17,6 +17,7 @@
   >
     <q-img
       class="image"
+      fit="contain"
       :ref="imageElement"
       :src="url"
       :draggable="false"
