@@ -12,7 +12,11 @@
           @update:model-value="
             (val) => settingsStore.setMarkPostsAsVisited(val)
           "
-          label="Mark posts as visited when opening"
+          label="Mark posts as visited when opening comments"
+        />
+        <q-toggle
+          v-model="settingsStore.markPostsAsVisitedOnMediaClick"
+          label="Mark posts as visited when viewing media/link"
         />
         <q-btn @click="deleteVisited" label="Delete visited posts" />
       </q-item-section>

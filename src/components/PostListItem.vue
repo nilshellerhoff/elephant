@@ -45,6 +45,7 @@ import VideoPlayer from 'components/Media/VideoPlayer/VideoPlayer.vue';
 import ThumbnailRenderer from 'components/Post/ThumbnailRenderer.vue';
 import { useVisitedStore } from 'stores/visited-store';
 import { computed } from 'vue';
+import { useSettingsStore } from 'stores/settings-store';
 
 interface Props {
   post: Post;
@@ -58,6 +59,7 @@ const props = withDefaults(defineProps<Props>(), {
 });
 
 const visitedStore = useVisitedStore();
+const settingsStore = useSettingsStore();
 
 const headerColor = computed(() => {
   if (
@@ -90,6 +92,12 @@ const openMedia = (post: Post) => {
         componentProps: { url, type },
       });
     }
-  } else console.log('unsupported media');
+  } else {
+    console.log('unsupported media');
+    return;
+  }
+
+  if (settingsStore.markPostsAsVisitedOnMediaClick)
+    visitedStore.markVisited(post.data.name);
 };
 </script>
