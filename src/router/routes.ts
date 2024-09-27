@@ -18,6 +18,7 @@ const routes: RouteRecordRaw[] = [
       },
       { path: 'popular', component: () => import('pages/SubredditPage.vue') },
       { path: 'search', component: () => import('pages/SearchPage.vue') },
+      { path: 'settings', component: () => import('pages/SettingsPage.vue') },
       {
         path: '/r/:subreddit/comments/:commentsid/:seo?',
         redirect: (to) => ({

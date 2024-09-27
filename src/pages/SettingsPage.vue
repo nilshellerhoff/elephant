@@ -1,0 +1,43 @@
+<template>
+  <q-list>
+    <q-item>
+      <q-item-section>
+        <q-item-label overline>Visited posts</q-item-label>
+        <q-item-label caption>
+          Posts can be marked as visited when clicking on them. You can adjust
+          this behavior and delete data about visited posts.
+        </q-item-label>
+        <q-toggle
+          :model-value="settingsStore.markPostsAsVisited"
+          @update:model-value="
+            (val) => settingsStore.setMarkPostsAsVisited(val)
+          "
+          label="Mark posts as visited when opening"
+        />
+        <q-btn @click="deleteVisited" label="Delete visited posts" />
+      </q-item-section>
+    </q-item>
+  </q-list>
+</template>
+
+<script setup lang="ts">
+import { useSettingsStore } from 'stores/settings-store';
+import { useQuasar } from 'quasar';
+import { useVisitedStore } from 'stores/visited-store';
+
+const settingsStore = useSettingsStore();
+const visitedStore = useVisitedStore();
+const $q = useQuasar();
+
+const deleteVisited = async () => {
+  $q.dialog({
+    title: 'Confirm',
+    message:
+      'Would you like to delete the stored information about posts visited?',
+    cancel: true,
+    persistent: true,
+  }).onOk(() => {
+    visitedStore.deleteVisitedInformation();
+  });
+};
+</script>
