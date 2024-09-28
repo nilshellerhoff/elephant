@@ -20,6 +20,7 @@ export type IComment = {
     parent_id: string;
     name: string;
     controversiality: number;
+    stickied: boolean;
   };
 };
 export type CommentMore = {

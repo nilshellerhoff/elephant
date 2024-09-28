@@ -1,10 +1,15 @@
 <template>
   <CommentBase :depth="comment.data.depth" @click="isCollapsed = !isCollapsed">
     <q-item-label class="username">
-      <span>u/{{ comment.data.author }}</span>
-      <span style="float: right">
-        <CommentTopRight :comment="comment" />
-      </span>
+      <q-icon
+        v-if="comment.data.stickied"
+        name="push_pin"
+        style="margin-right: 4px; color: #007a25"
+      />
+      <span :style="`color: ${comment.data.stickied ? '#007a25' : 'inherit'};`">
+        u/{{ comment.data.author }}</span
+      >
+      <span style="float: right"> <CommentTopRight :comment="comment" /> </span>
     </q-item-label>
     <q-item-label v-if="!isCollapsed">
       <CommentContentRenderer :html="comment.data.body_html" />
