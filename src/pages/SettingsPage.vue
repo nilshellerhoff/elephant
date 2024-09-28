@@ -21,6 +21,16 @@
         <q-btn @click="deleteVisited" label="Delete visited posts" />
       </q-item-section>
     </q-item>
+
+    <q-item>
+      <q-item-section>
+        <q-item-label overline>Stickied comments</q-item-label>
+        <q-toggle
+          v-model="settingsStore.collapseStickiedCommentsByDefault"
+          label="Collapse stickied comments when opening post comments"
+        />
+      </q-item-section>
+    </q-item>
   </q-list>
 </template>
 

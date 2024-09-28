@@ -40,12 +40,21 @@ import { ref } from 'vue';
 import CommentBase from 'components/Comments/CommentBase.vue';
 import CommentRepliesRenderer from 'components/Comments/CommentRepliesRenderer.vue';
 import { IComment, isComment } from 'src/types/reddit/comment';
+import { useSettingsStore } from 'stores/settings-store';
 interface Props {
   comment: IComment;
 }
 
-defineProps<Props>();
+const props = defineProps<Props>();
+const settingsStore = useSettingsStore();
+
 const isCollapsed = ref(false);
+
+if (
+  settingsStore.collapseStickiedCommentsByDefault &&
+  props.comment.data.stickied
+)
+  isCollapsed.value = true;
 </script>
 
 <style>

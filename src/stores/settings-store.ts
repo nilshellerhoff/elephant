@@ -4,6 +4,7 @@ import { defineStore } from 'pinia';
 export type SettingsStore = {
   markPostsAsVisited: RemovableRef<boolean>;
   markPostsAsVisitedOnMediaClick: RemovableRef<boolean>;
+  collapseStickiedCommentsByDefault: RemovableRef<boolean>;
 };
 
 export const useSettingsStore = defineStore('settings', {
@@ -11,6 +12,10 @@ export const useSettingsStore = defineStore('settings', {
     markPostsAsVisited: useLocalStorage('markPostsAsVisisted', true),
     markPostsAsVisitedOnMediaClick: useLocalStorage(
       'markPostsAsVisitedOnMediaClick',
+      true
+    ),
+    collapseStickiedCommentsByDefault: useLocalStorage(
+      'collapseStickiedCommentsByDefault',
       true
     ),
   }),
