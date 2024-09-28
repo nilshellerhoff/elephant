@@ -77,7 +77,7 @@ import { Post, PostData, PostResponse } from 'src/types/reddit/post';
 import PostListItemLoading from 'components/PostListItemLoading.vue';
 import CommentRepliesRenderer from 'components/Comments/CommentRepliesRenderer.vue';
 import { IComment } from '../types/reddit/comment';
-import CommentContentRenderer from 'components/Comments/CommentContentRenderer.vue';
+import CommentContentRenderer from 'components/RedditContentRenderer.vue';
 import PostListItem from 'components/PostListItem.vue';
 import { useVisitedStore } from 'stores/visited-store';
 
