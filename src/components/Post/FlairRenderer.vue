@@ -33,6 +33,7 @@ const style = {
   padding: '2px 4px',
   borderRadius: '4px',
   fontWeight: 'bold',
+  fontSize: '13px',
   color: props.post.data.link_flair_text_color == 'light' ? '#eee' : '#111',
   backgroundColor: props.post.data.link_flair_background_color,
 };
