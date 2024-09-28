@@ -3,6 +3,10 @@ import { VideoExtractor } from 'src/types/media';
 
 export const urlTest = (expression: RegExp) => (post: Post) =>
   expression.test(post.data.url);
+export const imgurImageTest = (post: Post) => {
+  if (post.data.url.includes('.gifv')) return false;
+  return urlTest(/i.imgur.com/)(post);
+};
 
 const urlExtractor = (post: Post): string => post.data.url;
 
@@ -16,7 +20,7 @@ export const IMAGE_EXTRACTORS: {
     extractor: urlExtractor,
   },
   {
-    test: urlTest(/i.imgur.com/),
+    test: imgurImageTest,
     extractor: urlExtractor,
   },
 ];
@@ -60,6 +64,11 @@ export const redditM3u8Extractor: VideoExtractor = (post) => {
   };
 };
 
+export const imgurGifvExtractor: VideoExtractor = (post) => ({
+  type: 'video/mp4',
+  url: post.data.url.replace('.gifv', '.mp4'),
+});
+
 export const VIDEO_EXTRACTORS: {
   test: (post: Post) => boolean;
   extractor: VideoExtractor;
@@ -67,6 +76,10 @@ export const VIDEO_EXTRACTORS: {
   {
     test: urlTest(/https:\/\/v.redd.it\//),
     extractor: redditM3u8Extractor,
+  },
+  {
+    test: urlTest(/https:\/\/i.imgur.com\/.*\.gifv/),
+    extractor: imgurGifvExtractor,
   },
 ];
 
