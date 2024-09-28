@@ -100,6 +100,7 @@ export type PostData = {
     enabled: boolean;
     images: PreviewImageEntry[];
   };
+  stickied: boolean;
 };
 
 export type PostInformation = {

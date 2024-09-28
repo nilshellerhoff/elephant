@@ -11,6 +11,11 @@
     </q-item-section>
     <q-item-section>
       <q-item-label :lines="maxLines">
+        <q-icon
+          v-if="post.data.stickied"
+          name="push_pin"
+          style="margin-right: 4px; color: #007a25"
+        />
         <b :style="{ color: headerColor }">{{ post.data.title }}</b>
       </q-item-label>
       <q-item-label
@@ -62,7 +67,8 @@ const visitedStore = useVisitedStore();
 const settingsStore = useSettingsStore();
 
 const headerColor = computed(() => {
-  if (
+  if (props.post.data.stickied) return '#007a25';
+  else if (
     props.markVisited &&
     visitedStore.visitedPosts.includes(props.post.data.name)
   )
