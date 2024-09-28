@@ -14,7 +14,7 @@
     />
     <q-img v-else :ratio="1" :fit="'cover'" :src="thumbnailUrl" />
     <div
-      v-if="!thumbnailUrl !== undefined"
+      v-if="thumbnailUrl !== undefined"
       style="
         position: absolute;
         left: 0;
@@ -49,16 +49,18 @@ defineEmits<{
 const thumbnailSize = '70px';
 
 const thumbnailUrl = computed(() => {
-  const thumbnail = props.post.data.thumbnail;
-  if (thumbnail == 'self') return undefined;
-  else if (
-    thumbnail == 'default' ||
-    thumbnail == 'image' ||
-    thumbnail == 'spoiler' ||
-    thumbnail == 'nsfw'
+  let url: string | undefined = props.post.data.thumbnail;
+  if (
+    url == 'self' ||
+    url == 'default' ||
+    url == 'image' ||
+    url == 'spoiler' ||
+    url == 'nsfw'
   )
-    return props.post.data.preview.images[0].resolutions[0].url;
-  else return thumbnail;
+    url = undefined;
+
+  url = url ?? props.post.data.preview?.images[0].resolutions[0].url;
+  return url;
 });
 
 const getIconForType = () => {

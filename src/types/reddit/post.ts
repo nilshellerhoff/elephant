@@ -96,7 +96,7 @@ export type PostData = {
   media: {
     reddit_video: MediaRedditVideo;
   };
-  preview: {
+  preview?: {
     enabled: boolean;
     images: PreviewImageEntry[];
   };
