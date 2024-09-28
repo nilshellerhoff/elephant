@@ -8,13 +8,13 @@
     @click.stop="$emit('openMedia', post)"
   >
     <q-icon
-      v-if="isDefaultThumbnail(post.data.thumbnail)"
+      v-if="thumbnailUrl === undefined"
       name="subject"
       :size="thumbnailSize"
     />
-    <q-img v-else :ratio="1" :fit="'cover'" :src="post.data.thumbnail" />
+    <q-img v-else :ratio="1" :fit="'cover'" :src="thumbnailUrl" />
     <div
-      v-if="!isDefaultThumbnail(post.data.thumbnail)"
+      v-if="!thumbnailUrl !== undefined"
       style="
         position: absolute;
         left: 0;
@@ -36,6 +36,7 @@
 <script setup lang="ts">
 import { Post } from 'src/types/reddit/post';
 import { isGallery, isImage, isVideo } from 'src/util/media';
+import { computed } from 'vue';
 
 interface Props {
   post: Post;
@@ -47,9 +48,18 @@ defineEmits<{
 
 const thumbnailSize = '70px';
 
-const isDefaultThumbnail = (thumbnail: string) => {
-  return thumbnail == 'self' || thumbnail == 'default' || thumbnail == 'image';
-};
+const thumbnailUrl = computed(() => {
+  const thumbnail = props.post.data.thumbnail;
+  if (thumbnail == 'self') return undefined;
+  else if (
+    thumbnail == 'default' ||
+    thumbnail == 'image' ||
+    thumbnail == 'spoiler' ||
+    thumbnail == 'nsfw'
+  )
+    return props.post.data.preview.images[0].resolutions[0].url;
+  else return thumbnail;
+});
 
 const getIconForType = () => {
   if (isImage(props.post)) {

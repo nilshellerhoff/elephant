@@ -27,6 +27,21 @@ export type MediaEntryImage = {
   y: number;
 };
 
+export type PreviewImageEntry = {
+  id: string;
+  resolutions: {
+    height: number;
+    width: number;
+    url: string;
+  }[];
+  source: {
+    height: number;
+    width: number;
+    url: string;
+  };
+  variants: any;
+};
+
 export type MediaRedditVideo = {
   bitrate_kbps: number;
   fallback_url: string;
@@ -80,6 +95,10 @@ export type PostData = {
   };
   media: {
     reddit_video: MediaRedditVideo;
+  };
+  preview: {
+    enabled: boolean;
+    images: PreviewImageEntry[];
   };
 };
 
