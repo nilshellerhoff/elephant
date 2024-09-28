@@ -4,6 +4,7 @@ const removeLinksFromEl = (el: HTMLElement): void => {
   const anchors = el.querySelectorAll('a');
   anchors.forEach((anchor) => {
     anchor.target = '_blank';
+    anchor.onclick = (ev) => ev.stopPropagation();
   });
 
   const images = el.querySelectorAll('img');
