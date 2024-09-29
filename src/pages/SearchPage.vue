@@ -5,6 +5,11 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
+import { usePageTitle } from 'src/composables/pageTitle';
+
+const title = usePageTitle();
+
+title.setTitle('Search');
 
 const input = ref('');
 </script>

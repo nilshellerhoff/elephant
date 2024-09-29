@@ -10,12 +10,14 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, watch } from 'vue';
 import { useRoute } from 'vue-router';
 import SubredditRenderer from 'components/SubredditRenderer.vue';
 import PostPopup from 'components/PostPopup.vue';
+import { usePageTitle } from 'src/composables/pageTitle';
 
 const route = useRoute();
+const title = usePageTitle();
 
 const subreddit = computed(() => {
   if (route.params.subreddit) {
@@ -27,4 +29,16 @@ const subreddit = computed(() => {
     return 'all';
   }
 });
+
+watch(
+  () => route.params.subreddit,
+  () => {
+    let subreddit;
+    if (typeof route.params.subreddit !== 'string') {
+      subreddit = 'all';
+    } else subreddit = route.params.subreddit;
+    title.setTitle(`r/${subreddit}`);
+  },
+  { immediate: true }
+);
 </script>

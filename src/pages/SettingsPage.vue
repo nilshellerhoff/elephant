@@ -38,10 +38,14 @@
 import { useSettingsStore } from 'stores/settings-store';
 import { useQuasar } from 'quasar';
 import { useVisitedStore } from 'stores/visited-store';
+import { usePageTitle } from 'src/composables/pageTitle';
 
 const settingsStore = useSettingsStore();
 const visitedStore = useVisitedStore();
 const $q = useQuasar();
+const title = usePageTitle();
+
+title.setTitle('Settings');
 
 const deleteVisited = async () => {
   $q.dialog({

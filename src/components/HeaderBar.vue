@@ -4,10 +4,7 @@
       <q-btn dense flat round :icon="toggleIcon" @click="$emit('toggle')" />
 
       <q-toolbar-title>
-        <q-avatar>
-          <img src="https://cdn.quasar.dev/logo-v2/svg/logo-mono-white.svg" />
-        </q-avatar>
-        Title
+        {{ pageTitle.title.value }}
       </q-toolbar-title>
     </q-toolbar>
   </q-header>
@@ -15,6 +12,9 @@
 
 <script setup lang="ts">
 import { computed } from 'vue';
+import { usePageTitle } from 'src/composables/pageTitle';
+
+const pageTitle = usePageTitle();
 
 interface Props {
   type: 'main' | 'popup';
