@@ -40,6 +40,19 @@
             target="_blank"
           />
         </div>
+
+        <div style="margin: 12px">
+          <q-btn
+            icon="swap_vert"
+            :label="sortingMode.label"
+            size="md"
+            dense
+            flat
+            color="primary"
+            style="padding-right: 10px"
+            @click="openSortingSelector"
+          />
+        </div>
         <!-- Comments -->
         <q-list>
           <CommentRepliesRenderer
@@ -80,6 +93,9 @@ import { IComment } from '../types/reddit/comment';
 import CommentContentRenderer from 'components/RedditContentRenderer.vue';
 import PostListItem from 'components/PostListItem.vue';
 import { useVisitedStore } from 'stores/visited-store';
+import { useQuasar } from 'quasar';
+
+const $q = useQuasar();
 
 interface Props {
   open: boolean;
@@ -103,14 +119,55 @@ const comments: ComputedRef<IComment[] | undefined> = computed(
   () => data.value?.[1].data.children
 );
 
+const sortingMode = ref({ label: 'Best', mode: 'confidence' });
+
+const openSortingSelector = () => {
+  $q.bottomSheet({
+    actions: [
+      {
+        label: 'Best',
+        mode: 'confidence',
+        icon: 'sym_o_rocket',
+      },
+      {
+        label: 'Hot',
+        mode: 'hot',
+        icon: 'local_fire_department',
+      },
+      {
+        label: 'New',
+        mode: 'new',
+        icon: 'sym_o_electric_bolt',
+      },
+      {
+        label: 'Top',
+        mode: 'top',
+        icon: 'sym_o_arrow_upward',
+      },
+      {
+        label: 'QA',
+        mode: 'qa',
+        icon: 'question_answer',
+      },
+      {
+        label: 'Controversial',
+        mode: 'controversial',
+        icon: 'sym_o_swords',
+      },
+    ],
+  }).onOk(({ label, mode }) => {
+    sortingMode.value = { label, mode };
+  });
+};
+
 watch(
-  [() => props.postPermalink, () => props.open],
+  [() => props.postPermalink, () => props.open, () => sortingMode.value],
   () => {
     if (props.open) {
       if (props.postPermalink) {
         isLoading.value = true;
         redditGetResponse<PostResponse>(
-          `https://www.reddit.com/${props.postPermalink}.json`
+          `https://www.reddit.com/${props.postPermalink}.json?sort=${sortingMode.value.mode}`
         )
           .then((response) => {
             data.value = response.data;
