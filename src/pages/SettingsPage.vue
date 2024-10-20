@@ -31,6 +31,15 @@
         />
       </q-item-section>
     </q-item>
+    <q-item>
+      <q-item-section>
+        <q-item-label overline>NSFW</q-item-label>
+        <q-toggle
+          v-model="settingsStore.blurNsfwThumbnails"
+          label="Blur NSFW thumbnails"
+        />
+      </q-item-section>
+    </q-item>
   </q-list>
 </template>
 

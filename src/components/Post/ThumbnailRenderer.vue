@@ -12,7 +12,16 @@
       name="subject"
       :size="thumbnailSize"
     />
-    <q-img v-else :ratio="1" :fit="'cover'" :src="thumbnailUrl" />
+    <div v-else style="overflow: hidden">
+      <q-img
+        :ratio="1"
+        :fit="'cover'"
+        :src="thumbnailUrl"
+        :style="{
+          filter: blurThumbnail ? 'blur(8px)' : 'none',
+        }"
+      />
+    </div>
     <div
       v-if="thumbnailUrl !== undefined"
       style="
@@ -37,6 +46,7 @@
 import { Post } from 'src/types/reddit/post';
 import { isGallery, isImage, isVideo } from 'src/util/media';
 import { computed } from 'vue';
+import { useSettingsStore } from 'stores/settings-store';
 
 interface Props {
   post: Post;
@@ -46,7 +56,12 @@ defineEmits<{
   openMedia: [post: Post];
 }>();
 
+const settingsStore = useSettingsStore();
+
 const thumbnailSize = '70px';
+const blurThumbnail = computed(
+  () => settingsStore.blurNsfwThumbnails && props.post.data.over_18
+);
 
 const thumbnailUrl = computed(() => {
   let url: string | undefined = props.post.data.thumbnail;

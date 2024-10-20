@@ -5,6 +5,7 @@ export type SettingsStore = {
   markPostsAsVisited: RemovableRef<boolean>;
   markPostsAsVisitedOnMediaClick: RemovableRef<boolean>;
   collapseStickiedCommentsByDefault: RemovableRef<boolean>;
+  blurNsfwThumbnails: RemovableRef<boolean>;
 };
 
 export const useSettingsStore = defineStore('settings', {
@@ -18,6 +19,7 @@ export const useSettingsStore = defineStore('settings', {
       'collapseStickiedCommentsByDefault',
       true
     ),
+    blurNsfwThumbnails: useLocalStorage('blurNsfwThumbnails', true),
   }),
   actions: {
     setMarkPostsAsVisited(value: boolean): void {
