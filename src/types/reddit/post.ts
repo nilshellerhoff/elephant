@@ -101,6 +101,7 @@ export type PostData = {
     images: PreviewImageEntry[];
   };
   stickied: boolean;
+  over_18: boolean;
 };
 
 export type PostInformation = {

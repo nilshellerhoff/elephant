@@ -1,15 +1,23 @@
 <template>
-  <span :style="style">
+  <FlairBaseRenderer
+    v-if="post.data.link_flair_type == 'richtext'"
+    :background-color="backgroundColor"
+    :foreground-color="foregroundColor"
+  >
     <span
       v-if="post.data.link_flair_type == 'richtext'"
       v-html="renderRichtextFlair()"
     ></span>
-    <span v-else>{{ post.data.link_flair_text }}</span>
-  </span>
+    <span v-else>
+      {{ post.data.link_flair_text }}
+    </span>
+  </FlairBaseRenderer>
 </template>
 
 <script setup lang="ts">
-import { Post } from '../../types/reddit/post';
+import { Post } from 'src/types/reddit/post';
+import FlairBaseRenderer from 'components/Post/FlairBaseRenderer.vue';
+import { computed } from 'vue';
 
 interface Props {
   post: Post;
@@ -29,12 +37,10 @@ const renderRichtextFlair = () => {
   }, '');
 };
 
-const style = {
-  padding: '2px 4px',
-  borderRadius: '4px',
-  fontWeight: 'bold',
-  fontSize: '13px',
-  color: props.post.data.link_flair_text_color == 'light' ? '#eee' : '#111',
-  backgroundColor: props.post.data.link_flair_background_color,
-};
+const backgroundColor = computed(
+  () => props.post.data.link_flair_background_color
+);
+const foregroundColor = computed(() =>
+  props.post.data.link_flair_text_color == 'light' ? '#eee' : '#111'
+);
 </script>

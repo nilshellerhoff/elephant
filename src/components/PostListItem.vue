@@ -11,6 +11,12 @@
     </q-item-section>
     <q-item-section>
       <q-item-label :lines="maxLines">
+        <FlairBaseRenderer
+          v-if="post.data.over_18"
+          background-color="#cc0000"
+          style="margin-right: 4px"
+          >NSFW</FlairBaseRenderer
+        >
         <q-icon
           v-if="post.data.stickied"
           name="push_pin"
@@ -51,6 +57,7 @@ import ThumbnailRenderer from 'components/Post/ThumbnailRenderer.vue';
 import { useVisitedStore } from 'stores/visited-store';
 import { computed } from 'vue';
 import { useSettingsStore } from 'stores/settings-store';
+import FlairBaseRenderer from 'components/Post/FlairBaseRenderer.vue';
 
 interface Props {
   post: Post;
