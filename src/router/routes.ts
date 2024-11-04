@@ -17,7 +17,6 @@ const routes: RouteRecordRaw[] = [
         // ],
       },
       { path: 'popular', component: () => import('pages/SubredditPage.vue') },
-      { path: 'lists', component: () => import('pages/ListsPage.vue') },
       { path: 'search', component: () => import('pages/SearchPage.vue') },
       { path: 'settings', component: () => import('pages/SettingsPage.vue') },
       {
