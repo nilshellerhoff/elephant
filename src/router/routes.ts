@@ -5,7 +5,7 @@ const routes: RouteRecordRaw[] = [
     path: '/',
     component: () => import('layouts/MainLayout.vue'),
     children: [
-      { path: '', component: () => import('pages/SubredditPage.vue') },
+      { path: '', component: () => import('pages/HomePage.vue') },
       {
         path: 'r/:subreddit',
         component: () => import('pages/SubredditPage.vue'),
@@ -17,6 +17,7 @@ const routes: RouteRecordRaw[] = [
         // ],
       },
       { path: 'popular', component: () => import('pages/SubredditPage.vue') },
+      { path: 'lists', component: () => import('pages/ListsPage.vue') },
       { path: 'search', component: () => import('pages/SearchPage.vue') },
       { path: 'settings', component: () => import('pages/SettingsPage.vue') },
       {

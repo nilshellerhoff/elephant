@@ -1,4 +1,5 @@
 <template>
+  <SubredditHeaderRenderer :subreddit="subreddit" />
   <SubredditRenderer :subreddit="subreddit" />
   <template v-if="$route.query.post">
     <PostPopup
@@ -13,8 +14,9 @@
 import { computed, watch } from 'vue';
 import { useRoute } from 'vue-router';
 import SubredditRenderer from 'components/SubredditRenderer.vue';
-import PostPopup from 'components/PostPopup.vue';
 import { usePageTitle } from 'src/composables/pageTitle';
+import SubredditHeaderRenderer from 'components/SubredditHeaderRenderer.vue';
+import PostPopup from 'components/PostPopup.vue';
 
 const route = useRoute();
 const title = usePageTitle();
