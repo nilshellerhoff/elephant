@@ -20,6 +20,13 @@
       </template>
     </q-list>
   </q-pull-to-refresh>
+  <template v-if="$route.query.post">
+    <PostPopup
+      :post-permalink="$route.query.post"
+      :open="true"
+      @back="$router.go(-1)"
+    />
+  </template>
 </template>
 
 <script setup lang="ts">
@@ -30,6 +37,7 @@ import { redditGetResponse } from 'src/util/api';
 import PostListItemLoading from 'components/PostListItemLoading.vue';
 import { Post } from '../types/reddit/post';
 import InlineError from 'components/InlineError.vue';
+import PostPopup from './PostPopup.vue';
 
 interface Props {
   subreddit: string;
