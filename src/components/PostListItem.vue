@@ -1,7 +1,7 @@
 <template>
   <q-item
     clickable
-    @click="$router.push({ query: { post: post.data.permalink }, replace: true  })"
+    @click="$router.push({ query: { post: post.data.permalink } })"
   >
     <q-item-section side>
       <ThumbnailRenderer
