@@ -40,6 +40,12 @@
         />
       </q-item-section>
     </q-item>
+    <q-item>
+      <q-item-section>
+        <q-item-label overline>General</q-item-label>
+        <q-btn label="Reload app" @click="reload" />
+      </q-item-section>
+    </q-item>
   </q-list>
 </template>
 
@@ -55,6 +61,7 @@ const $q = useQuasar();
 const title = usePageTitle();
 
 title.setTitle('Settings');
+const reload = () => window.location.reload();
 
 const deleteVisited = async () => {
   $q.dialog({
