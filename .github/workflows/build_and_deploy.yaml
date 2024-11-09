@@ -34,6 +34,6 @@ jobs:
         key: ${{ secrets.SERVER_KEY }}
         port: 22
         source: "dist/pwa/*"
-        target: ${{ secrets.SERVER_PATH }}
+        target: ${{ secrets.SERVER_PATH }}/elephant-dev.floreen.de
         overwrite: 1
         strip_components: 2
