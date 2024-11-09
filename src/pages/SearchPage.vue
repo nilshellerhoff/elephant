@@ -37,10 +37,6 @@
       </q-item-section>
     </q-item>
   </q-list>
-  <!--  <q-btn v-if="input" :label="`go to r/${input}`" :to="`/r/${input}`" />-->
-  <div v-for="subreddit in subreddits" :key="subreddit.data.title">
-    {{ subreddit.data.title }}
-  </div>
 </template>
 
 <script setup lang="ts">
@@ -71,7 +67,7 @@ watchDebounced(
       loading.value = true;
       subreddits.value = [];
       redditGetResponse<SubredditsSearchResponse>(
-        `https://www.reddit.com/subreddits/search.json?q=${input}`
+        `https://www.reddit.com/subreddits/search.json?q=${input}&include_over_18=true`
       )
         .then((response) => {
           subreddits.value = response.data.data.children;
