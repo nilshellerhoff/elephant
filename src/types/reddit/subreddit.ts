@@ -10,6 +10,7 @@ export type SubredditResponse = {
 export type SubredditAboutResponse = {
   kind: 't5';
   data: {
+    primary_color: string;
     display_name: string;
     display_name_prefixed: string;
     title: string;

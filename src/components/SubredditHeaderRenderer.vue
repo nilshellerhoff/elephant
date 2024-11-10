@@ -17,7 +17,7 @@
       <q-avatar
         style="position: absolute; bottom: 10px; left: calc(50% - 24px)"
       >
-        <img :src="data.data.community_icon" alt="" />
+        <SubredditIconRenderer :subreddit="data" />
       </q-avatar>
     </div>
     <div style="background: linear-gradient(#ededed 0%, #fff 100%)">
@@ -40,6 +40,7 @@
 import { SubredditAboutResponse } from 'src/types/reddit/subreddit';
 import { ref, watch } from 'vue';
 import { redditGetResponse } from 'src/util/api';
+import SubredditIconRenderer from 'components/Subreddit/SubredditIconRenderer.vue';
 
 interface Props {
   subreddit: string;

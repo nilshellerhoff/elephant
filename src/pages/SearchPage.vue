@@ -24,7 +24,7 @@
     >
       <q-item-section avatar>
         <q-avatar>
-          <q-img :src="getSubredditIcon(subreddit)" alt="" />
+          <SubredditIconRenderer :subreddit="subreddit" />
         </q-avatar>
       </q-item-section>
       <q-item-section>
@@ -53,6 +53,7 @@ import { redditGetResponse } from 'src/util/api';
 import { SubredditsSearchResponse } from 'src/types/reddit/search';
 import { SubredditAboutResponse } from 'src/types/reddit/subreddit';
 import FlairBaseRenderer from 'components/Post/FlairBaseRenderer.vue';
+import SubredditIconRenderer from 'components/Subreddit/SubredditIconRenderer.vue';
 
 const title = usePageTitle();
 
@@ -61,11 +62,6 @@ title.setTitle('Search');
 const input = ref('');
 const subreddits: Ref<SubredditAboutResponse[]> = ref([]);
 const loading = ref(false);
-
-const getSubredditIcon = (subreddit: SubredditAboutResponse): string => {
-  if (subreddit.data.community_icon) return subreddit.data.community_icon;
-  return subreddit.data.icon_img;
-};
 
 watchDebounced(
   () => input.value,
