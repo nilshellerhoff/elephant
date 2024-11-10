@@ -2,7 +2,8 @@
 
 A simple, read-only PWA client for Reddit, built using Vue & Quasar. Work in progress
 
-https://elephant.floreen.de
+https://elephant.floreen.de (release)
+https://elephant-dev.floreen.de (master)
 
 ## Install the dependencies
 ```bash
