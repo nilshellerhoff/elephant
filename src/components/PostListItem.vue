@@ -31,7 +31,7 @@
       </q-item-label>
       <q-item-label>
         {{ post.data.ups }} <q-icon name="arrow_upward" /> ({{
-          post.data.upvote_ratio * 100
+          (post.data.upvote_ratio * 100).toFixed(0)
         }}%) • {{ post.data.num_comments }}
         <q-icon name="chat_bubble_outline" />
       </q-item-label>
