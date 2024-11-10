@@ -18,10 +18,10 @@ const props = withDefaults(defineProps<Props>(), {
 });
 
 const style = {
-  padding: '2px 4px',
+  padding: '1px 4px',
   borderRadius: '4px',
   fontWeight: 'bold',
-  fontSize: '13px',
+  fontSize: '12px',
   color: props.foregroundColor,
   backgroundColor: props.backgroundColor,
 };
