@@ -80,7 +80,7 @@ const headerColor = computed(() => {
     visitedStore.visitedPosts.includes(props.post.data.name)
   )
     return '#888';
-  else return '#000';
+  else return undefined;
 });
 
 const openMedia = (post: Post) => {

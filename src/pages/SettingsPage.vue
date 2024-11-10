@@ -2,6 +2,16 @@
   <q-list>
     <q-item>
       <q-item-section>
+        <q-item-label overline>Theming</q-item-label>
+        <q-toggle
+          label="Dark mode"
+          :model-value="settingsStore.darkMode === DarkMode.dark"
+          @update:model-value="settingsStore.toggleDarkMode()"
+        />
+      </q-item-section>
+    </q-item>
+    <q-item>
+      <q-item-section>
         <q-item-label overline>Visited posts</q-item-label>
         <q-item-label caption>
           Posts can be marked as visited when clicking on them. You can adjust
@@ -50,7 +60,7 @@
 </template>
 
 <script setup lang="ts">
-import { useSettingsStore } from 'stores/settings-store';
+import { DarkMode, useSettingsStore } from 'stores/settings-store';
 import { useQuasar } from 'quasar';
 import { useVisitedStore } from 'stores/visited-store';
 import { usePageTitle } from 'src/composables/pageTitle';

@@ -9,73 +9,75 @@
       <HeaderBar type="popup" @toggle="$emit('back')" />
       <FooterBar />
 
-      <q-page-container style="background-color: #fff; min-height: 100%">
-        <template v-if="isLoading">
-          <PostListItemLoading />
-        </template>
+      <q-page-container style="min-height: 100%; height: 100%">
+        <q-card style="min-height: 100%">
+          <template v-if="isLoading">
+            <PostListItemLoading />
+          </template>
 
-        <PostListItem v-if="post" :post="post" />
+          <PostListItem v-if="post" :post="post" />
 
-        <CommentContentRenderer
-          style="padding: 4px"
-          :html="postData?.selftext_html ?? ''"
-        />
-
-        <div>
-          <q-btn
-            color="primary"
-            icon="open_in_new"
-            label="Reddit"
-            style="margin: 10px; width: 120px"
-            :href="'https://reddit.com' + postData?.permalink"
-            target="_blank"
+          <CommentContentRenderer
+            style="padding: 4px"
+            :html="postData?.selftext_html ?? ''"
           />
-          <q-btn
-            v-if="postData?.url"
-            color="primary"
-            icon="link"
-            label="Link"
-            style="margin: 10px; width: 120px; float: right"
-            :href="postData?.url"
-            target="_blank"
-          />
-        </div>
 
-        <div style="margin: 12px">
-          <q-btn
-            icon="swap_vert"
-            :label="sortingMode.label"
-            size="md"
-            dense
-            flat
-            color="primary"
-            style="padding-right: 10px"
-            @click="openSortingSelector"
-          />
-        </div>
-        <!-- Comments -->
-        <q-list>
-          <CommentRepliesRenderer
-            v-if="postData && comments"
-            :link-id="postData.name"
-            :replies="comments"
-          />
-        </q-list>
+          <div>
+            <q-btn
+              color="primary"
+              icon="open_in_new"
+              label="Reddit"
+              style="margin: 10px; width: 120px"
+              :href="'https://reddit.com' + postData?.permalink"
+              target="_blank"
+            />
+            <q-btn
+              v-if="postData?.url"
+              color="primary"
+              icon="link"
+              label="Link"
+              style="margin: 10px; width: 120px; float: right"
+              :href="postData?.url"
+              target="_blank"
+            />
+          </div>
 
-        <!--        <q-virtual-scroll-->
-        <!--          style="max-height: 300px"-->
-        <!--          :items="comments"-->
-        <!--          separator-->
-        <!--          v-slot="{ item, index }"-->
-        <!--        >-->
-        <!--          <q-item :key="index" dense>-->
-        <!--            <q-item-section>-->
-        <!--              <q-item-label>-->
-        <!--                {{ item.data.body }}-->
-        <!--              </q-item-label>-->
-        <!--            </q-item-section>-->
-        <!--          </q-item>-->
-        <!--        </q-virtual-scroll>-->
+          <div style="margin: 12px">
+            <q-btn
+              icon="swap_vert"
+              :label="sortingMode.label"
+              size="md"
+              dense
+              flat
+              color="primary"
+              style="padding-right: 10px"
+              @click="openSortingSelector"
+            />
+          </div>
+          <!-- Comments -->
+          <q-list>
+            <CommentRepliesRenderer
+              v-if="postData && comments"
+              :link-id="postData.name"
+              :replies="comments"
+            />
+          </q-list>
+
+          <!--        <q-virtual-scroll-->
+          <!--          style="max-height: 300px"-->
+          <!--          :items="comments"-->
+          <!--          separator-->
+          <!--          v-slot="{ item, index }"-->
+          <!--        >-->
+          <!--          <q-item :key="index" dense>-->
+          <!--            <q-item-section>-->
+          <!--              <q-item-label>-->
+          <!--                {{ item.data.body }}-->
+          <!--              </q-item-label>-->
+          <!--            </q-item-section>-->
+          <!--          </q-item>-->
+          <!--        </q-virtual-scroll>-->
+        </q-card>
       </q-page-container>
     </q-layout>
   </q-dialog>
