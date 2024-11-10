@@ -17,6 +17,7 @@ export type SubredditAboutResponse = {
     community_icon: string;
     banner_background_image: string;
     icon_img: string;
+    over18: boolean;
     url: string;
   };
 };

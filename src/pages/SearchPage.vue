@@ -29,6 +29,12 @@
       </q-item-section>
       <q-item-section>
         <q-item-label>
+          <FlairBaseRenderer
+            v-if="subreddit.data.over18"
+            background-color="#cc0000"
+            style="margin-right: 4px"
+            >NSFW</FlairBaseRenderer
+          >
           <b>{{ subreddit.data.display_name_prefixed }}</b>
         </q-item-label>
         <q-item-label lines="1">
@@ -46,6 +52,7 @@ import { watchDebounced } from '@vueuse/core';
 import { redditGetResponse } from 'src/util/api';
 import { SubredditsSearchResponse } from 'src/types/reddit/search';
 import { SubredditAboutResponse } from 'src/types/reddit/subreddit';
+import FlairBaseRenderer from 'components/Post/FlairBaseRenderer.vue';
 
 const title = usePageTitle();
 
@@ -63,9 +70,9 @@ const getSubredditIcon = (subreddit: SubredditAboutResponse): string => {
 watchDebounced(
   () => input.value,
   (input) => {
+    subreddits.value = [];
     if (input) {
       loading.value = true;
-      subreddits.value = [];
       redditGetResponse<SubredditsSearchResponse>(
         `https://www.reddit.com/subreddits/search.json?q=${input}&include_over_18=true`
       )
