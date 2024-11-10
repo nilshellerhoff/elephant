@@ -8,8 +8,8 @@
 
 <script setup lang="ts">
 interface Props {
-  foregroundColor: string;
-  backgroundColor: string;
+  foregroundColor?: string;
+  backgroundColor?: string;
 }
 
 const props = withDefaults(defineProps<Props>(), {
