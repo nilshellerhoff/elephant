@@ -13,6 +13,7 @@ export type SettingsStore = {
   collapseStickiedCommentsByDefault: RemovableRef<boolean>;
   blurNsfwThumbnails: RemovableRef<boolean>;
   darkMode: RemovableRef<DarkMode>;
+  useSentry: RemovableRef<boolean>;
 };
 
 export const useSettingsStore = defineStore('settings', {
@@ -28,6 +29,7 @@ export const useSettingsStore = defineStore('settings', {
     ),
     blurNsfwThumbnails: useLocalStorage('blurNsfwThumbnails', true),
     darkMode: useLocalStorage('darkMode', DarkMode.light),
+    useSentry: useLocalStorage('useSentry', false),
   }),
   actions: {
     init(): void {

@@ -52,7 +52,11 @@
     </q-item>
     <q-item>
       <q-item-section>
-        <q-item-label overline>General</q-item-label>
+        <q-item-label overline>Debug</q-item-label>
+        <q-toggle
+          v-model="settingsStore.useSentry"
+          label="Send logs to sentry (requires app reload)"
+        />
         <q-btn label="Reload app" @click="reload" />
       </q-item-section>
     </q-item>
