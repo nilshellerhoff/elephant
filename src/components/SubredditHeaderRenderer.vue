@@ -20,7 +20,7 @@
         <SubredditIconRenderer :subreddit="data" />
       </q-avatar>
     </div>
-    <div style="background: linear-gradient(#ededed 0%, #fff 100%)">
+    <div>
       <div
         style="
           font-size: 24px;
