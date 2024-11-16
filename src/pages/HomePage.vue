@@ -10,7 +10,7 @@ const lists = useListsStore();
 const title = usePageTitle();
 
 const subreddits = lists.subscriptions.map((s) => s.code);
-const subredditsStr = subreddits.join('+');
+const subredditsStr = subreddits.length ? subreddits.join('+') : 'all';
 
 title.setTitle('Home');
 </script>
