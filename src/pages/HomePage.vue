@@ -1,10 +1,16 @@
 <template>
-  <SubredditRenderer subreddit="all" />
+  <SubredditRenderer :subreddit="subredditsStr" />
 </template>
 <script setup lang="ts">
 import SubredditRenderer from 'components/SubredditRenderer.vue';
 import { usePageTitle } from 'src/composables/pageTitle';
+import { useListsStore } from 'stores/lists-store';
 
+const lists = useListsStore();
 const title = usePageTitle();
-title.setTitle('r/all');
+
+const subreddits = lists.subscriptions.map((s) => s.code);
+const subredditsStr = subreddits.join('+');
+
+title.setTitle('Home');
 </script>
