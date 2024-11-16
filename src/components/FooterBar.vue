@@ -9,6 +9,12 @@
         class="q-pb-lg q-pt-sm"
       />
       <q-route-tab
+        name="lists"
+        icon="reorder"
+        to="/lists"
+        class="q-pb-lg q-pt-sm"
+      />
+      <q-route-tab
         name="search"
         icon="search"
         to="/search"
