@@ -48,7 +48,6 @@
             size="md"
             dense
             flat
-            color="primary"
             style="padding-right: 10px"
             @click="openSortingSelector"
           />

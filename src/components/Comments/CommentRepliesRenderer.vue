@@ -8,7 +8,7 @@
     >
       <div style="height: 18px">
         load {{ reply.data.count }} more comments
-        <q-spinner v-if="moreLoading" color="primary" />
+        <q-spinner v-if="moreLoading" />
       </div>
     </CommentBase>
   </template>
