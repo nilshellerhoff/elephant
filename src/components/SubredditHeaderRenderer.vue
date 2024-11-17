@@ -10,7 +10,13 @@
         flat
         round
         color="white"
-        style="position: absolute; top: 0; right: 0; z-index: 10"
+        style="
+          position: absolute;
+          top: 0;
+          right: 0;
+          z-index: 10;
+          background-color: #0003;
+        "
         @click="onClickSubscription"
       />
       <q-img
