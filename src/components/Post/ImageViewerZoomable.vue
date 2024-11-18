@@ -14,6 +14,8 @@
     @dragging="(e) => onEvent('dragging', e)"
     style="overflow: hidden"
     v-touch-swipe.down="onSwipeDown"
+    @click="handleOnClick"
+    :class="isDoubleTapZooming ? 'animated' : ''"
   >
     <q-img
       class="image"
@@ -91,10 +93,42 @@ const reset = (): void => {
     translateY: -50,
   });
 };
+
+const lastClickTime = ref<number>();
+const handleOnClick = (): void => {
+  const doubleClickThreshold = 300;
+  const clickNow = Date.now();
+  if (lastClickTime.value) {
+    if (clickNow - lastClickTime.value < doubleClickThreshold) {
+      handleDoubleClick();
+    }
+  }
+  lastClickTime.value = clickNow;
+};
+
+const isDoubleTapZooming = ref(false);
+const handleDoubleClick = (): void => {
+  isDoubleTapZooming.value = true;
+
+  if (zoomState.scale === 1) {
+    zoomer.value?.setData({
+      scale: zoomState.scale * 3,
+    });
+  } else {
+    zoomer.value?.setData({
+      scale: 1,
+    });
+  }
+  // we need to wait until zoom has finished before removing css class again
+  setTimeout(() => {
+    isDoubleTapZooming.value = false;
+  }, 150);
+};
+
 defineExpose({ reset });
 </script>
 
-<style scoped>
+<style>
 .image {
   max-width: 100%;
   max-height: 100%;
@@ -102,5 +136,9 @@ defineExpose({ reset });
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+}
+
+.animated .pinch-scroll-zoom__content {
+  transition: 150ms all;
 }
 </style>
