@@ -26,6 +26,7 @@ const unescapeHTML = (input: string) => {
 
   p {
     margin: 8px 0;
+    line-height: initial;
   }
 
   blockquote {

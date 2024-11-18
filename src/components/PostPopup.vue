@@ -16,7 +16,7 @@
 
         <PostListItem v-if="post" :post="post" />
 
-        <CommentContentRenderer
+        <RedditContentRenderer
           style="padding: 4px"
           :html="postData?.selftext_html ?? ''"
         />
@@ -89,7 +89,7 @@ import { Post, PostData, PostResponse } from 'src/types/reddit/post';
 import PostListItemLoading from 'components/PostListItemLoading.vue';
 import CommentRepliesRenderer from 'components/Comments/CommentRepliesRenderer.vue';
 import { IComment } from '../types/reddit/comment';
-import CommentContentRenderer from 'components/RedditContentRenderer.vue';
+import RedditContentRenderer from 'components/RedditContentRenderer.vue';
 import PostListItem from 'components/PostListItem.vue';
 import { useVisitedStore } from 'stores/visited-store';
 import { useQuasar } from 'quasar';

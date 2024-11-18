@@ -14,7 +14,7 @@
       </span>
     </q-item-label>
     <q-item-label v-if="!isCollapsed">
-      <CommentContentRenderer :html="comment.data.body_html" />
+      <RedditContentRenderer :html="comment.data.body_html" />
     </q-item-label>
     <template v-else>(expand)</template>
   </CommentBase>
@@ -36,7 +36,7 @@
 </template>
 
 <script setup lang="ts">
-import CommentContentRenderer from 'components/RedditContentRenderer.vue';
+import RedditContentRenderer from 'components/RedditContentRenderer.vue';
 import CommentTopRight from 'components/Comments/CommentTopRight.vue';
 import { ref } from 'vue';
 import CommentBase from 'components/Comments/CommentBase.vue';
