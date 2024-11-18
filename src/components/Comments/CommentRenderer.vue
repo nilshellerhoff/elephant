@@ -6,10 +6,12 @@
         name="push_pin"
         style="margin-right: 4px; color: #007a25"
       />
-      <span :style="`color: ${comment.data.stickied ? '#007a25' : 'inherit'};`">
+      <span :style="`color: ${getUsernameColor()};`">
         u/{{ comment.data.author }}</span
       >
-      <span style="float: right"> <CommentTopRight :comment="comment" /> </span>
+      <span style="float: right">
+        <CommentTopRight :comment="comment" />
+      </span>
     </q-item-label>
     <q-item-label v-if="!isCollapsed">
       <CommentContentRenderer :html="comment.data.body_html" />
@@ -55,6 +57,12 @@ if (
   props.comment.data.stickied
 )
   isCollapsed.value = true;
+
+const getUsernameColor = () => {
+  if (props.comment.data.stickied) return '#007a25';
+  if (props.comment.data.is_submitter) return '#526efb';
+  return 'inherit';
+};
 </script>
 
 <style>

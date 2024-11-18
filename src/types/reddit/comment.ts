@@ -21,6 +21,7 @@ export type IComment = {
     name: string;
     controversiality: number;
     stickied: boolean;
+    is_submitter: boolean;
   };
 };
 export type CommentMore = {
