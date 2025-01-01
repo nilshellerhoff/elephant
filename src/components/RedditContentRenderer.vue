@@ -53,6 +53,10 @@ const unescapeHTML = (input: string) => {
     line-height: initial;
   }
 
+  a {
+    color: #5252ff;
+  }
+
   table {
     width: 100%;
     overflow-x: auto;
