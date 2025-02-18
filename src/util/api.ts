@@ -55,7 +55,7 @@ export const redditGetResponse = <T>(
 };
 
 export const redditApi = axios.create({
-  baseURL: 'https://www.reddit.com  ',
+  baseURL: 'https://www.reddit.com',
 });
 
 export const oauthApi = axios.create({
