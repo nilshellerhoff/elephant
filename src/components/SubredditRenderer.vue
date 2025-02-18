@@ -58,9 +58,7 @@ const load = (done: () => void) => {
 const loadAll = (done: () => void) => {
   error.value = false;
   isLoading.value = true;
-  redditGetResponse<SubredditResponse>(
-    `https://www.reddit.com/r/${props.subreddit}.json`
-  )
+  redditGetResponse<SubredditResponse>(`/r/${props.subreddit}.json`)
     .then((response) => {
       posts.value = response.data.data.children;
       after.value = response.data.data.after;
@@ -86,7 +84,7 @@ const loadNext = (_: number, done: () => void) => {
   }
   isLoading.value = true;
   redditGetResponse<SubredditResponse>(
-    `https://www.reddit.com/r/${props.subreddit}.json?after=${after.value}`
+    `/r/${props.subreddit}.json?after=${after.value}`
   )
     .then((response) => {
       posts.value.push(...response.data.data.children);

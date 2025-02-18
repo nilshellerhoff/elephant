@@ -14,6 +14,9 @@ export type SettingsStore = {
   blurNsfwThumbnails: RemovableRef<boolean>;
   darkMode: RemovableRef<DarkMode>;
   useSentry: RemovableRef<boolean>;
+  useRedditApplicationOnlyOauth: RemovableRef<boolean>;
+  redditApplicationOnlyAppId: RemovableRef<string>;
+  redditAuthenticationProxyUrl: RemovableRef<string | null>;
 };
 
 export const useSettingsStore = defineStore('settings', {
@@ -30,6 +33,18 @@ export const useSettingsStore = defineStore('settings', {
     blurNsfwThumbnails: useLocalStorage('blurNsfwThumbnails', true),
     darkMode: useLocalStorage('darkMode', DarkMode.light),
     useSentry: useLocalStorage('useSentry', false),
+    useRedditApplicationOnlyOauth: useLocalStorage(
+      'settings_useRedditApplicationOnlyOauth',
+      false
+    ),
+    redditApplicationOnlyAppId: useLocalStorage(
+      'settings_redditApplicationOnlyAppId',
+      ''
+    ),
+    redditAuthenticationProxyUrl: useLocalStorage(
+      'settings_redditAuthenticationProxyUrl',
+      null
+    ),
   }),
   actions: {
     init(): void {

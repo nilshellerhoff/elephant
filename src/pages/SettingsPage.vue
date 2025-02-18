@@ -52,6 +52,43 @@
     </q-item>
     <q-item>
       <q-item-section>
+        <q-item-label>Reddit API</q-item-label>
+        <q-item-label caption>
+          By default the Reddit API has a rate limiting to 10 requests per
+          minute. You can add your own Reddit App ID here, which increases the
+          rate limit to 100 requests per minute.
+        </q-item-label>
+        <q-toggle
+          v-model="settingsStore.useRedditApplicationOnlyOauth"
+          label="Use oAuth"
+        />
+        <q-input
+          v-model="settingsStore.redditApplicationOnlyAppId"
+          :disable="!settingsStore.useRedditApplicationOnlyOauth"
+          label="Reddit App ID"
+        >
+          <template #after>
+            <q-btn
+              @click="retrieveToken"
+              label="Test"
+              :disable="!settingsStore.useRedditApplicationOnlyOauth"
+            />
+          </template>
+        </q-input>
+        <q-item-label caption>
+          The Reddit auth endpoint does have CORS enabled, so authentication
+          needs to be passed through a proxy. You can customize the proxy URL
+          below.
+        </q-item-label>
+        <q-input
+          v-model="settingsStore.redditAuthenticationProxyUrl"
+          label="Auth proxy URL"
+          placeholder="(default)"
+        />
+      </q-item-section>
+    </q-item>
+    <q-item>
+      <q-item-section>
         <q-item-label overline>Debug</q-item-label>
         <q-toggle
           v-model="settingsStore.useSentry"

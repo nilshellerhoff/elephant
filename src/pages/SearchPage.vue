@@ -70,7 +70,7 @@ watchDebounced(
     if (input) {
       loading.value = true;
       redditGetResponse<SubredditsSearchResponse>(
-        `https://www.reddit.com/subreddits/search.json?q=${input}&include_over_18=true`
+        `/subreddits/search.json?q=${input}&include_over_18=true`
       )
         .then((response) => {
           subreddits.value = response.data.data.children;

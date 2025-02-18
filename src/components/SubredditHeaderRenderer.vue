@@ -75,7 +75,7 @@ watch(
   () => props.subreddit,
   () => {
     redditGetResponse<SubredditAboutResponse>(
-      `https://www.reddit.com/r/${props.subreddit}/about.json`
+      `/r/${props.subreddit}/about.json`
     )
       .then((response) => (data.value = response.data))
       .catch(() => (data.value = undefined));

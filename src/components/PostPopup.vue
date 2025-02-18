@@ -27,7 +27,7 @@
             icon="open_in_new"
             label="Reddit"
             style="margin: 10px; width: 120px"
-            :href="'https://reddit.com' + postData?.permalink"
+            :href="'https://reddit.com/' + postData?.permalink"
             target="_blank"
           />
           <q-btn
@@ -166,7 +166,7 @@ watch(
       if (props.postPermalink) {
         isLoading.value = true;
         redditGetResponse<PostResponse>(
-          `https://www.reddit.com/${props.postPermalink}.json?sort=${sortingMode.value.mode}`
+          `${props.postPermalink}.json?sort=${sortingMode.value.mode}`
         )
           .then((response) => {
             data.value = response.data;
