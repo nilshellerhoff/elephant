@@ -105,6 +105,7 @@ import { DarkMode, useSettingsStore } from 'stores/settings-store';
 import { useQuasar } from 'quasar';
 import { useVisitedStore } from 'stores/visited-store';
 import { usePageTitle } from 'src/composables/pageTitle';
+import { retrieveToken } from 'src/util/api';
 
 const settingsStore = useSettingsStore();
 const visitedStore = useVisitedStore();
