@@ -50,7 +50,7 @@ export const redditGetResponse = <T>(
   ) {
     return oauthApi.get(url.toString(), { params });
   } else {
-    return redditApi.get(url.toString());
+    return redditApi.get(url.toString(), { params });
   }
 };
 
