@@ -27,5 +27,12 @@ export const useApiStore = defineStore('api', {
       return this.deviceId;
     },
   },
-  actions: {},
+  actions: {
+    reset() {
+      this.bearerToken = null;
+      this.refreshToken = null;
+      this.tokenExpirationDate = new Date(0);
+      this.deviceId = '';
+    },
+  },
 });

@@ -95,6 +95,7 @@
           label="Send logs to sentry (requires app reload)"
         />
         <q-btn label="Reload app" @click="reload" />
+        <q-btn label="Reset API store" @click="apiStore.reset()" />
       </q-item-section>
     </q-item>
   </q-list>
@@ -106,9 +107,11 @@ import { useQuasar } from 'quasar';
 import { useVisitedStore } from 'stores/visited-store';
 import { usePageTitle } from 'src/composables/pageTitle';
 import { retrieveToken } from 'src/util/api';
+import { useApiStore } from 'stores/api-store';
 
 const settingsStore = useSettingsStore();
 const visitedStore = useVisitedStore();
+const apiStore = useApiStore();
 const $q = useQuasar();
 const title = usePageTitle();
 
