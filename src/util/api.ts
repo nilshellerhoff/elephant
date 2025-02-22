@@ -9,7 +9,7 @@ const apiStore = useApiStore();
 const settingsStore = useSettingsStore();
 
 export const retrieveToken = async () => {
-  const auth_url = settingsStore.redditAuthenticationProxyUrl ?? AUTH_URL;
+  const auth_url = settingsStore.redditAuthenticationProxyUrl || AUTH_URL;
   if (settingsStore.redditApplicationOnlyAppId) {
     const response = await axios.post(
       auth_url,
