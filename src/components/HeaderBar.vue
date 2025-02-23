@@ -1,7 +1,7 @@
 <template>
   <q-header elevated class="header">
     <q-toolbar>
-      <!--      <q-btn dense flat round :icon="toggleIcon" @click="$emit('toggle')" />-->
+      <q-btn dense flat round :icon="toggleIcon" @click="$emit('toggle')" />
 
       <q-toolbar-title>
         {{ pageTitle.title.value }}
@@ -22,9 +22,9 @@ interface Props {
 const props = defineProps<Props>();
 defineEmits(['toggle']);
 
-// const toggleIcon = computed(() =>
-//   props.type == 'popup' ? 'arrow_back' : 'menu'
-// );
+const toggleIcon = computed(() =>
+  props.type == 'popup' ? 'arrow_back' : 'menu'
+);
 </script>
 
 <style lang="scss">
