@@ -2,6 +2,7 @@
   <q-input
     v-model="input"
     label="Search for subreddits"
+    clearable
     style="margin: 12px"
   ></q-input>
   <q-list>
