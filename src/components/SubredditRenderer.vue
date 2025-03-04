@@ -6,15 +6,25 @@
   <q-pull-to-refresh @refresh="loadAll">
     <q-list>
       <q-infinite-scroll @load="loadNext" :offset="300" :disable="error">
-        <PostListItem
-          v-for="post in posts"
-          :key="post.data.name"
-          :post="post"
-          :max-lines="3"
-          :mark-visited="true"
-        />
+        <template v-if="settings.viewMode === ViewMode.CARDS">
+          <PostListItemCard
+            v-for="post in posts"
+            :key="post.data.name"
+            :post="post"
+            :max-lines="3"
+            :mark-visited="true"
+          />
+        </template>
+        <template v-else>
+          <PostListItem
+            v-for="post in posts"
+            :key="post.data.name"
+            :post="post"
+            :max-lines="3"
+            :mark-visited="true"
+          />
+        </template>
       </q-infinite-scroll>
-
       <template v-if="isLoading">
         <PostListItemLoading v-for="i in 5" :key="i" />
       </template>
@@ -32,18 +42,21 @@
 <script setup lang="ts">
 import { SubredditResponse } from 'src/types/reddit/subreddit';
 import { Ref, ref, watch } from 'vue';
-import PostListItem from 'components/PostListItem.vue';
+import PostListItem from 'components/Post/PostListItem.vue';
 import { redditGetResponse } from 'src/util/api';
-import PostListItemLoading from 'components/PostListItemLoading.vue';
+import PostListItemLoading from 'components/Post/PostListItemLoading.vue';
 import { Post } from '../types/reddit/post';
 import InlineError from 'components/InlineError.vue';
 import PostPopup from './PostPopup.vue';
+import PostListItemCard from 'components/Post/PostListItemCard.vue';
+import { useSettingsStore, ViewMode } from 'stores/settings-store';
 
 interface Props {
   subreddit: string;
 }
 
 const props = defineProps<Props>();
+const settings = useSettingsStore();
 
 const isLoading = ref(false);
 const error = ref(false);
@@ -55,7 +68,7 @@ const load = (done: () => void) => {
   loadAll(done);
 };
 
-const loadAll = (done: () => void) => {
+const loadAll = (done?: () => void) => {
   error.value = false;
   isLoading.value = true;
   redditGetResponse<SubredditResponse>(`/r/${props.subreddit}.json`)
@@ -68,7 +81,7 @@ const loadAll = (done: () => void) => {
     })
     .finally(() => {
       isLoading.value = false;
-      done();
+      if (done) done();
     });
 };
 

@@ -6,6 +6,8 @@
       <q-toolbar-title>
         {{ pageTitle.title.value }}
       </q-toolbar-title>
+      <q-space />
+      <ViewModeSwitch />
     </q-toolbar>
   </q-header>
 </template>
@@ -13,6 +15,7 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { usePageTitle } from 'src/composables/pageTitle';
+import ViewModeSwitch from 'components/Header/ViewModeSwitch.vue';
 
 const pageTitle = usePageTitle();
 

@@ -7,6 +7,11 @@ export enum DarkMode {
   'dark',
 }
 
+export enum ViewMode {
+  'LIST',
+  'CARDS',
+}
+
 export type SettingsStore = {
   markPostsAsVisited: RemovableRef<boolean>;
   markPostsAsVisitedOnMediaClick: RemovableRef<boolean>;
@@ -17,6 +22,7 @@ export type SettingsStore = {
   useRedditApplicationOnlyOauth: RemovableRef<boolean>;
   redditApplicationOnlyAppId: RemovableRef<string>;
   redditAuthenticationProxyUrl: RemovableRef<string | null>;
+  viewMode: RemovableRef<ViewMode>;
 };
 
 export const useSettingsStore = defineStore('settings', {
@@ -45,6 +51,7 @@ export const useSettingsStore = defineStore('settings', {
       'settings_redditAuthenticationProxyUrl',
       null
     ),
+    viewMode: useLocalStorage('viewMode', ViewMode.LIST),
   }),
   actions: {
     init(): void {

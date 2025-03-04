@@ -39,7 +39,7 @@
   </q-item>
 </template>
 <script setup lang="ts">
-import { Post } from '../types/reddit/post';
+import { Post } from '../../types/reddit/post';
 import {
   getVideoExtractor,
   getGalleryUrls,
@@ -48,9 +48,9 @@ import {
   isVideo,
 } from 'src/util/media';
 import { Dialog } from 'quasar';
-import ImageViewer from './Post/ImageViewer.vue';
+import ImageViewer from './ImageViewer.vue';
 import { displayTimeAgo } from 'src/util/time';
-import FlairRenderer from './Post/FlairRenderer.vue';
+import FlairRenderer from './FlairRenderer.vue';
 import GalleryViewer from 'components/Post/GalleryViewer.vue';
 import VideoPlayer from 'components/Media/VideoPlayer/VideoPlayer.vue';
 import ThumbnailRenderer from 'components/Post/ThumbnailRenderer.vue';

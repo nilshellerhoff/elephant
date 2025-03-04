@@ -86,11 +86,11 @@ import FooterBar from 'components/FooterBar.vue';
 import { computed, ComputedRef, ref, Ref, watch } from 'vue';
 import { redditGetResponse } from 'src/util/api';
 import { Post, PostData, PostResponse } from 'src/types/reddit/post';
-import PostListItemLoading from 'components/PostListItemLoading.vue';
+import PostListItemLoading from 'components/Post/PostListItemLoading.vue';
 import CommentRepliesRenderer from 'components/Comments/CommentRepliesRenderer.vue';
 import { IComment } from '../types/reddit/comment';
 import RedditContentRenderer from 'components/RedditContentRenderer.vue';
-import PostListItem from 'components/PostListItem.vue';
+import PostListItem from 'components/Post/PostListItem.vue';
 import { useVisitedStore } from 'stores/visited-store';
 import { useQuasar } from 'quasar';
 
