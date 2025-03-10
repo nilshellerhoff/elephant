@@ -36,8 +36,7 @@
         <template v-if="isImage(post)">
           <q-img
             :src="post.data.url"
-            style="margin: 10px 0"
-            :img-style="{ maxHeight: '80vh' }"
+            style="margin: 10px 0; max-height: 60vh"
             fit="contain"
             @click.stop="openMedia(post)"
           />
