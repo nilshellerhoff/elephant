@@ -1,39 +1,41 @@
 <template>
-  <template v-if="!isImage(post)">
-    <CardViewDefault :post="post" />
-  </template>
-  <template v-else>
-    <q-item
-      clickable
-      @click="$router.push({ query: { post: post.data.permalink } })"
-    >
-      <q-item-section>
-        <q-item-label
-          >r/{{ post.data.subreddit }} •
-          {{ displayTimeAgo(post.data.created_utc) }} •
-          <FlairRenderer :post="post" />
-        </q-item-label>
-        <q-item-label :lines="maxLines">
-          <TitleRenderer :post="post" font-size="16px" />
-        </q-item-label>
-        <template v-if="isImage(post)">
-          <q-img
-            :src="post.data.url"
-            style="margin: 10px 0; max-height: 60vh"
-            fit="contain"
-            @click.stop="openMedia(post)"
-          />
-        </template>
-        <q-item-label>
-          {{ post.data.ups }} <q-icon name="arrow_upward" /> ({{
-            (post.data.upvote_ratio * 100).toFixed(0)
-          }}%) • {{ post.data.num_comments }}
-          <q-icon name="chat_bubble_outline" />
-        </q-item-label>
-      </q-item-section>
-    </q-item>
-  </template>
+  <q-item
+    clickable
+    @click="$router.push({ query: { post: post.data.permalink } })"
+    style="flex-wrap: wrap"
+  >
+    <div style="width: 100%; margin: 0 0 8px 0">
+      <q-item-label>
+        <b>r/{{ post.data.subreddit }}</b> •
+        {{ displayTimeAgo(post.data.created_utc) }} •
+        <FlairRenderer :post="post" />
+      </q-item-label>
+    </div>
+    <q-item-section thumbnail>
+      <ThumbnailRenderer
+        :post="post"
+        @open-media="(thisPost) => openMedia(thisPost)"
+      />
+    </q-item-section>
+    <q-item-section top>
+      <q-item-label :lines="3">
+        <TitleRenderer :post="post" font-size="16px" />
+      </q-item-label>
+      <q-item-label :lines="3">
+        {{ post.data.selftext }}
+      </q-item-label>
+    </q-item-section>
+    <div style="width: 100%; margin: 8px 0 0 0">
+      <q-item-label>
+        {{ post.data.ups }} <q-icon name="arrow_upward" /> ({{
+          (post.data.upvote_ratio * 100).toFixed(0)
+        }}%) • {{ post.data.num_comments }}
+        <q-icon name="chat_bubble_outline" />
+      </q-item-label>
+    </div>
+  </q-item>
 </template>
+
 <script setup lang="ts">
 import { Post } from 'src/types/reddit/post';
 import {
@@ -44,36 +46,30 @@ import {
   isVideo,
 } from 'src/util/media';
 import { Dialog } from 'quasar';
-import ImageViewer from './ImageViewer.vue';
+import ImageViewer from '../ImageViewer.vue';
 import { displayTimeAgo } from 'src/util/time';
-import FlairRenderer from './FlairRenderer.vue';
-import GalleryViewer from './GalleryViewer.vue';
+import FlairRenderer from '../FlairRenderer.vue';
+import GalleryViewer from 'components/Post/GalleryViewer.vue';
 import VideoPlayer from 'components/Media/VideoPlayer/VideoPlayer.vue';
+import ThumbnailRenderer from 'components/Post/ThumbnailRenderer.vue';
 import { useVisitedStore } from 'stores/visited-store';
 import { computed } from 'vue';
 import { useSettingsStore } from 'stores/settings-store';
-import FlairBaseRenderer from './FlairBaseRenderer.vue';
-import CardViewDefault from 'components/Post/CardView/CardViewDefault.vue';
+import FlairBaseRenderer from 'components/Post/FlairBaseRenderer.vue';
 import TitleRenderer from 'components/Post/TitleRenderer.vue';
 
 interface Props {
   post: Post;
-  maxLines: number;
-  markVisited: boolean;
 }
 
-const props = withDefaults(defineProps<Props>(), {
-  maxLines: undefined,
-  markVisited: false,
-});
-
+const props = defineProps<Props>();
 const visitedStore = useVisitedStore();
 const settingsStore = useSettingsStore();
 
 const headerColor = computed(() => {
   if (props.post.data.stickied) return '#007a25';
   else if (
-    props.markVisited &&
+    settingsStore.markPostsAsVisited &&
     visitedStore.visitedPosts.includes(props.post.data.name)
   )
     return '#888';
