@@ -11,18 +11,7 @@
     </q-item-section>
     <q-item-section>
       <q-item-label :lines="maxLines">
-        <FlairBaseRenderer
-          v-if="post.data.over_18"
-          background-color="#cc0000"
-          style="margin-right: 4px"
-          >NSFW</FlairBaseRenderer
-        >
-        <q-icon
-          v-if="post.data.stickied"
-          name="push_pin"
-          style="margin-right: 4px; color: #007a25"
-        />
-        <b :style="{ color: headerColor }">{{ post.data.title }}</b>
+        <TitleRenderer :post="post" />
       </q-item-label>
       <q-item-label
         >r/{{ post.data.subreddit }} •
@@ -39,10 +28,10 @@
   </q-item>
 </template>
 <script setup lang="ts">
-import { Post } from '../../types/reddit/post';
+import { Post } from 'src/types/reddit/post';
 import {
-  getVideoExtractor,
   getGalleryUrls,
+  getVideoExtractor,
   isGallery,
   isImage,
   isVideo,
@@ -55,9 +44,8 @@ import GalleryViewer from 'components/Post/GalleryViewer.vue';
 import VideoPlayer from 'components/Media/VideoPlayer/VideoPlayer.vue';
 import ThumbnailRenderer from 'components/Post/ThumbnailRenderer.vue';
 import { useVisitedStore } from 'stores/visited-store';
-import { computed } from 'vue';
 import { useSettingsStore } from 'stores/settings-store';
-import FlairBaseRenderer from 'components/Post/FlairBaseRenderer.vue';
+import TitleRenderer from 'components/Post/TitleRenderer.vue';
 
 interface Props {
   post: Post;
@@ -65,23 +53,13 @@ interface Props {
   markVisited: boolean;
 }
 
-const props = withDefaults(defineProps<Props>(), {
+withDefaults(defineProps<Props>(), {
   maxLines: undefined,
   markVisited: false,
 });
 
 const visitedStore = useVisitedStore();
 const settingsStore = useSettingsStore();
-
-const headerColor = computed(() => {
-  if (props.post.data.stickied) return '#007a25';
-  else if (
-    props.markVisited &&
-    visitedStore.visitedPosts.includes(props.post.data.name)
-  )
-    return '#888';
-  else return undefined;
-});
 
 const openMedia = (post: Post) => {
   if (isImage(post)) {

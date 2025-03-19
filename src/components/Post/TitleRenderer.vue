@@ -22,10 +22,10 @@ import { useVisitedStore } from 'stores/visited-store';
 
 interface Props {
   post: Post;
-  fontSize: string;
+  fontSize?: string;
 }
 
-const { post, fontSize = undefined } = defineProps<Props>();
+const { post, fontSize } = defineProps<Props>();
 const settingsStore = useSettingsStore();
 const visitedStore = useVisitedStore();
 
