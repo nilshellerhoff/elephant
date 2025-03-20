@@ -12,7 +12,6 @@
             :key="post.data.name"
             :post="post"
             :max-lines="3"
-            :mark-visited="true"
           />
         </template>
         <template v-else>
@@ -21,7 +20,6 @@
             :key="post.data.name"
             :post="post"
             :max-lines="3"
-            :mark-visited="true"
           />
         </template>
       </q-infinite-scroll>

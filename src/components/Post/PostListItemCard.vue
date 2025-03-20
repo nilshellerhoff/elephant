@@ -12,7 +12,6 @@ import CardViewImage from 'components/Post/CardView/CardViewImage.vue';
 interface Props {
   post: Post;
   maxLines: number;
-  markVisited: boolean;
 }
 
 defineProps<Props>();

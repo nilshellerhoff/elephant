@@ -51,13 +51,11 @@ import TitleRenderer from 'components/Post/TitleRenderer.vue';
 
 interface Props {
   post: Post;
-  maxLines: number;
-  markVisited: boolean;
+  maxLines?: number;
 }
 
 withDefaults(defineProps<Props>(), {
   maxLines: undefined,
-  markVisited: false,
 });
 
 const visitedStore = useVisitedStore();
