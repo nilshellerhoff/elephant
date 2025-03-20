@@ -47,6 +47,7 @@ import { Post } from 'src/types/reddit/post';
 import { isGallery, isImage, isVideo } from 'src/util/media';
 import { computed } from 'vue';
 import { useSettingsStore } from 'stores/settings-store';
+import { getThumbnailUrl } from 'src/util/post';
 
 interface Props {
   post: Post;
@@ -63,20 +64,7 @@ const blurThumbnail = computed(
   () => settingsStore.blurNsfwThumbnails && props.post.data.over_18
 );
 
-const thumbnailUrl = computed(() => {
-  let url: string | undefined = props.post.data.thumbnail;
-  if (
-    url == 'self' ||
-    url == 'default' ||
-    url == 'image' ||
-    url == 'spoiler' ||
-    url == 'nsfw'
-  )
-    url = undefined;
-
-  url = url ?? props.post.data.preview?.images[0].resolutions[0].url;
-  return url;
-});
+const thumbnailUrl = computed(() => getThumbnailUrl(props.post));
 
 const getIconForType = () => {
   if (isImage(props.post)) {
