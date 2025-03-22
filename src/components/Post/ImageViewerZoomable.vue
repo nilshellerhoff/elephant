@@ -13,7 +13,7 @@
     @stop-drag="(e) => onEvent('stopDrag', e)"
     @dragging="(e) => onEvent('dragging', e)"
     style="overflow: hidden"
-    v-touch-swipe.down="onSwipeDown"
+    v-touch-swipe.down.mouse="swipeDownEnabled ? onSwipeDown : undefined"
     @click="handleOnClick"
     :class="isDoubleTapZooming ? 'animated' : ''"
   >
@@ -68,9 +68,13 @@ const onEvent = (name: string, e: PinchScrollZoomEmitData): void => {
   zoomState.originY = e.originY;
   zoomState.translateX = e.translateX;
   zoomState.translateY = e.translateY;
+
+  swipeDownEnabled.value = e.scale === 1;
 };
 
+const swipeDownEnabled = ref(false);
 const onSwipeDown: TouchSwipeValue = (e) => {
+  if (zoomState.scale !== 1) return e;
   console.log('swipe down');
   // wait for 100ms before emitting close in case swiping was part of zooming in event
   setTimeout(() => {
