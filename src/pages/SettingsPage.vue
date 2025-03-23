@@ -4,16 +4,7 @@
       <q-item-section>
         <q-item-label overline>Theming</q-item-label>
         <q-item-label>
-          <q-btn-toggle
-            v-model="settingsStore.darkMode"
-            toggle-color="primary"
-            :options="[
-              { label: 'Light', value: DarkMode.light },
-              { label: 'Auto', value: DarkMode.auto },
-              { label: 'Dark', value: DarkMode.dark },
-            ]"
-            @update:model-value="(val) => settingsStore.setDarkMode(val)"
-          />
+          <DarkModeSetting />
         </q-item-label>
       </q-item-section>
     </q-item>
@@ -109,12 +100,13 @@
 </template>
 
 <script setup lang="ts">
-import { DarkMode, useSettingsStore } from 'stores/settings-store';
+import { useSettingsStore } from 'stores/settings-store';
 import { useQuasar } from 'quasar';
 import { useVisitedStore } from 'stores/visited-store';
 import { usePageTitle } from 'src/composables/pageTitle';
 import { retrieveToken } from 'src/util/api';
 import { useApiStore } from 'stores/api-store';
+import DarkModeSetting from 'components/Settings/DarkModeSetting.vue';
 
 const settingsStore = useSettingsStore();
 const visitedStore = useVisitedStore();

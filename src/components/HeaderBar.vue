@@ -7,7 +7,7 @@
         {{ pageTitle.title.value }}
       </q-toolbar-title>
       <q-space />
-      <ViewModeSwitch />
+      <QuickSettingsMenu />
     </q-toolbar>
   </q-header>
 </template>
@@ -15,7 +15,7 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { usePageTitle } from 'src/composables/pageTitle';
-import ViewModeSwitch from 'components/Header/ViewModeSwitch.vue';
+import QuickSettingsMenu from 'components/Header/QuickSettingsMenu.vue';
 
 const pageTitle = usePageTitle();
 
