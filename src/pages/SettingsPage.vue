@@ -3,11 +3,18 @@
     <q-item>
       <q-item-section>
         <q-item-label overline>Theming</q-item-label>
-        <q-toggle
-          label="Dark mode"
-          :model-value="settingsStore.darkMode === DarkMode.dark"
-          @update:model-value="settingsStore.toggleDarkMode()"
-        />
+        <q-item-label>
+          <q-btn-toggle
+            v-model="settingsStore.darkMode"
+            toggle-color="primary"
+            :options="[
+              { label: 'Light', value: DarkMode.light },
+              { label: 'Auto', value: DarkMode.auto },
+              { label: 'Dark', value: DarkMode.dark },
+            ]"
+            @update:model-value="(val) => settingsStore.setDarkMode(val)"
+          />
+        </q-item-label>
       </q-item-section>
     </q-item>
     <q-item>

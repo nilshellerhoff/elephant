@@ -1,10 +1,12 @@
 import { RemovableRef, useLocalStorage } from '@vueuse/core';
 import { defineStore } from 'pinia';
 import { Dark } from 'quasar';
+import { toQuasarDarkSetting } from 'src/util/quasar';
 
 export enum DarkMode {
   'light',
   'dark',
+  'auto',
 }
 
 export enum ViewMode {
@@ -37,7 +39,7 @@ export const useSettingsStore = defineStore('settings', {
       true
     ),
     blurNsfwThumbnails: useLocalStorage('blurNsfwThumbnails', true),
-    darkMode: useLocalStorage('darkMode', DarkMode.light),
+    darkMode: useLocalStorage('darkMode', DarkMode.auto),
     useSentry: useLocalStorage('useSentry', false),
     useRedditApplicationOnlyOauth: useLocalStorage(
       'settings_useRedditApplicationOnlyOauth',
@@ -55,15 +57,15 @@ export const useSettingsStore = defineStore('settings', {
   }),
   actions: {
     init(): void {
-      Dark.set(this.darkMode == DarkMode.dark);
+      Dark.set(toQuasarDarkSetting(this.darkMode));
     },
     setMarkPostsAsVisited(value: boolean): void {
       if (value) this.markPostsAsVisited = true;
       else this.markPostsAsVisited = false;
     },
-    toggleDarkMode() {
-      Dark.toggle();
-      this.darkMode = Dark.isActive ? DarkMode.dark : DarkMode.light;
+    setDarkMode(value: DarkMode): void {
+      this.darkMode = value;
+      Dark.set(toQuasarDarkSetting(value));
     },
   },
 });
