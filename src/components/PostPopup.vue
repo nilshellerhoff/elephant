@@ -30,6 +30,7 @@
             :href="'https://reddit.com/' + postData?.permalink"
             target="_blank"
           />
+          <q-btn icon="share" flat @click="sharePost" />
           <q-btn
             v-if="postData?.url"
             color="primary"
@@ -157,6 +158,15 @@ const openSortingSelector = () => {
   }).onOk(({ label, mode }) => {
     sortingMode.value = { label, mode };
   });
+};
+
+const sharePost = () => {
+  if (postData.value) {
+    navigator.share({
+      title: postData.value.title,
+      url: postData.value.url,
+    });
+  }
 };
 
 watch(
