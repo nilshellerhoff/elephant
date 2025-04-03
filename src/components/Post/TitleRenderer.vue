@@ -1,10 +1,5 @@
 <template>
-  <FlairBaseRenderer
-    v-if="post.data.over_18"
-    background-color="#cc0000"
-    style="margin-right: 4px"
-    >NSFW</FlairBaseRenderer
-  >
+  <NsfwFlair v-if="post.data.over_18" style="margin-right: 4px" />
   <q-icon
     v-if="post.data.stickied"
     name="push_pin"
@@ -15,10 +10,10 @@
 
 <script setup lang="ts">
 import { Post } from 'src/types/reddit/post';
-import FlairBaseRenderer from 'components/Post/FlairBaseRenderer.vue';
 import { computed } from 'vue';
 import { useSettingsStore } from 'stores/settings-store';
 import { useVisitedStore } from 'stores/visited-store';
+import NsfwFlair from 'components/Flair/NsfwFlair.vue';
 
 interface Props {
   post: Post;

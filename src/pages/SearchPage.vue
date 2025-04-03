@@ -30,12 +30,7 @@
       </q-item-section>
       <q-item-section>
         <q-item-label>
-          <FlairBaseRenderer
-            v-if="subreddit.data.over18"
-            background-color="#cc0000"
-            style="margin-right: 4px"
-            >NSFW</FlairBaseRenderer
-          >
+          <NsfwFlair v-if="subreddit.data.over18" style="margin-right: 4px" />
           <b>{{ subreddit.data.display_name_prefixed }}</b>
         </q-item-label>
         <q-item-label lines="1">
@@ -53,8 +48,8 @@ import { watchDebounced } from '@vueuse/core';
 import { redditGetResponse } from 'src/util/api';
 import { SubredditsSearchResponse } from 'src/types/reddit/search';
 import { SubredditAboutResponse } from 'src/types/reddit/subreddit';
-import FlairBaseRenderer from 'components/Post/FlairBaseRenderer.vue';
 import SubredditIconRenderer from 'components/Subreddit/SubredditIconRenderer.vue';
+import NsfwFlair from 'components/Flair/NsfwFlair.vue';
 
 const title = usePageTitle();
 

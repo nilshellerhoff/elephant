@@ -8,7 +8,7 @@
       <q-item-label>
         <b>r/{{ post.data.subreddit }}</b> •
         {{ displayTimeAgo(post.data.created_utc) }} •
-        <FlairRenderer :post="post" />
+        <FlairRendererPost :post="post" />
       </q-item-label>
     </div>
     <q-item-section thumbnail>
@@ -48,13 +48,13 @@ import {
 import { Dialog } from 'quasar';
 import ImageViewer from '../ImageViewer.vue';
 import { displayTimeAgo } from 'src/util/time';
-import FlairRenderer from '../FlairRenderer.vue';
 import GalleryViewer from 'components/Post/GalleryViewer.vue';
 import VideoPlayer from 'components/Media/VideoPlayer/VideoPlayer.vue';
 import ThumbnailRenderer from 'components/Post/ThumbnailRenderer.vue';
 import { useVisitedStore } from 'stores/visited-store';
 import { useSettingsStore } from 'stores/settings-store';
 import TitleRenderer from 'components/Post/TitleRenderer.vue';
+import FlairRendererPost from 'components/Post/FlairRendererPost.vue';
 
 interface Props {
   post: Post;

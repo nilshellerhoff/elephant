@@ -55,6 +55,9 @@ export const useSettingsStore = defineStore('settings', {
     ),
     viewMode: useLocalStorage('viewMode', ViewMode.LIST),
   }),
+  getters: {
+    isDark: () => Dark.isActive,
+  },
   actions: {
     init(): void {
       Dark.set(toQuasarDarkSetting(this.darkMode));

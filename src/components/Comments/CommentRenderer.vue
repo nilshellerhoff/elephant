@@ -7,8 +7,17 @@
         style="margin-right: 4px; color: #007a25"
       />
       <span :style="`color: ${getUsernameColor()};`">
-        u/{{ comment.data.author }}</span
-      >
+        u/{{ comment.data.author }}
+      </span>
+      <template v-if="commentHasFlair(comment)">
+        &nbsp;•&nbsp;<FlairRenderer
+          :flair-richtext="comment.data.author_flair_richtext"
+          :flair-type="comment.data.author_flair_type"
+          :flair-text="comment.data.author_flair_text"
+          :flair-background-color="comment.data.author_flair_background_color"
+          :flair-text-color="comment.data.author_flair_text_color"
+        />
+      </template>
       <span style="float: right">
         <CommentTopRight :comment="comment" />
       </span>
@@ -43,6 +52,9 @@ import CommentBase from 'components/Comments/CommentBase.vue';
 import CommentRepliesRenderer from 'components/Comments/CommentRepliesRenderer.vue';
 import { IComment, isComment } from 'src/types/reddit/comment';
 import { useSettingsStore } from 'stores/settings-store';
+import FlairRenderer from 'components/Post/FlairRenderer.vue';
+import { commentHasFlair } from 'src/util/flair';
+
 interface Props {
   comment: IComment;
 }

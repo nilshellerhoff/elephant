@@ -8,7 +8,7 @@
       <q-item-label>
         <b>r/{{ post.data.subreddit }}</b> •
         {{ displayTimeAgo(post.data.created_utc) }} •
-        <FlairRenderer :post="post" />
+        <FlairRendererPost :post="post" />
       </q-item-label>
     </div>
     <div style="width: 100%; margin: 0 0 8px 0">
@@ -33,8 +33,8 @@
 <script setup lang="ts">
 import { Post } from 'src/types/reddit/post';
 import { displayTimeAgo } from 'src/util/time';
-import FlairRenderer from '../FlairRenderer.vue';
 import TitleRenderer from 'components/Post/TitleRenderer.vue';
+import FlairRendererPost from 'components/Post/FlairRendererPost.vue';
 
 interface Props {
   post: Post;

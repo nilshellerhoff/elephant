@@ -1,32 +1,41 @@
 <template>
   <FlairBaseRenderer
-    v-if="post.data.link_flair_type == 'richtext'"
+    v-if="flairType == 'richtext'"
     :background-color="backgroundColor"
     :foreground-color="foregroundColor"
   >
-    <span
-      v-if="post.data.link_flair_type == 'richtext'"
-      v-html="renderRichtextFlair()"
-    ></span>
+    <span v-if="flairType == 'richtext'" v-html="renderRichtextFlair()"></span>
     <span v-else>
-      {{ post.data.link_flair_text }}
+      {{ flairText }}
     </span>
   </FlairBaseRenderer>
 </template>
 
 <script setup lang="ts">
-import { Post } from 'src/types/reddit/post';
 import FlairBaseRenderer from 'components/Post/FlairBaseRenderer.vue';
 import { computed } from 'vue';
+import {
+  FlairBackgroundColor,
+  FlairRichtextPart,
+  FlairTextColor,
+  FlairType,
+} from 'src/types/reddit/flair';
+import { useSettingsStore } from 'stores/settings-store';
+import { backgroundIsSet } from 'src/util/flair';
 
 interface Props {
-  post: Post;
+  flairRichtext: FlairRichtextPart[];
+  flairType: FlairType;
+  flairText: string;
+  flairBackgroundColor: FlairBackgroundColor;
+  flairTextColor: FlairTextColor;
 }
 
 const props = defineProps<Props>();
+const settingsStore = useSettingsStore();
 
 const renderRichtextFlair = () => {
-  return props.post.data.link_flair_richtext.reduce((acc, curr) => {
+  return props.flairRichtext.reduce((acc, curr) => {
     if (curr.e == 'text') return acc + curr.t;
     else if (curr.e == 'emoji')
       return (
@@ -37,10 +46,17 @@ const renderRichtextFlair = () => {
   }, '');
 };
 
-const backgroundColor = computed(
-  () => props.post.data.link_flair_background_color
-);
-const foregroundColor = computed(() =>
-  props.post.data.link_flair_text_color == 'light' ? '#eee' : '#111'
-);
+const foregroundColor = computed(() => {
+  if (backgroundIsSet(props.flairBackgroundColor)) {
+    if (props.flairTextColor === 'light') return '#eee';
+    if (props.flairTextColor === 'dark') return '#111';
+  }
+  return settingsStore.isDark ? '#eee' : '#111';
+});
+
+const backgroundColor = computed(() => {
+  if (backgroundIsSet(props.flairBackgroundColor))
+    return props.flairBackgroundColor || 'transparent';
+  return settingsStore.isDark ? '#111' : '#eee';
+});
 </script>

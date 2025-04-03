@@ -16,7 +16,7 @@
       <q-item-label
         >r/{{ post.data.subreddit }} •
         {{ displayTimeAgo(post.data.created_utc) }} •
-        <FlairRenderer :post="post" />
+        <FlairRendererPost :post="post" />
       </q-item-label>
       <q-item-label>
         {{ post.data.ups }} <q-icon name="arrow_upward" /> ({{
@@ -39,13 +39,13 @@ import {
 import { Dialog } from 'quasar';
 import ImageViewer from './ImageViewer.vue';
 import { displayTimeAgo } from 'src/util/time';
-import FlairRenderer from './FlairRenderer.vue';
 import GalleryViewer from 'components/Post/GalleryViewer.vue';
 import VideoPlayer from 'components/Media/VideoPlayer/VideoPlayer.vue';
 import ThumbnailRenderer from 'components/Post/ThumbnailRenderer.vue';
 import { useVisitedStore } from 'stores/visited-store';
 import { useSettingsStore } from 'stores/settings-store';
 import TitleRenderer from 'components/Post/TitleRenderer.vue';
+import FlairRendererPost from 'components/Post/FlairRendererPost.vue';
 
 interface Props {
   post: Post;

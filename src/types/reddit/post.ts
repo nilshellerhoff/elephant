@@ -1,25 +1,6 @@
 import { Kind } from 'src/types/reddit/base';
 import { IComment } from './comment';
-
-export type LinkFlairRichtextPartText = {
-  e: 'text';
-  t: string;
-};
-
-export type LinkFlairRichtextPartEmoji = {
-  a: string;
-  e: 'emoji';
-  u: string;
-};
-
-export type LinkFlairRichtextPartUnknown = {
-  e: 'unknown';
-};
-
-export type LinkFlairRichtextPart =
-  | LinkFlairRichtextPartText
-  | LinkFlairRichtextPartEmoji
-  | LinkFlairRichtextPartUnknown;
+import { AuthorFlair, LinkFlair } from 'src/types/reddit/flair';
 
 export type MediaEntryImage = {
   u: string;
@@ -72,11 +53,6 @@ export type PostData = {
   is_video: boolean;
   created: number;
   created_utc: number;
-  link_flair_background_color: string;
-  link_flair_text: string;
-  link_flair_text_color: 'dark' | 'light';
-  link_flair_type: 'richtext';
-  link_flair_richtext: LinkFlairRichtextPart[];
   gallery_data: {
     items: {
       media_id: string;
@@ -102,7 +78,8 @@ export type PostData = {
   };
   stickied: boolean;
   over_18: boolean;
-};
+} & AuthorFlair &
+  LinkFlair;
 
 export type PostInformation = {
   kind: Kind;
