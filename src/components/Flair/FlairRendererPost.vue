@@ -11,7 +11,7 @@
 
 <script lang="ts" setup>
 import { Post } from 'src/types/reddit/post';
-import FlairRenderer from 'components/Post/FlairRenderer.vue';
+import FlairRenderer from 'components/Flair/FlairRenderer.vue';
 import { postHasFlair } from 'src/util/flair';
 
 interface Props {

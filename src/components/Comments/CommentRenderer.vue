@@ -52,7 +52,7 @@ import CommentBase from 'components/Comments/CommentBase.vue';
 import CommentRepliesRenderer from 'components/Comments/CommentRepliesRenderer.vue';
 import { IComment, isComment } from 'src/types/reddit/comment';
 import { useSettingsStore } from 'stores/settings-store';
-import FlairRenderer from 'components/Post/FlairRenderer.vue';
+import FlairRenderer from 'components/Flair/FlairRenderer.vue';
 import { commentHasFlair } from 'src/util/flair';
 
 interface Props {

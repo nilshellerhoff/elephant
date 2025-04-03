@@ -47,7 +47,7 @@ import VideoPlayer from 'components/Media/VideoPlayer/VideoPlayer.vue';
 import { useVisitedStore } from 'stores/visited-store';
 import { useSettingsStore } from 'stores/settings-store';
 import TitleRenderer from 'components/Post/TitleRenderer.vue';
-import FlairRendererPost from 'components/Post/FlairRendererPost.vue';
+import FlairRendererPost from 'components/Flair/FlairRendererPost.vue';
 
 interface Props {
   post: Post;

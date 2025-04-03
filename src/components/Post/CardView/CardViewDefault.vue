@@ -34,7 +34,7 @@
 import { Post } from 'src/types/reddit/post';
 import { displayTimeAgo } from 'src/util/time';
 import TitleRenderer from 'components/Post/TitleRenderer.vue';
-import FlairRendererPost from 'components/Post/FlairRendererPost.vue';
+import FlairRendererPost from 'components/Flair/FlairRendererPost.vue';
 
 interface Props {
   post: Post;

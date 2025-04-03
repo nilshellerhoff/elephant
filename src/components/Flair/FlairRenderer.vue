@@ -12,7 +12,7 @@
 </template>
 
 <script setup lang="ts">
-import FlairBaseRenderer from 'components/Post/FlairBaseRenderer.vue';
+import FlairBaseRenderer from 'components/Flair/FlairBaseRenderer.vue';
 import { computed } from 'vue';
 import {
   FlairBackgroundColor,
