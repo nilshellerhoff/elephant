@@ -14,7 +14,7 @@
           <PostListItemLoading />
         </template>
 
-        <PostListItem v-if="post" :post="post" />
+        <PostListItem v-if="post" :post="post" :ignore-visited="true" />
 
         <RedditContentRenderer
           style="padding: 4px"

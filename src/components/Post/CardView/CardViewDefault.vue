@@ -13,7 +13,11 @@
     </div>
     <div style="width: 100%; margin: 0 0 8px 0">
       <q-item-label :lines="3">
-        <TitleRenderer :post="post" font-size="16px" />
+        <TitleRenderer
+          :post="post"
+          :ignore-visited="ignoreVisited"
+          font-size="16px"
+        />
       </q-item-label>
       <q-item-label :lines="3">
         {{ post.data.selftext }}
@@ -39,6 +43,7 @@ import SubredditNameLink from 'components/Post/SubredditNameLink.vue';
 
 interface Props {
   post: Post;
+  ignoreVisited?: boolean;
 }
 
 defineProps<Props>();

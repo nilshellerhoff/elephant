@@ -11,7 +11,7 @@
     </q-item-section>
     <q-item-section>
       <q-item-label :lines="maxLines">
-        <TitleRenderer :post="post" />
+        <TitleRenderer :post="post" :ignore-visited="ignoreVisited" />
       </q-item-label>
       <q-item-label>
         <SubredditNameLink :subreddit-name="post.data.subreddit" /> •
@@ -51,6 +51,7 @@ import SubredditNameLink from 'components/Post/SubredditNameLink.vue';
 interface Props {
   post: Post;
   maxLines?: number;
+  ignoreVisited?: boolean;
 }
 
 withDefaults(defineProps<Props>(), {

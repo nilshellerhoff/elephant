@@ -10,7 +10,11 @@
         <FlairRendererPost :post="post" />
       </q-item-label>
       <q-item-label :lines="maxLines">
-        <TitleRenderer :post="post" font-size="16px" />
+        <TitleRenderer
+          :post="post"
+          :ignore-visited="ignoreVisited"
+          font-size="16px"
+        />
       </q-item-label>
       <template v-if="isImage(post)">
         <q-img
@@ -52,6 +56,7 @@ import SubredditNameLink from 'components/Post/SubredditNameLink.vue';
 
 interface Props {
   post: Post;
+  ignoreVisited?: boolean;
   maxLines?: number;
 }
 

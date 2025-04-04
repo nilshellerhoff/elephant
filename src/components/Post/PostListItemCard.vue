@@ -1,10 +1,15 @@
 <template>
-  <CardViewImage v-if="isImage(post)" :post="post" />
+  <CardViewImage
+    v-if="isImage(post)"
+    :post="post"
+    :ignore-visited="ignoreVisited"
+  />
   <CardViewThumbnail
     v-else-if="getThumbnailUrl(post) !== undefined"
     :post="post"
+    :ignore-visited="ignoreVisited"
   />
-  <CardViewDefault v-else :post="post" />
+  <CardViewDefault v-else :post="post" :ignore-visited="ignoreVisited" />
 </template>
 
 <script setup lang="ts">
@@ -17,6 +22,7 @@ import { getThumbnailUrl } from 'src/util/post';
 
 interface Props {
   post: Post;
+  ignoreVisited?: boolean;
   maxLines: number;
 }
 

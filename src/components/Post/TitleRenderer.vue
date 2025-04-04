@@ -18,15 +18,20 @@ import NsfwFlair from 'components/Flair/NsfwFlair.vue';
 interface Props {
   post: Post;
   fontSize?: string;
+  ignoreVisited?: boolean;
 }
 
-const { post, fontSize } = defineProps<Props>();
+const { post, fontSize, ignoreVisited } = withDefaults(defineProps<Props>(), {
+  ignoreVisited: false,
+});
+
 const settingsStore = useSettingsStore();
 const visitedStore = useVisitedStore();
 
 const headerColor = computed(() => {
   if (post.data.stickied) return '#007a25';
   else if (
+    !ignoreVisited &&
     settingsStore.markPostsAsVisited &&
     visitedStore.visitedPosts.includes(post.data.name)
   )
