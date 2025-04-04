@@ -4,8 +4,8 @@
     @click="$router.push({ query: { post: post.data.permalink } })"
   >
     <q-item-section>
-      <q-item-label
-        >r/{{ post.data.subreddit }} •
+      <q-item-label>
+        <SubredditNameLink :subreddit-name="post.data.subreddit" /> •
         {{ displayTimeAgo(post.data.created_utc) }} •
         <FlairRendererPost :post="post" />
       </q-item-label>
@@ -48,6 +48,7 @@ import { useVisitedStore } from 'stores/visited-store';
 import { useSettingsStore } from 'stores/settings-store';
 import TitleRenderer from 'components/Post/TitleRenderer.vue';
 import FlairRendererPost from 'components/Flair/FlairRendererPost.vue';
+import SubredditNameLink from 'components/Post/SubredditNameLink.vue';
 
 interface Props {
   post: Post;
