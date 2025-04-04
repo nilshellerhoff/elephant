@@ -21,7 +21,11 @@ interface Props {
   ignoreVisited?: boolean;
 }
 
-const { post, fontSize, ignoreVisited } = withDefaults(defineProps<Props>(), {
+const {
+  post,
+  fontSize = undefined,
+  ignoreVisited,
+} = withDefaults(defineProps<Props>(), {
   ignoreVisited: false,
 });
 
