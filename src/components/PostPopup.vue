@@ -162,9 +162,10 @@ const openSortingSelector = () => {
 
 const sharePost = () => {
   if (postData.value) {
+    const shareUrl = window.location.origin + postData.value.permalink;
     navigator.share({
       title: postData.value.title,
-      url: postData.value.url,
+      url: shareUrl,
     });
   }
 };
