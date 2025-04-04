@@ -22,5 +22,6 @@ const style = computed(() => ({
   fontSize: '12px',
   color: props.foregroundColor,
   backgroundColor: props.backgroundColor,
+  whiteSpace: 'nowrap',
 }));
 </script>
