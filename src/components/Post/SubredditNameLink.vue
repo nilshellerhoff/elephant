@@ -15,7 +15,7 @@ defineProps<Props>();
 <style>
 a {
   font-size: 14px;
-  color: var(--q-primary);
+  color: var(--q-secondary);
   text-decoration: none;
 }
 </style>
