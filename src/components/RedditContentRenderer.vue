@@ -1,18 +1,40 @@
 <template>
-  <div class="comment-content" v-html="html" v-links-in-new-window></div>
+  <div class="comment-content" v-html="processedHtml"></div>
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue';
+
 interface Props {
   html: string;
 }
 
-defineProps<Props>();
+const { html } = defineProps<Props>();
 
-const unescapeHTML = (input: string) => {
-  const elt = document.createElement('span');
-  elt.innerHTML = input;
-  return elt.innerText;
+const processedHtml = computed(() => {
+  const el = document.createElement('span');
+  el.innerHTML = html;
+
+  linksNewTab(el);
+  imagesMaxWidth(el);
+
+  return el.innerHTML;
+});
+
+const linksNewTab = (el: HTMLElement): void => {
+  const anchors = el.querySelectorAll('a');
+  anchors.forEach((anchor) => {
+    anchor.target = '_blank';
+    anchor.onclick = (ev) => ev.stopPropagation();
+  });
+};
+
+const imagesMaxWidth = (el: HTMLElement): void => {
+  const images = el.querySelectorAll('img');
+  images.forEach((image) => {
+    image.removeAttribute('height');
+    image.style.maxWidth = '100%';
+  });
 };
 </script>
 
