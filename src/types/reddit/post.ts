@@ -1,12 +1,11 @@
 import { Kind } from 'src/types/reddit/base';
 import { IComment } from './comment';
 import { AuthorFlair, LinkFlair } from 'src/types/reddit/flair';
-
-export type MediaEntryImage = {
-  u: string;
-  x: number;
-  y: number;
-};
+import {
+  MediaMetadataAnimatedImage,
+  MediaMetadataImage,
+  MediaRedditVideo,
+} from 'src/types/reddit/media';
 
 export type PreviewImageEntry = {
   id: string;
@@ -21,20 +20,6 @@ export type PreviewImageEntry = {
     url: string;
   };
   variants: any;
-};
-
-export type MediaRedditVideo = {
-  bitrate_kbps: number;
-  fallback_url: string;
-  has_audio: boolean;
-  height: number;
-  width: number;
-  scrubber_media_url: string;
-  dash_url: string;
-  duration: number;
-  hls_url: string;
-  is_gif: boolean;
-  transcoding_status: 'completed';
 };
 
 export type PostData = {
@@ -60,14 +45,7 @@ export type PostData = {
     }[];
   };
   media_metadata: {
-    [id: string]: {
-      e: 'Image';
-      id: string;
-      m: string;
-      p: MediaEntryImage[];
-      s: MediaEntryImage;
-      status: 'valid';
-    };
+    [id: string]: MediaMetadataImage | MediaMetadataAnimatedImage;
   };
   media: {
     reddit_video: MediaRedditVideo;

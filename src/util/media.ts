@@ -16,7 +16,7 @@ export const IMAGE_EXTRACTORS: {
   extractor: (post: Post) => string;
 }[] = [
   {
-    test: urlTest(/i.redd.it/),
+    test: urlTest(/i\.redd\.it/),
     extractor: urlExtractor,
   },
   {
@@ -31,9 +31,11 @@ export const isImage = (post: Post) =>
 // Galleries
 const redditGalleryExtractor = (post: Post): string[] => {
   // images need sorting based on gallery_data object
-  return post.data.gallery_data.items.map(
-    (item) => post.data.media_metadata[item.media_id].s.u
-  );
+  return post.data.gallery_data.items.map((item) => {
+    const media = post.data.media_metadata[item.media_id];
+    if (media.e === 'AnimatedImage') return media.s.gif;
+    else return media.s.u;
+  });
 };
 
 export const GALLERY_EXTRACTORS: {
