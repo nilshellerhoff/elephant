@@ -13,7 +13,7 @@
     @stop-drag="(e) => onEvent('stopDrag', e)"
     @dragging="(e) => onEvent('dragging', e)"
     style="overflow: hidden"
-    v-touch-swipe.down.mouse="swipeDownEnabled ? onSwipeDown : undefined"
+    v-touch-swipe.down.up.right.left="swipeEnabled ? swipeHandler : undefined"
     @click="handleOnClick"
     :class="isDoubleTapZooming ? 'animated' : ''"
   >
@@ -42,7 +42,7 @@ interface Props {
   url: string;
 }
 defineProps<Props>();
-const emit = defineEmits(['close']);
+const emit = defineEmits(['swipeUp', 'close', 'swipeLeft', 'swipeRight']);
 const logger = useLogger();
 
 const zoomer = ref<PinchScrollZoomExposed>();
@@ -69,21 +69,27 @@ const onEvent = (name: string, e: PinchScrollZoomEmitData): void => {
   zoomState.translateX = e.translateX;
   zoomState.translateY = e.translateY;
 
-  swipeDownEnabled.value = e.scale === 1;
+  swipeEnabled.value = e.scale === 1;
 };
 
-const swipeDownEnabled = ref(false);
-const onSwipeDown: TouchSwipeValue = (e) => {
-  if (zoomState.scale !== 1) return e;
-  console.log('swipe down');
+const swipeEnabled = ref(false);
+const swipeHandler: TouchSwipeValue = (ev) => {
+  console.log(`detected swipe ${ev.direction}`);
+
+  if (zoomState.scale !== 1) return ev;
+
   // wait for 100ms before emitting close in case swiping was part of zooming in event
   setTimeout(() => {
     if (zoomState.scale === 1) {
-      logger.debug('swipeDown');
       // when only listening for touches we get a TouchEvent for sure
-      const touches = (e.evt as TouchEvent).touches;
+      const touches = (ev.evt as TouchEvent).touches;
       // only emit if only one finger
-      if (touches.length == 1) emit('close');
+      if (touches.length != 1) return ev;
+
+      if (ev.direction === 'down') emit('close');
+      if (ev.direction === 'up') emit('swipeUp');
+      if (ev.direction === 'left') emit('swipeLeft');
+      if (ev.direction === 'right') emit('swipeRight');
     }
   }, 100);
 };

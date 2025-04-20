@@ -11,7 +11,6 @@
       v-model="slide"
       arrows
       navigation
-      swipeable
       style="background-color: #00000000"
       transition-prev="slide-right"
       transition-next="slide-left"
@@ -22,7 +21,13 @@
         :key="idx"
         style="padding: 0"
       >
-        <ImageViewerZoomable ref="zoomable" :url="url" @close="close" />
+        <ImageViewerZoomable
+          ref="zoomable"
+          :url="url"
+          @close="close"
+          @swipe-right="previousSlide"
+          @swipe-left="nextSlide"
+        />
       </q-carousel-slide>
     </q-carousel>
   </q-dialog>
@@ -38,7 +43,7 @@ import { useStatusbar } from 'src/composables/statusbar';
 interface Props {
   urls: string[];
 }
-defineProps<Props>();
+const { urls } = defineProps<Props>();
 defineEmits([...useDialogPluginComponent.emits]);
 
 const { dialogRef, onDialogHide, onDialogOK } = useDialogPluginComponent();
@@ -47,6 +52,16 @@ const statusBar = useStatusbar();
 onMounted(() => statusBar.setColor('#000'));
 
 const slide = ref(0);
+const previousSlide = () => {
+  if (slide.value > 0) {
+    slide.value--;
+  }
+};
+const nextSlide = () => {
+  if (slide.value < urls.length - 1) {
+    slide.value++;
+  }
+};
 
 const zoomable = ref();
 
