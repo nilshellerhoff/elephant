@@ -8,7 +8,7 @@ export const imgurImageTest = (url: string) => {
 const urlExtractor = (url: string): string => url;
 
 // Images
-export const IMAGE_EXTRACTORS: {
+export const IMAGE_EXTRACTORS_URL: {
   test: (url: string) => boolean;
   extractor: (url: string) => string;
 }[] = [
@@ -27,4 +27,4 @@ export const IMAGE_EXTRACTORS: {
 ];
 
 export const isImage = (url: string) =>
-  IMAGE_EXTRACTORS.some((extractor) => extractor.test(url));
+  IMAGE_EXTRACTORS_URL.some((extractor) => extractor.test(url));

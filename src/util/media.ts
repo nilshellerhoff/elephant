@@ -1,5 +1,6 @@
 import { Post } from 'src/types/reddit/post';
 import { VideoExtractor } from 'src/types/media';
+import { IMAGE_EXTRACTORS_URL } from 'src/util/mediaUrl';
 
 export const urlTest = (expression: RegExp) => (post: Post) =>
   expression.test(post.data.url);
@@ -8,22 +9,14 @@ export const imgurImageTest = (post: Post) => {
   return urlTest(/i.imgur.com/)(post);
 };
 
-const urlExtractor = (post: Post): string => post.data.url;
-
 // Images
 export const IMAGE_EXTRACTORS: {
   test: (post: Post) => boolean;
   extractor: (post: Post) => string;
-}[] = [
-  {
-    test: urlTest(/i\.redd\.it/),
-    extractor: urlExtractor,
-  },
-  {
-    test: imgurImageTest,
-    extractor: urlExtractor,
-  },
-];
+}[] = IMAGE_EXTRACTORS_URL.map(({ test, extractor }) => ({
+  test: (post) => test(post.data.url),
+  extractor: (post) => extractor(post.data.url),
+}));
 
 export const isImage = (post: Post) =>
   IMAGE_EXTRACTORS.some((extractor) => extractor.test(post));

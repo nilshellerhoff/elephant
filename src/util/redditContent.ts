@@ -1,6 +1,6 @@
 import { Dialog } from 'quasar';
 import ImageViewer from 'components/Post/ImageViewer.vue';
-import { isImage } from 'src/util/urlMedia';
+import { isImage } from 'src/util/mediaUrl';
 
 export const processRedditContent = (el: HTMLElement) => {
   linksNewTab(el);
