@@ -10,13 +10,17 @@ export const imgurImageTest = (post: Post) => {
 };
 
 // Images
+// export const IMAGE_EXTRACTORS: {
+//   test: (post: Post) => boolean;
+//   extractor: (post: Post) => string;
+// }[] = IMAGE_EXTRACTORS_URL.map(({ test, extractor }) => ({
+//   test: (post) => test(post.data.url),
+//   extractor: (post) => extractor(post.data.url),
+// }));
 export const IMAGE_EXTRACTORS: {
   test: (post: Post) => boolean;
   extractor: (post: Post) => string;
-}[] = IMAGE_EXTRACTORS_URL.map(({ test, extractor }) => ({
-  test: (post) => test(post.data.url),
-  extractor: (post) => extractor(post.data.url),
-}));
+}[] = [];
 
 export const isImage = (post: Post) =>
   IMAGE_EXTRACTORS.some((extractor) => extractor.test(post));

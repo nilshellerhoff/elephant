@@ -1,6 +1,12 @@
 import { Dialog } from 'quasar';
 import ImageViewer from 'components/Post/ImageViewer.vue';
-import { isImage } from 'src/util/mediaUrl';
+import {
+  getGalleryUrls,
+  getImageExtractor,
+  isGallery,
+  isImage,
+} from 'src/util/mediaUrl';
+import GalleryViewer from 'components/Post/GalleryViewer.vue';
 
 export const processRedditContent = (el: HTMLElement) => {
   linksNewTab(el);
@@ -19,14 +25,24 @@ const linksNewTab = (el: HTMLElement): void => {
 const imageLinksInViewer = (el: HTMLElement): void => {
   const anchors = el.querySelectorAll('a');
   anchors.forEach((anchor) => {
-    if (isImage(anchor.href)) {
+    const isImageLink = isImage(anchor.href);
+    const isGalleryLink = isGallery(anchor.href);
+    if (isImageLink || isGalleryLink) {
+      const extractor = isGalleryLink
+        ? getGalleryUrls(anchor.href)
+        : getImageExtractor(anchor.href);
+      if (!extractor) return;
+
       anchor.addEventListener('click', (ev) => {
         console.log('open image viewer');
         ev.preventDefault();
         ev.stopPropagation();
-        Dialog.create({
-          component: ImageViewer,
-          componentProps: { url: anchor.href },
+        extractor.extractor(anchor.href).then((res) => {
+          if (!res) return;
+          Dialog.create({
+            component: isGalleryLink ? GalleryViewer : ImageViewer,
+            componentProps: { url: res },
+          });
         });
         return false;
       });
