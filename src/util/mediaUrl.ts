@@ -24,6 +24,26 @@ export const IMAGE_EXTRACTORS_URL: {
     test: imgurImageTest,
     extractor: urlExtractor,
   },
+  {
+    test: urlTest(/\.jpg$/),
+    extractor: urlExtractor,
+  },
+  {
+    test: urlTest(/\.jpeg$/),
+    extractor: urlExtractor,
+  },
+  {
+    test: urlTest(/\.png$/),
+    extractor: urlExtractor,
+  },
+  {
+    test: urlTest(/\.gif$/),
+    extractor: urlExtractor,
+  },
+  {
+    test: urlTest(/\.webp$/),
+    extractor: urlExtractor,
+  },
 ];
 
 export const isImage = (url: string) =>
