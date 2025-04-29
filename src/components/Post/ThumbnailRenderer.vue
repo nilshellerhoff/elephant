@@ -23,7 +23,7 @@
       />
     </div>
     <div
-      v-if="thumbnailUrl !== undefined"
+      v-if="mediaIcon !== undefined"
       style="
         position: absolute;
         left: 0;
@@ -36,7 +36,7 @@
         style="margin: 3px; filter: none"
         size="20px"
         color="white"
-        :name="getIconForType()"
+        :name="mediaIcon"
       />
     </div>
   </div>
@@ -66,13 +66,17 @@ const blurThumbnail = computed(
 
 const thumbnailUrl = computed(() => getThumbnailUrl(props.post));
 
-const getIconForType = () => {
+const mediaIcon = computed(() => {
   if (isImage(props.post)) {
     return 'image';
   } else if (isGallery(props.post)) {
     return 'photo_library';
   } else if (isVideo(props.post)) {
     return 'play_arrow';
-  } else return 'link';
-};
+  } else if (!props.post.data.url.endsWith(props.post.data.permalink)) {
+    return 'link';
+  } else {
+    return undefined;
+  }
+});
 </script>
