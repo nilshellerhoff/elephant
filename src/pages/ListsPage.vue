@@ -10,6 +10,7 @@
     <q-item
       v-for="subscription in listsStore.subscriptions"
       :key="subscription.code"
+      :to="`/r/${subscription.code}`"
     >
       <q-item-section avatar>
         <q-avatar>
@@ -22,7 +23,11 @@
         </q-item-label>
       </q-item-section>
       <q-item-section side>
-        <q-btn flat icon="delete" @click="unsubscribe(subscription.code)" />
+        <q-btn
+          flat
+          icon="delete"
+          @click.prevent="unsubscribe(subscription.code)"
+        />
       </q-item-section>
     </q-item>
   </q-list>
