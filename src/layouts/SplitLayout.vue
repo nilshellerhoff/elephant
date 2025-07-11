@@ -15,12 +15,11 @@
           </router-view>
         </div>
         <div style="flex: 1">
-          asdf
-          <!--        <router-view name="post" v-slot="{ Component }">-->
-          <!--          <keep-alive>-->
-          <!--            <component :is="Component" />-->
-          <!--          </keep-alive>-->
-          <!--        </router-view>-->
+          <router-view name="post" v-slot="{ Component }">
+            <keep-alive>
+              <component :is="Component" />
+            </keep-alive>
+          </router-view>
         </div>
       </div>
     </q-page-container>

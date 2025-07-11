@@ -2,6 +2,16 @@ import { RouteRecordRaw } from 'vue-router';
 
 const routes: RouteRecordRaw[] = [
   {
+    path: '/r/:subreddit?post=:permalink',
+    component: () => import('layouts/SplitLayout.vue'),
+    children: [
+      {
+        path: '',
+        component: () => import('pages/Subreddit/subreddit.vue'),
+      },
+    ],
+  },
+  {
     path: '/',
     component: () => import('layouts/MainLayout.vue'),
     children: [
