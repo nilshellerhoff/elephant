@@ -1,30 +1,40 @@
 import { RouteRecordRaw } from 'vue-router';
 
 const routes: RouteRecordRaw[] = [
-  {
-    path: '/r/:subreddit?post=:permalink',
-    component: () => import('layouts/SplitLayout.vue'),
-    children: [
-      {
-        path: '',
-        component: () => import('pages/Subreddit/subreddit.vue'),
-      },
-    ],
-  },
+  // {
+  //   path: '/r/:subreddit?post=:permalink',
+  //   component: () => import('layouts/SplitLayout.vue'),
+  //   children: [
+  //     {
+  //       path: '',
+  //       component: () => import('pages/Subreddit/subreddit.vue'),
+  //     },
+  //   ],
+  // },
   {
     path: '/',
-    component: () => import('layouts/MainLayout.vue'),
+    component: () =>
+      window.innerWidth > 1500
+        ? import('layouts/SplitLayout.vue')
+        : import('layouts/MainLayout.vue'),
     children: [
       { path: '', component: () => import('pages/HomePage.vue') },
+      // {
+      //   path: 'r/:subreddit',
+      //   component: () => import('pages/SubredditPage.vue'),
+      //   // children: [
+      //   //   {
+      //   //     path: 'comments/:commentsid/:seo?',
+      //   //     component: () => import('pages/PostPage.vue'),
+      //   //   },
+      //   // ],
+      // },
       {
-        path: 'r/:subreddit',
-        component: () => import('pages/SubredditPage.vue'),
-        // children: [
-        //   {
-        //     path: 'comments/:commentsid/:seo?',
-        //     component: () => import('pages/PostPage.vue'),
-        //   },
-        // ],
+        path: '/r/:subreddit',
+        components: {
+          default: () => import('pages/SubredditPage.vue'),
+          side: () => import('pages/PostPage.vue'),
+        },
       },
       { path: 'popular', component: () => import('pages/SubredditPage.vue') },
       { path: 'lists', component: () => import('pages/ListsPage.vue') },

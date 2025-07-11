@@ -6,46 +6,37 @@
     </q-drawer>
 
     <q-page-container>
-      <div style="display: flex">
-        <div style="flex: 1">
-          <router-view v-slot="{ Component }">
-            <keep-alive>
-              <component :is="Component" />
-            </keep-alive>
-          </router-view>
-        </div>
-        <div style="flex: 1">
-          asdf
-          <!--        <router-view name="post" v-slot="{ Component }">-->
-          <!--          <keep-alive>-->
-          <!--            <component :is="Component" />-->
-          <!--          </keep-alive>-->
-          <!--        </router-view>-->
-        </div>
-      </div>
+      <router-view v-slot="{ Component }">
+        <keep-alive>
+          <component :is="Component" />
+        </keep-alive>
+      </router-view>
+      <PostPopup
+        v-if="!!postPermalink"
+        :post-permalink="postPermalink"
+        :open="!!postPermalink"
+        @back="$router.go(-1)"
+      ></PostPopup>
     </q-page-container>
-
     <FooterBar />
   </q-layout>
 </template>
 
-<script>
-import { ref } from 'vue';
+<script setup lang="ts">
+import { computed, ref } from 'vue';
 import FooterBar from 'components/FooterBar.vue';
 import HeaderBar from 'components/HeaderBar.vue';
-export default {
-  components: { HeaderBar, FooterBar },
-  setup() {
-    const leftDrawerOpen = ref(false);
+import PostPopup from 'components/PostPopup.vue';
 
-    return {
-      leftDrawerOpen,
-      toggleLeftDrawer() {
-        leftDrawerOpen.value = !leftDrawerOpen.value;
-      },
-    };
-  },
+import { useRoute } from 'vue-router';
+
+const leftDrawerOpen = ref(false);
+const toggleLeftDrawer = () => {
+  leftDrawerOpen.value = !leftDrawerOpen.value;
 };
+
+const route = useRoute();
+const postPermalink = computed(() => route.query.post as string | undefined);
 </script>
 
 <style>

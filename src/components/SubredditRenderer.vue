@@ -4,37 +4,32 @@
   </template>
 
   <q-pull-to-refresh @refresh="loadAll">
-    <q-list>
-      <q-infinite-scroll @load="loadNext" :offset="300" :disable="error">
-        <template v-if="settings.viewMode === ViewMode.CARDS">
-          <PostListItemCard
-            v-for="post in posts"
-            :key="post.data.name"
-            :post="post"
-            :max-lines="3"
-          />
+    <div>
+      <q-list>
+        <q-infinite-scroll @load="loadNext" :offset="300" :disable="error">
+          <template v-if="settings.viewMode === ViewMode.CARDS">
+            <PostListItemCard
+              v-for="post in posts"
+              :key="post.data.name"
+              :post="post"
+              :max-lines="3"
+            />
+          </template>
+          <template v-else>
+            <PostListItem
+              v-for="post in posts"
+              :key="post.data.name"
+              :post="post"
+              :max-lines="3"
+            />
+          </template>
+        </q-infinite-scroll>
+        <template v-if="isLoading">
+          <PostListItemLoading v-for="i in 5" :key="i" />
         </template>
-        <template v-else>
-          <PostListItem
-            v-for="post in posts"
-            :key="post.data.name"
-            :post="post"
-            :max-lines="3"
-          />
-        </template>
-      </q-infinite-scroll>
-      <template v-if="isLoading">
-        <PostListItemLoading v-for="i in 5" :key="i" />
-      </template>
-    </q-list>
+      </q-list>
+    </div>
   </q-pull-to-refresh>
-  <template v-if="$route.query.post">
-    <PostPopup
-      :post-permalink="$route.query.post"
-      :open="true"
-      @back="$router.go(-1)"
-    />
-  </template>
 </template>
 
 <script setup lang="ts">
@@ -45,7 +40,6 @@ import { redditGetResponse } from 'src/util/api';
 import PostListItemLoading from 'components/Post/PostListItemLoading.vue';
 import { Post } from '../types/reddit/post';
 import InlineError from 'components/InlineError.vue';
-import PostPopup from './PostPopup.vue';
 import PostListItemCard from 'components/Post/PostListItemCard.vue';
 import { useSettingsStore, ViewMode } from 'stores/settings-store';
 

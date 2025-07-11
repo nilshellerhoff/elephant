@@ -7,15 +7,28 @@
 
     <q-page-container>
       <div style="display: flex">
-        <div style="flex: 1">
-          <router-view v-slot="{ Component }">
-            <keep-alive>
-              <component :is="Component" />
-            </keep-alive>
-          </router-view>
+        <div
+          style="
+            overflow-y: scroll;
+            overflow-x: hidden;
+            height: calc(100vh - 120px);
+            width: 50%;
+          "
+          class="overflow-auto"
+        >
+          <div style="flex: 1">
+            <router-view v-slot="{ Component }">
+              <keep-alive>
+                <component :is="Component" />
+              </keep-alive>
+            </router-view>
+          </div>
         </div>
-        <div style="flex: 1">
-          <router-view name="post" v-slot="{ Component }">
+        <div
+          style="flex: 1; max-height: calc(100vh - 120px)"
+          class="overflow-auto"
+        >
+          <router-view name="side" v-slot="{ Component }">
             <keep-alive>
               <component :is="Component" />
             </keep-alive>
