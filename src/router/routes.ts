@@ -19,16 +19,6 @@ const routes: RouteRecordRaw[] = [
         : import('layouts/MainLayout.vue'),
     children: [
       { path: '', component: () => import('pages/HomePage.vue') },
-      // {
-      //   path: 'r/:subreddit',
-      //   component: () => import('pages/SubredditPage.vue'),
-      //   // children: [
-      //   //   {
-      //   //     path: 'comments/:commentsid/:seo?',
-      //   //     component: () => import('pages/PostPage.vue'),
-      //   //   },
-      //   // ],
-      // },
       {
         path: '/r/:subreddit',
         components: {
@@ -36,7 +26,19 @@ const routes: RouteRecordRaw[] = [
           side: () => import('pages/PostPage.vue'),
         },
       },
-      { path: 'popular', component: () => import('pages/SubredditPage.vue') },
+      {
+        path: 'popular',
+        components: {
+          default: () => import('pages/PopularPage.vue'),
+          side: () => import('pages/PostPage.vue'),
+        },
+      },
+    ],
+  },
+  {
+    path: '/',
+    component: () => import('layouts/MainLayout.vue'),
+    children: [
       { path: 'lists', component: () => import('pages/ListsPage.vue') },
       { path: 'search', component: () => import('pages/SearchPage.vue') },
       { path: 'settings', component: () => import('pages/SettingsPage.vue') },

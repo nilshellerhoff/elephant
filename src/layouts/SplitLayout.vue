@@ -6,35 +6,39 @@
     </q-drawer>
 
     <q-page-container>
-      <div style="display: flex">
-        <div
-          style="
-            overflow-y: scroll;
-            overflow-x: hidden;
-            height: calc(100vh - 120px);
-            width: 50%;
-          "
-          class="overflow-auto"
-        >
-          <div style="flex: 1">
-            <router-view v-slot="{ Component }">
+      <!--      <div style="display: flex">-->
+      <q-splitter v-model="splitterModel">
+        <template #before>
+          <div
+            style="
+              overflow-y: scroll;
+              overflow-x: hidden;
+              height: calc(100vh - 120px);
+            "
+            class="overflow-auto"
+          >
+            <div style="flex: 1">
+              <router-view v-slot="{ Component }">
+                <keep-alive>
+                  <component :is="Component" />
+                </keep-alive>
+              </router-view>
+            </div>
+          </div>
+        </template>
+        <template #after>
+          <div
+            style="flex: 1; max-height: calc(100vh - 120px)"
+            class="overflow-auto"
+          >
+            <router-view name="side" v-slot="{ Component }">
               <keep-alive>
                 <component :is="Component" />
               </keep-alive>
             </router-view>
           </div>
-        </div>
-        <div
-          style="flex: 1; max-height: calc(100vh - 120px)"
-          class="overflow-auto"
-        >
-          <router-view name="side" v-slot="{ Component }">
-            <keep-alive>
-              <component :is="Component" />
-            </keep-alive>
-          </router-view>
-        </div>
-      </div>
+        </template>
+      </q-splitter>
     </q-page-container>
 
     <FooterBar />
@@ -49,9 +53,11 @@ export default {
   components: { HeaderBar, FooterBar },
   setup() {
     const leftDrawerOpen = ref(false);
+    const splitterModel = ref(50);
 
     return {
       leftDrawerOpen,
+      splitterModel,
       toggleLeftDrawer() {
         leftDrawerOpen.value = !leftDrawerOpen.value;
       },

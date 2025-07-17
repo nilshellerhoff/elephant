@@ -5,7 +5,7 @@
       <!-- drawer content -->
     </q-drawer>
 
-    <q-page-container>
+    <q-page-container style="max-width: 1000px; margin: 0 auto">
       <router-view v-slot="{ Component }">
         <keep-alive>
           <component :is="Component" />
