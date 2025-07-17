@@ -5,35 +5,38 @@
       <!-- drawer content -->
     </q-drawer>
 
-    <q-page-container>
+    <q-page-container style="max-width: 1000px; margin: 0 auto">
       <router-view v-slot="{ Component }">
         <keep-alive>
           <component :is="Component" />
         </keep-alive>
       </router-view>
+      <PostPopup
+        v-if="!!postPermalink"
+        :post-permalink="postPermalink"
+        :open="!!postPermalink"
+        @back="$router.go(-1)"
+      ></PostPopup>
     </q-page-container>
-
     <FooterBar />
   </q-layout>
 </template>
 
-<script>
-import { ref } from 'vue';
+<script setup lang="ts">
+import { computed, ref } from 'vue';
 import FooterBar from 'components/FooterBar.vue';
 import HeaderBar from 'components/HeaderBar.vue';
-export default {
-  components: { HeaderBar, FooterBar },
-  setup() {
-    const leftDrawerOpen = ref(false);
+import PostPopup from 'components/PostPopup.vue';
 
-    return {
-      leftDrawerOpen,
-      toggleLeftDrawer() {
-        leftDrawerOpen.value = !leftDrawerOpen.value;
-      },
-    };
-  },
+import { useRoute } from 'vue-router';
+
+const leftDrawerOpen = ref(false);
+const toggleLeftDrawer = () => {
+  leftDrawerOpen.value = !leftDrawerOpen.value;
 };
+
+const route = useRoute();
+const postPermalink = computed(() => route.query.post as string | undefined);
 </script>
 
 <style>
