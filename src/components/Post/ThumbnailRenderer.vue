@@ -20,7 +20,11 @@
         :style="{
           filter: blurThumbnail ? 'blur(8px)' : 'none',
         }"
-      />
+      >
+        <template #loading>
+          <q-icon name="image" size="50px" />
+        </template>
+      </q-img>
     </div>
     <div
       v-if="mediaIcon !== undefined"
