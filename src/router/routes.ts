@@ -18,7 +18,13 @@ const routes: RouteRecordRaw[] = [
         ? import('layouts/SplitLayout.vue')
         : import('layouts/MainLayout.vue'),
     children: [
-      { path: '', component: () => import('pages/HomePage.vue') },
+      {
+        path: '',
+        components: {
+          default: () => import('pages/HomePage.vue'),
+          side: () => import('pages/PostPage.vue'),
+        },
+      },
       {
         path: '/r/:subreddit',
         components: {
