@@ -2,7 +2,7 @@
   <SubredditRenderer :subreddit="subredditsStr" />
 </template>
 <script setup lang="ts">
-import SubredditRenderer from 'components/SubredditRenderer.vue';
+import SubredditRenderer from 'components/Subreddit/SubredditRenderer.vue';
 import { usePageTitle } from 'src/composables/pageTitle';
 import { useListsStore } from 'stores/lists-store';
 

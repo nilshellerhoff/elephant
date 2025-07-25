@@ -6,9 +6,9 @@
 <script setup lang="ts">
 import { computed, watch } from 'vue';
 import { useRoute } from 'vue-router';
-import SubredditRenderer from 'components/SubredditRenderer.vue';
+import SubredditRenderer from 'components/Subreddit/SubredditRenderer.vue';
 import { usePageTitle } from 'src/composables/pageTitle';
-import SubredditHeaderRenderer from 'components/SubredditHeaderRenderer.vue';
+import SubredditHeaderRenderer from 'components/Subreddit/SubredditHeaderRenderer.vue';
 
 const route = useRoute();
 const title = usePageTitle();

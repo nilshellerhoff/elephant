@@ -26,7 +26,7 @@
 import { computed, ref } from 'vue';
 import FooterBar from 'components/FooterBar.vue';
 import HeaderBar from 'components/HeaderBar.vue';
-import PostPopup from 'components/PostPopup.vue';
+import PostPopup from 'components/Post/PostPopup.vue';
 
 import { useRoute } from 'vue-router';
 

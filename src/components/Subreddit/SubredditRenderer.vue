@@ -38,7 +38,7 @@ import { Ref, ref, watch } from 'vue';
 import PostListItem from 'components/Post/PostListItem.vue';
 import { redditGetResponse } from 'src/util/api';
 import PostListItemLoading from 'components/Post/PostListItemLoading.vue';
-import { Post } from '../types/reddit/post';
+import { Post } from '../../types/reddit/post';
 import InlineError from 'components/InlineError.vue';
 import PostListItemCard from 'components/Post/PostListItemCard.vue';
 import { useSettingsStore, ViewMode } from 'stores/settings-store';

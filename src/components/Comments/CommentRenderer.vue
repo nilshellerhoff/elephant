@@ -45,7 +45,7 @@
 </template>
 
 <script setup lang="ts">
-import RedditContentRenderer from 'components/RedditContentRenderer.vue';
+import RedditContentRenderer from 'components/General/RedditContentRenderer.vue';
 import CommentTopRight from 'components/Comments/CommentTopRight.vue';
 import { ref } from 'vue';
 import CommentBase from 'components/Comments/CommentBase.vue';

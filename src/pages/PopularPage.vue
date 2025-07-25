@@ -3,5 +3,5 @@
 </template>
 
 <script setup lang="ts">
-import SubredditRenderer from 'components/SubredditRenderer.vue';
+import SubredditRenderer from 'components/Subreddit/SubredditRenderer.vue';
 </script>
