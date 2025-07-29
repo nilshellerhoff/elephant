@@ -2,7 +2,7 @@
   <q-layout view="hHh lpR fFf">
     <HeaderBar type="main" @toggle="toggleLeftDrawer" />
     <q-drawer show-if-above v-model="leftDrawerOpen" side="left" elevated>
-      <!-- drawer content -->
+      <SidebarSubredditList />
     </q-drawer>
 
     <q-page-container style="max-width: 1000px; margin: 0 auto">
@@ -29,6 +29,7 @@ import HeaderBar from 'components/HeaderBar.vue';
 import PostPopup from 'components/Post/PostPopup.vue';
 
 import { useRoute } from 'vue-router';
+import SidebarSubredditList from 'components/Sidebar/SidebarSubredditList.vue';
 
 const leftDrawerOpen = ref(false);
 const toggleLeftDrawer = () => {

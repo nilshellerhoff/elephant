@@ -53,6 +53,7 @@ import { ref, watch } from 'vue';
 import { redditGetResponse } from 'src/util/api';
 import SubredditIconRenderer from 'components/Subreddit/SubredditIconRenderer.vue';
 import { useListsStore } from 'stores/lists-store';
+import { getSubredditIcon } from 'src/util/subreddit';
 
 interface Props {
   subreddit: string;
@@ -65,10 +66,7 @@ const data = ref<SubredditAboutResponse | undefined>();
 const onClickSubscription = () => {
   if (!data.value) return;
 
-  const icon = data.value.data.community_icon
-    ? data.value.data.community_icon
-    : data.value.data.icon_img;
-
+  const icon = getSubredditIcon(data.value);
   listsStore.toggleSubscription({ code: props.subreddit, iconUrl: icon });
 };
 watch(

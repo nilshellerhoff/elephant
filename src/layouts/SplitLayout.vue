@@ -2,11 +2,10 @@
   <q-layout view="hHh lpR fFf">
     <HeaderBar type="main" @toggle="toggleLeftDrawer" />
     <q-drawer show-if-above v-model="leftDrawerOpen" side="left" elevated>
-      <!-- drawer content -->
+      <SidebarSubredditList />
     </q-drawer>
 
     <q-page-container>
-      <!--      <div style="display: flex">-->
       <q-splitter v-model="splitterModel">
         <template #before>
           <div
@@ -49,8 +48,9 @@
 import { ref } from 'vue';
 import FooterBar from 'components/FooterBar.vue';
 import HeaderBar from 'components/HeaderBar.vue';
+import SidebarSubredditList from 'components/Sidebar/SidebarSubredditList.vue';
 export default {
-  components: { HeaderBar, FooterBar },
+  components: { SidebarSubredditList, HeaderBar, FooterBar },
   setup() {
     const leftDrawerOpen = ref(false);
     const splitterModel = ref(50);
