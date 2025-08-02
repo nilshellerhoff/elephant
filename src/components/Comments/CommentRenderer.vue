@@ -6,9 +6,11 @@
         name="push_pin"
         style="margin-right: 4px; color: #007a25"
       />
-      <span :style="`color: ${getUsernameColor()};`">
-        u/{{ comment.data.author }}
-      </span>
+      <router-link :to="`/u/${comment.data.author}`" @click.stop>
+        <span :style="`color: ${getUsernameColor()};`">
+          u/{{ comment.data.author }}
+        </span>
+      </router-link>
       <template v-if="commentHasFlair(comment)">
         &nbsp;•&nbsp;<FlairRenderer
           :flair-richtext="comment.data.author_flair_richtext"

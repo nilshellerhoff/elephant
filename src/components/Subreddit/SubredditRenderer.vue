@@ -38,16 +38,18 @@ import { Ref, ref, watch } from 'vue';
 import PostListItem from 'components/Post/PostListItem.vue';
 import { redditGetResponse } from 'src/util/api';
 import PostListItemLoading from 'components/Post/PostListItemLoading.vue';
-import { Post } from '../../types/reddit/post';
+import { Post } from 'src/types/reddit/post';
 import InlineError from 'components/InlineError.vue';
 import PostListItemCard from 'components/Post/PostListItemCard.vue';
 import { useSettingsStore, ViewMode } from 'stores/settings-store';
+import { UserResponse } from 'src/types/reddit/User';
 
 interface Props {
   subreddit: string;
+  type?: 'subreddit' | 'user';
 }
 
-const props = defineProps<Props>();
+const { subreddit, type = 'subreddit' } = defineProps<Props>();
 const settings = useSettingsStore();
 
 const isLoading = ref(false);
@@ -60,12 +62,25 @@ const load = (done: () => void) => {
   loadAll(done);
 };
 
+const getRedditApiUrl = () => {
+  let url;
+  if (type === 'user') {
+    url = `/user/${subreddit}/submitted.json`;
+  } else {
+    url = `/r/${subreddit}.json`;
+  }
+  const queryString = after.value ? `?after=${after.value}` : '';
+  return `${url}${queryString}`;
+};
+
 const loadAll = (done?: () => void) => {
   error.value = false;
   isLoading.value = true;
-  redditGetResponse<SubredditResponse>(`/r/${props.subreddit}.json`)
+  redditGetResponse<SubredditResponse | UserResponse>(getRedditApiUrl())
     .then((response) => {
-      posts.value = response.data.data.children;
+      posts.value = response.data.data.children.filter(
+        (entry) => entry.kind === 't3'
+      ) as Post[];
       after.value = response.data.data.after;
     })
     .catch(() => {
@@ -88,11 +103,13 @@ const loadNext = (_: number, done: () => void) => {
     return;
   }
   isLoading.value = true;
-  redditGetResponse<SubredditResponse>(
-    `/r/${props.subreddit}.json?after=${after.value}`
-  )
+  redditGetResponse<SubredditResponse | UserResponse>(getRedditApiUrl())
     .then((response) => {
-      posts.value.push(...response.data.data.children);
+      const newPosts = response.data.data.children.filter(
+        (entry) => entry.kind === 't3'
+      ) as Post[];
+
+      posts.value.push(...newPosts);
       after.value = response.data.data.after;
     })
     .catch(() => (error.value = true))
@@ -106,5 +123,5 @@ const loadNext = (_: number, done: () => void) => {
     });
 };
 
-watch(() => props.subreddit, loadAll, { immediate: true });
+watch(() => subreddit, loadAll, { immediate: true });
 </script>

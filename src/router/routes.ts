@@ -49,6 +49,11 @@ const routes: RouteRecordRaw[] = [
       { path: 'search', component: () => import('pages/SearchPage.vue') },
       { path: 'settings', component: () => import('pages/SettingsPage.vue') },
       {
+        path: 'u/:username',
+        component: () => import('pages/UserPage.vue'),
+      },
+      { path: 'user/:username', redirect: (to) => `/u/${to.params.username}` },
+      {
         path: '/r/:subreddit/comments/:commentsid/:seo?',
         redirect: (to) => ({
           path: `r/${to.params.subreddit}`,
