@@ -15,8 +15,10 @@
       </q-item-label>
       <q-item-label>
         <SubredditNameLink :subreddit-name="post.data.subreddit" /> •
-        {{ displayTimeAgo(post.data.created_utc) }} •
-        <FlairRendererPost :post="post" />
+        {{ displayTimeAgo(post.data.created_utc) }}
+        <template v-if="postHasFlair(post)">
+          • <FlairRendererPost :post="post" />
+        </template>
       </q-item-label>
       <q-item-label>
         {{ post.data.ups }} <q-icon name="arrow_upward" /> ({{
@@ -47,6 +49,7 @@ import { useSettingsStore } from 'stores/settings-store';
 import TitleRenderer from 'components/Post/TitleRenderer.vue';
 import FlairRendererPost from 'components/Flair/FlairRendererPost.vue';
 import SubredditNameLink from 'components/Post/SubredditNameLink.vue';
+import { postHasFlair } from 'src/util/flair';
 
 interface Props {
   post: Post;
