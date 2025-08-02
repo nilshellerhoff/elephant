@@ -6,7 +6,7 @@
     backdrop-filter="brightness(20%)"
   >
     <MediaPopupToolbar @close="close" @reset-zoom="resetZoom" />
-    <ImageViewer ref="imageViewerRef" :url />
+    <ImageViewer ref="imageViewerRef" :url @close="close" />
   </q-dialog>
 </template>
 <script setup lang="ts">
