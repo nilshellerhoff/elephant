@@ -75,7 +75,7 @@ if (
 const getUsernameColor = () => {
   if (props.comment.data.stickied) return '#007a25';
   if (props.comment.data.is_submitter) return '#526efb';
-  return 'inherit';
+  return 'var(--q-secondary)';
 };
 </script>
 

@@ -12,7 +12,7 @@ interface Props {
 defineProps<Props>();
 </script>
 
-<style>
+<style scoped>
 a {
   font-size: 14px;
   color: var(--q-secondary);
