@@ -1,42 +1,32 @@
 <template>
-  <q-dialog
-    ref="dialogRef"
-    @hide="onDialogHide"
-    maximized
-    backdrop-filter="brightness(20%)"
+  <q-carousel
+    animated
+    v-model="slide"
+    arrows
+    navigation
+    style="background-color: #00000000"
+    transition-prev="slide-right"
+    transition-next="slide-left"
   >
-    <ImagePopupToolbar @close="close" @reset-zoom="reset" />
-    <q-carousel
-      animated
-      v-model="slide"
-      arrows
-      navigation
-      style="background-color: #00000000"
-      transition-prev="slide-right"
-      transition-next="slide-left"
+    <q-carousel-slide
+      v-for="(url, idx) in urls"
+      :name="idx"
+      :key="idx"
+      style="padding: 0"
     >
-      <q-carousel-slide
-        v-for="(url, idx) in urls"
-        :name="idx"
-        :key="idx"
-        style="padding: 0"
-      >
-        <ImageViewerZoomable
-          ref="zoomable"
-          :url="url"
-          @close="close"
-          @swipe-right="previousSlide"
-          @swipe-left="nextSlide"
-        />
-      </q-carousel-slide>
-    </q-carousel>
-  </q-dialog>
+      <ImageViewerZoomable
+        ref="zoomable"
+        :url="url"
+        @close="$emit('close')"
+        @swipe-right="previousSlide"
+        @swipe-left="nextSlide"
+      />
+    </q-carousel-slide>
+  </q-carousel>
 </template>
 
 <script setup lang="ts">
-import { useDialogPluginComponent } from 'quasar';
 import { onMounted, ref } from 'vue';
-import ImagePopupToolbar from 'components/Media/ImagePopupToolbar.vue';
 import ImageViewerZoomable from 'components/Post/ImageViewerZoomable.vue';
 import { useStatusbar } from 'src/composables/statusbar';
 
@@ -44,9 +34,9 @@ interface Props {
   urls: string[];
 }
 const { urls } = defineProps<Props>();
-defineEmits([...useDialogPluginComponent.emits]);
+defineEmits(['close']);
+defineExpose({ reset: () => reset() });
 
-const { dialogRef, onDialogHide, onDialogOK } = useDialogPluginComponent();
 const statusBar = useStatusbar();
 
 onMounted(() => statusBar.setColor('#000'));
@@ -64,11 +54,6 @@ const nextSlide = () => {
 };
 
 const zoomable = ref();
-
-const close = () => {
-  statusBar.setDefaultColor();
-  onDialogOK();
-};
 
 const reset = () => {
   zoomable.value[0].reset();

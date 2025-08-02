@@ -38,24 +38,16 @@
 
 <script setup lang="ts">
 import { Post } from 'src/types/reddit/post';
-import {
-  getGalleryUrls,
-  getVideoExtractor,
-  isGallery,
-  isImage,
-  isVideo,
-} from 'src/util/media';
+import { isImage } from 'src/util/media';
 import { Dialog } from 'quasar';
-import ImageViewer from '../ImageViewer.vue';
 import { displayTimeAgo } from 'src/util/time';
-import GalleryViewer from '../GalleryViewer.vue';
-import VideoPlayer from 'components/Media/VideoPlayer/VideoPlayer.vue';
 import { useVisitedStore } from 'stores/visited-store';
 import { useSettingsStore } from 'stores/settings-store';
 import TitleRenderer from 'components/Post/TitleRenderer.vue';
 import FlairRendererPost from 'components/Flair/FlairRendererPost.vue';
 import SubredditNameLink from 'components/Post/SubredditNameLink.vue';
 import { postHasFlair } from 'src/util/flair';
+import MediaPopupPost from 'components/Media/MediaPopupPost.vue';
 
 interface Props {
   post: Post;
@@ -71,31 +63,10 @@ const visitedStore = useVisitedStore();
 const settingsStore = useSettingsStore();
 
 const openMedia = (post: Post) => {
-  if (isImage(post)) {
-    Dialog.create({
-      component: ImageViewer,
-      componentProps: { url: post.data.url },
-    });
-  } else if (isGallery(post)) {
-    console.log('gallery');
-    Dialog.create({
-      component: GalleryViewer,
-      componentProps: { urls: getGalleryUrls(post) },
-    });
-  } else if (isVideo(post)) {
-    console.log('video');
-    const extractor = getVideoExtractor(post);
-    if (extractor) {
-      const { type, url } = extractor.extractor(post);
-      Dialog.create({
-        component: VideoPlayer,
-        componentProps: { url, type },
-      });
-    }
-  } else {
-    console.log('unsupported media');
-    return;
-  }
+  Dialog.create({
+    component: MediaPopupPost,
+    componentProps: { post },
+  });
 
   if (settingsStore.markPostsAsVisitedOnMediaClick)
     visitedStore.markVisited(post.data.name);

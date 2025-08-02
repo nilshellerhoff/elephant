@@ -33,5 +33,9 @@
 </template>
 
 <script setup lang="ts">
-defineEmits(['close', 'resetZoom']);
+interface Emits {
+  close: [];
+  resetZoom: [];
+}
+defineEmits<Emits>();
 </script>

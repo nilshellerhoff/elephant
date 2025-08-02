@@ -1,6 +1,6 @@
 import { Dialog } from 'quasar';
-import ImageViewer from 'components/Post/ImageViewer.vue';
 import { isImage } from 'src/util/mediaUrl';
+import ImageViewerPopupUrl from 'components/Media/ImageViewerPopupUrl.vue';
 
 export const processRedditContent = (el: HTMLElement) => {
   linksNewTab(el);
@@ -25,7 +25,7 @@ const imageLinksInViewer = (el: HTMLElement): void => {
         ev.preventDefault();
         ev.stopPropagation();
         Dialog.create({
-          component: ImageViewer,
+          component: ImageViewerPopupUrl,
           componentProps: { url: anchor.href },
         });
         return false;

@@ -43,6 +43,7 @@ interface Props {
 }
 defineProps<Props>();
 const emit = defineEmits(['swipeUp', 'close', 'swipeLeft', 'swipeRight']);
+defineExpose({ reset: () => reset() });
 const logger = useLogger();
 
 const zoomer = ref<PinchScrollZoomExposed>();
@@ -134,8 +135,6 @@ const handleDoubleClick = (): void => {
     isDoubleTapZooming.value = false;
   }, 150);
 };
-
-defineExpose({ reset });
 </script>
 
 <style>
