@@ -6,11 +6,10 @@
         name="push_pin"
         style="margin-right: 4px; color: #007a25"
       />
-      <router-link :to="`/u/${comment.data.author}`" @click.stop>
-        <span :style="`color: ${getUsernameColor()};`">
-          u/{{ comment.data.author }}
-        </span>
-      </router-link>
+      <UsernameLink
+        :username="comment.data.author"
+        :color="getUsernameColor()"
+      />
       <template v-if="commentHasFlair(comment)">
         &nbsp;•&nbsp;<FlairRenderer
           :flair-richtext="comment.data.author_flair_richtext"
@@ -56,6 +55,7 @@ import { IComment, isComment } from 'src/types/reddit/comment';
 import { useSettingsStore } from 'stores/settings-store';
 import FlairRenderer from 'components/Flair/FlairRenderer.vue';
 import { commentHasFlair } from 'src/util/flair';
+import UsernameLink from 'components/User/UsernameLink.vue';
 
 interface Props {
   comment: IComment;

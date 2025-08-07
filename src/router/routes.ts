@@ -50,6 +50,7 @@ const routes: RouteRecordRaw[] = [
       { path: 'settings', component: () => import('pages/SettingsPage.vue') },
       {
         path: 'u/:username',
+        name: 'user',
         component: () => import('pages/UserPage.vue'),
       },
       { path: 'user/:username', redirect: (to) => `/u/${to.params.username}` },
