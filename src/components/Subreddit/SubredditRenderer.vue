@@ -107,7 +107,7 @@ const loadNext = (_: number, done: () => void) => {
     .then((response) => {
       const newPosts = response.data.data.children.filter(
         (entry) => entry.kind === 't3'
-      ) as Post[];
+      );
 
       posts.value.push(...newPosts);
       after.value = response.data.data.after;

@@ -76,7 +76,7 @@ export type PostComments = {
 };
 
 export type Post = {
-  kind: Kind;
+  kind: 't3';
   data: PostData;
 };
 
