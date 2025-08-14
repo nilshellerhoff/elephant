@@ -27,6 +27,7 @@ const routes: RouteRecordRaw[] = [
       },
       {
         path: '/r/:subreddit',
+        name: 'subreddit',
         components: {
           default: () => import('pages/SubredditPage.vue'),
           side: () => import('pages/PostPage.vue'),

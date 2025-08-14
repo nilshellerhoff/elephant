@@ -5,7 +5,7 @@
   >
     <q-item-section>
       <q-item-label>
-        <SubredditNameLink :subreddit-name="post.data.subreddit" /> •
+        <SubredditLink :subreddit="post.data.subreddit" /> •
         {{ displayTimeAgo(post.data.created_utc) }}
         <template v-if="postHasFlair(post)">
           • <FlairRendererPost :post="post" />
@@ -45,7 +45,7 @@ import { useVisitedStore } from 'stores/visited-store';
 import { useSettingsStore } from 'stores/settings-store';
 import TitleRenderer from 'components/Post/TitleRenderer.vue';
 import FlairRendererPost from 'components/Flair/FlairRendererPost.vue';
-import SubredditNameLink from 'components/Post/SubredditNameLink.vue';
+import SubredditLink from 'components/Subreddit/SubredditLink.vue';
 import { postHasFlair } from 'src/util/flair';
 import MediaPopupPost from 'components/Media/MediaPopupPost.vue';
 

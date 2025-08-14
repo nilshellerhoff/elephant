@@ -1,7 +1,9 @@
 <template>
-  <span @click.stop="showPopup" :style="{ color }">
-    {{ username }}
-  </span>
+  <router-link :to="`u/${username}`">
+    <span @click.prevent.stop="showPopup" :style="{ color }">
+      {{ username }}
+    </span>
+  </router-link>
 </template>
 
 <script setup lang="ts">
