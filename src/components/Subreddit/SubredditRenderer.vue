@@ -123,5 +123,12 @@ const loadNext = (_: number, done: () => void) => {
     });
 };
 
-watch(() => subreddit, loadAll, { immediate: true });
+watch(
+  () => subreddit,
+  () => {
+    after.value = undefined;
+    loadAll();
+  },
+  { immediate: true }
+);
 </script>
