@@ -56,6 +56,7 @@ export const redditM3u8Extractor: VideoExtractor = (post) => {
   return {
     type: 'application/x-mpegURL',
     url: post.data.media.reddit_video.hls_url,
+    duration: post.data.media.reddit_video.duration,
   };
 };
 
@@ -83,3 +84,8 @@ export const isVideo = (post: Post) =>
 
 export const getVideoExtractor = (post: Post) =>
   VIDEO_EXTRACTORS.find((extractor) => extractor.test(post));
+
+export const getVideoDuration = (post: Post) => {
+  const extractor = getVideoExtractor(post);
+  if (extractor) return extractor.extractor(post).duration;
+};

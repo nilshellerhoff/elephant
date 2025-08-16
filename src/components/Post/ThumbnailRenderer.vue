@@ -27,7 +27,7 @@
       </q-img>
     </div>
     <div
-      v-if="mediaIcon !== undefined"
+      v-if="mediaInfo.icon !== undefined"
       style="
         position: absolute;
         left: 0;
@@ -40,15 +40,27 @@
         style="margin: 3px; filter: none"
         size="20px"
         color="white"
-        :name="mediaIcon"
+        :name="mediaInfo.icon"
       />
+      <span
+        v-if="mediaInfo.text"
+        style="
+          font-weight: bold;
+          color: white;
+          font-size: 12px;
+          position: relative;
+          top: 1px;
+        "
+      >
+        {{ mediaInfo.text }}
+      </span>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { Post } from 'src/types/reddit/post';
-import { isGallery, isImage, isVideo } from 'src/util/media';
+import { getVideoDuration, isGallery, isImage, isVideo } from 'src/util/media';
 import { computed } from 'vue';
 import { useSettingsStore } from 'stores/settings-store';
 import { getThumbnailUrl } from 'src/util/post';
@@ -70,17 +82,21 @@ const blurThumbnail = computed(
 
 const thumbnailUrl = computed(() => getThumbnailUrl(props.post));
 
-const mediaIcon = computed(() => {
+const mediaInfo = computed(() => {
   if (isImage(props.post)) {
-    return 'image';
+    return { icon: 'image' };
   } else if (isGallery(props.post)) {
-    return 'photo_library';
+    return { icon: 'photo_library' };
   } else if (isVideo(props.post)) {
-    return 'play_arrow';
+    const duration = getVideoDuration(props.post);
+    if (duration === undefined) return { icon: 'play_arrow' };
+
+    const durationStr = `${Math.floor(duration / 60)}:${duration % 60}`;
+    return { icon: 'play_arrow', text: durationStr };
   } else if (!props.post.data.url.endsWith(props.post.data.permalink)) {
-    return 'link';
+    return { icon: 'link' };
   } else {
-    return undefined;
+    return {};
   }
 });
 </script>
