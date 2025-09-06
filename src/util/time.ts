@@ -13,3 +13,14 @@ export const displayTimeAgo = (timestamp: number): string => {
   else if (secondsAgo >= MINUTE) return `${Math.floor(secondsAgo / MINUTE)}m`;
   else return `${secondsAgo}s`;
 };
+
+/**
+ * Get the duration as a string formatted mm:ss from a number of seconds
+ * @param durationSeconds number of seconds, e.g. 96
+ * @return formatted string, e.g. 1:36
+ */
+export const getDurationStr = (durationSeconds: number): string => {
+  const minutes = Math.floor(durationSeconds / 60);
+  const zeroPaddedSeconds = String(durationSeconds % 60).padStart(2, '0');
+  return `${minutes}:${zeroPaddedSeconds}`;
+};

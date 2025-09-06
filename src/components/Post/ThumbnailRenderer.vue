@@ -64,6 +64,7 @@ import { getVideoDuration, isGallery, isImage, isVideo } from 'src/util/media';
 import { computed } from 'vue';
 import { useSettingsStore } from 'stores/settings-store';
 import { getThumbnailUrl } from 'src/util/post';
+import { getDurationStr } from 'src/util/time';
 
 interface Props {
   post: Post;
@@ -90,9 +91,7 @@ const mediaInfo = computed(() => {
   } else if (isVideo(props.post)) {
     const duration = getVideoDuration(props.post);
     if (duration === undefined) return { icon: 'play_arrow' };
-
-    const durationStr = `${Math.floor(duration / 60)}:${duration % 60}`;
-    return { icon: 'play_arrow', text: durationStr };
+    return { icon: 'play_arrow', text: getDurationStr(duration) };
   } else if (!props.post.data.url.endsWith(props.post.data.permalink)) {
     return { icon: 'link' };
   } else {
