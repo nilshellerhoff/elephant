@@ -5,23 +5,25 @@
 
   <q-pull-to-refresh @refresh="loadAll">
     <div>
+      <q-toolbar>
+        <SubredditFilter
+          :subreddit-options="subredditOptions"
+          v-model="selectedSubreddits"
+        />
+      </q-toolbar>
+    </div>
+    <div>
       <q-list>
         <q-infinite-scroll @load="loadNext" :offset="300" :disable="error">
-          <template v-if="settings.viewMode === ViewMode.CARDS">
-            <PostListItemCard
-              v-for="post in posts"
-              :key="post.data.name"
-              :post="post"
-              :max-lines="3"
-            />
-          </template>
-          <template v-else>
-            <PostListItem
-              v-for="post in posts"
-              :key="post.data.name"
-              :post="post"
-              :max-lines="3"
-            />
+          <template v-for="post in posts" :key="post.data.name">
+            <template v-if="selectedSubreddits[post.data.subreddit]">
+              <PostListItemCard
+                v-if="settings.viewMode === ViewMode.CARDS"
+                :post="post"
+                :max-lines="3"
+              />
+              <PostListItem v-else :post="post" :max-lines="3" />
+            </template>
           </template>
         </q-infinite-scroll>
         <template v-if="isLoading">
@@ -43,6 +45,9 @@ import InlineError from 'components/InlineError.vue';
 import PostListItemCard from 'components/Post/PostListItemCard.vue';
 import { useSettingsStore, ViewMode } from 'stores/settings-store';
 import { UserResponse } from 'src/types/reddit/User';
+import { useSubredditFilter } from 'src/composables/subredditFilter';
+import { unique } from 'src/util/array';
+import SubredditFilter from 'components/Subreddit/SubredditFilter.vue';
 
 interface Props {
   subreddit: string;
@@ -51,6 +56,7 @@ interface Props {
 
 const { subreddit, type = 'subreddit' } = defineProps<Props>();
 const settings = useSettingsStore();
+const { subredditOptions, selectedSubreddits } = useSubredditFilter();
 
 const isLoading = ref(false);
 const error = ref(false);
@@ -60,6 +66,12 @@ const after: Ref<string | undefined> = ref(undefined);
 const load = (done: () => void) => {
   if (after.value) loadNext(0, done);
   loadAll(done);
+};
+
+const setHeaderFilters = () => {
+  subredditOptions.value = unique(
+    posts.value.map((post) => post.data.subreddit)
+  );
 };
 
 const getRedditApiUrl = () => {
@@ -88,6 +100,7 @@ const loadAll = (done?: () => void) => {
     })
     .finally(() => {
       isLoading.value = false;
+      setHeaderFilters();
       if (done) done();
     });
 };
@@ -115,6 +128,7 @@ const loadNext = (_: number, done: () => void) => {
     .catch(() => (error.value = true))
     .finally(() => {
       isLoading.value = false;
+      setHeaderFilters();
       try {
         done();
       } catch {
