@@ -4,6 +4,7 @@
     label="Search for subreddits"
     clearable
     style="margin: 12px"
+    autofocus
   ></q-input>
   <q-list>
     <template v-if="loading">
