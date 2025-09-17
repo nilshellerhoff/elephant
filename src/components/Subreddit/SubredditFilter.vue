@@ -24,7 +24,29 @@
               <q-item-section>Back</q-item-section>
             </q-item>
 
-            <q-item v-for="subreddit in subredditOptions" :key="subreddit">
+            <q-input v-model="searchValue" clearable label="Search">
+              <template #prepend>
+                <q-icon name="search" />
+              </template>
+              <!--              <template #after>-->
+              <!--                <q-btn flat round icon="sort">-->
+              <!--                  <q-menu>-->
+              <!--                    <q-list>-->
+              <!--                      <q-item clickable v-close-popup>-->
+              <!--                        <q-item-section>Alphabetically</q-item-section>-->
+              <!--                      </q-item>-->
+              <!--                      <q-item clickable v-close-popup>-->
+              <!--                        <q-item-section>Number of posts</q-item-section>-->
+              <!--                      </q-item>-->
+              <!--                    </q-list>-->
+              <!--                  </q-menu>-->
+              <!--                </q-btn>-->
+              <!--              </template>-->
+            </q-input>
+            <q-item
+              v-for="subreddit in filteredSubredditOptions"
+              :key="subreddit"
+            >
               <q-item-section side>
                 <q-checkbox
                   :name="subreddit"
@@ -40,16 +62,23 @@
   </q-dialog>
 </template>
 <script setup lang="ts">
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 
 interface Props {
   subredditOptions: string[];
 }
-defineProps<Props>();
+const { subredditOptions } = defineProps<Props>();
 const selectedSubreddits = defineModel<Record<string, boolean | null>>({
   required: true,
 });
-
 const isDialogOpen = ref(false);
 const selectedTab = ref('root');
+const searchValue = ref('');
+const filteredSubredditOptions = computed(() => {
+  if (searchValue.value)
+    return subredditOptions.filter((s) =>
+      s.toLowerCase().includes(searchValue.value.toLowerCase())
+    );
+  return subredditOptions;
+});
 </script>

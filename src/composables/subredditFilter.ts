@@ -33,7 +33,9 @@ export const useSubredditFilter = () => {
     });
 
   const sortEntries = (_: string[], variable: Ref<string[]>) => {
-    variable.value = variable.value.toSorted();
+    variable.value = variable.value.toSorted((a, b) =>
+      a.toLowerCase().localeCompare(b.toLowerCase())
+    );
   };
 
   const subredditOptions = simpleGetterSetter(subredditOptionsValue, {
