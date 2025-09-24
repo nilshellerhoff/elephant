@@ -6,6 +6,9 @@
   <q-pull-to-refresh @refresh="loadAll">
     <div>
       <q-toolbar>
+        <q-btn @click="openSortingSelector" icon="swap_vert">
+          {{ sortingMode.label }}
+        </q-btn>
         <SubredditFilter
           :subreddit-options="subredditOptions"
           v-model="selectedSubreddits"
@@ -29,6 +32,9 @@
         <template v-if="isLoading">
           <PostListItemLoading v-for="i in 5" :key="i" />
         </template>
+        <template v-else>
+          <q-btn icon="chevron_down" @click="loadNext">Load more</q-btn>
+        </template>
       </q-list>
     </div>
   </q-pull-to-refresh>
@@ -48,6 +54,7 @@ import { UserResponse } from 'src/types/reddit/User';
 import { useSubredditFilter } from 'src/composables/subredditFilter';
 import { unique } from 'src/util/array';
 import SubredditFilter from 'components/Subreddit/SubredditFilter.vue';
+import { useSubredditSortingSelector } from 'src/composables/subredditSortingSelector';
 
 interface Props {
   subreddit: string;
@@ -57,6 +64,7 @@ interface Props {
 const { subreddit, type = 'subreddit' } = defineProps<Props>();
 const settings = useSettingsStore();
 const { subredditOptions, selectedSubreddits } = useSubredditFilter();
+const { sortingMode, openSortingSelector } = useSubredditSortingSelector();
 
 const isLoading = ref(false);
 const error = ref(false);
@@ -76,13 +84,20 @@ const setHeaderFilters = () => {
 
 const getRedditApiUrl = () => {
   let url;
+
+  const queryParams = new URLSearchParams();
+  if (after.value) queryParams.set('after', after.value);
+  if (sortingMode.value.t) queryParams.set('t', sortingMode.value.t);
+
   if (type === 'user') {
     url = `/user/${subreddit}/submitted.json`;
+    if (sortingMode.value.mode) queryParams.set('sort', sortingMode.value.mode);
   } else {
-    url = `/r/${subreddit}.json`;
+    if (sortingMode.value.mode)
+      url = `/r/${subreddit}/${sortingMode.value.mode}.json`;
+    else url = `/r/${subreddit}.json`;
   }
-  const queryString = after.value ? `?after=${after.value}` : '';
-  return `${url}${queryString}`;
+  return `${url}?${queryParams.toString()}`;
 };
 
 const loadAll = (done?: () => void) => {
@@ -138,7 +153,7 @@ const loadNext = (_: number, done: () => void) => {
 };
 
 watch(
-  () => subreddit,
+  [() => subreddit, () => sortingMode.value.mode, () => sortingMode.value.t],
   () => {
     after.value = undefined;
     loadAll();
