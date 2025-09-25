@@ -6,7 +6,7 @@
   <q-pull-to-refresh @refresh="loadAll">
     <div>
       <q-toolbar>
-        <q-btn @click="openSortingSelector" icon="swap_vert">
+        <q-btn flat @click="openSortingSelector" icon="swap_vert">
           {{ sortingMode.label }}
         </q-btn>
         <SubredditFilter
