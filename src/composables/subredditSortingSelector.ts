@@ -3,11 +3,6 @@ import { ref } from 'vue';
 
 const SORTING_OPTIONS: { label: string; mode: string; icon: string }[] = [
   {
-    label: 'Best',
-    mode: 'confidence',
-    icon: 'sym_o_rocket',
-  },
-  {
     label: 'Hot',
     mode: 'hot',
     icon: 'local_fire_department',
