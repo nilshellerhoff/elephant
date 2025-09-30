@@ -34,6 +34,7 @@ export type PostData = {
   thumbnail: string | 'self' | 'default';
   permalink: string;
   link_id: string;
+  author: string;
   url: string;
   is_video: boolean;
   created: number;

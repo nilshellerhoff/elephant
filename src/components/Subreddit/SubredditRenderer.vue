@@ -11,7 +11,9 @@
         </q-btn>
         <SubredditFilter
           :subreddit-options="subredditOptions"
-          v-model="selectedSubreddits"
+          :username-options="usernameOptions"
+          v-model:subreddits="selectedSubreddits"
+          v-model:usernames="selectedUsernames"
         />
       </q-toolbar>
     </div>
@@ -19,7 +21,12 @@
       <q-list>
         <q-infinite-scroll @load="loadNext" :offset="300" :disable="error">
           <template v-for="post in posts" :key="post.data.name">
-            <template v-if="selectedSubreddits[post.data.subreddit]">
+            <template
+              v-if="
+                selectedSubreddits[post.data.subreddit] &&
+                selectedUsernames[post.data.author]
+              "
+            >
               <PostListItemCard
                 v-if="settings.viewMode === ViewMode.CARDS"
                 :post="post"
@@ -63,7 +70,12 @@ interface Props {
 
 const { subreddit, type = 'subreddit' } = defineProps<Props>();
 const settings = useSettingsStore();
-const { subredditOptions, selectedSubreddits } = useSubredditFilter();
+const {
+  subredditOptions,
+  selectedSubreddits,
+  usernameOptions,
+  selectedUsernames,
+} = useSubredditFilter();
 const { sortingMode, openSortingSelector } = useSubredditSortingSelector();
 
 const isLoading = ref(false);
@@ -80,6 +92,7 @@ const setHeaderFilters = () => {
   subredditOptions.value = unique(
     posts.value.map((post) => post.data.subreddit)
   );
+  usernameOptions.value = unique(posts.value.map((post) => post.data.author));
 };
 
 const getRedditApiUrl = () => {

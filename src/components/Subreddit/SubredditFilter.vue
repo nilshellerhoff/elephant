@@ -13,6 +13,13 @@
                 <q-icon name="chevron_right" />
               </q-item-section>
             </q-item>
+
+            <q-item clickable @click="selectedTab = 'username'">
+              <q-item-section>Filter by username</q-item-section>
+              <q-item-section avatar>
+                <q-icon name="chevron_right" />
+              </q-item-section>
+            </q-item>
           </q-list>
         </q-tab-panel>
         <q-tab-panel name="subreddit">
@@ -57,6 +64,32 @@
             </q-item>
           </q-list>
         </q-tab-panel>
+
+        <q-tab-panel name="username">
+          <q-list>
+            <q-item clickable @click="selectedTab = 'root'">
+              <q-item-section side>
+                <q-icon name="chevron_left" />
+              </q-item-section>
+              <q-item-section>Back</q-item-section>
+            </q-item>
+
+            <q-input v-model="usernameSearchValue" clearable label="Search">
+              <template #prepend>
+                <q-icon name="search" />
+              </template>
+            </q-input>
+            <q-item v-for="username in filteredUsernameOptions" :key="username">
+              <q-item-section side>
+                <q-checkbox
+                  :name="username"
+                  :label="username"
+                  v-model="selectedUsernames[username]"
+                />
+              </q-item-section>
+            </q-item>
+          </q-list>
+        </q-tab-panel>
       </q-tab-panels>
     </q-card>
   </q-dialog>
@@ -66,19 +99,38 @@ import { computed, ref } from 'vue';
 
 interface Props {
   subredditOptions: string[];
+  usernameOptions: string[];
 }
-const { subredditOptions } = defineProps<Props>();
-const selectedSubreddits = defineModel<Record<string, boolean | null>>({
-  required: true,
-});
+const { subredditOptions, usernameOptions } = defineProps<Props>();
+const selectedSubreddits = defineModel<Record<string, boolean | null>>(
+  'subreddits',
+  {
+    required: true,
+  }
+);
+const selectedUsernames = defineModel<Record<string, boolean | null>>(
+  'usernames',
+  { required: true }
+);
+
 const isDialogOpen = ref(false);
 const selectedTab = ref('root');
 const searchValue = ref('');
+const usernameSearchValue = ref('');
+
 const filteredSubredditOptions = computed(() => {
   if (searchValue.value)
     return subredditOptions.filter((s) =>
       s.toLowerCase().includes(searchValue.value.toLowerCase())
     );
   return subredditOptions;
+});
+
+const filteredUsernameOptions = computed(() => {
+  if (usernameSearchValue.value)
+    return usernameOptions.filter((u) =>
+      u.toLowerCase().includes(usernameSearchValue.value.toLowerCase())
+    );
+  return usernameOptions;
 });
 </script>

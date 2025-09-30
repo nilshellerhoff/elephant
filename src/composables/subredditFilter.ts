@@ -25,12 +25,16 @@ const simpleGetterSetter = <T>(
 export const useSubredditFilter = () => {
   const subredditOptionsValue = ref<string[]>([]);
   const selectedSubredditsValue = ref<Record<string, boolean | null>>({});
+  const usernameOptionsValue = ref<string[]>([]);
+  const selectedUsernamesValue = ref<Record<string, boolean | null>>({});
 
-  const addNewSubredditOptionsToSelected = (subreddits: string[]) =>
-    subreddits.forEach((subreddit) => {
-      if (selectedSubreddits.value[subreddit] === undefined)
-        selectedSubreddits.value[subreddit] = true;
-    });
+  const addNewOptionsToValue =
+    (selectedOptions: Ref<Record<string, boolean | null>>) =>
+    (newOptions: string[]) =>
+      newOptions.forEach((option) => {
+        if (selectedOptions.value[option] === undefined)
+          selectedOptions.value[option] = true;
+      });
 
   const sortEntries = (_: string[], variable: Ref<string[]>) => {
     variable.value = variable.value.toSorted((a, b) =>
@@ -39,11 +43,19 @@ export const useSubredditFilter = () => {
   };
 
   const subredditOptions = simpleGetterSetter(subredditOptionsValue, {
-    postSet: [addNewSubredditOptionsToSelected, sortEntries],
+    postSet: [addNewOptionsToValue(selectedSubredditsValue), sortEntries],
   });
   const selectedSubreddits = simpleGetterSetter(selectedSubredditsValue);
+
+  const usernameOptions = simpleGetterSetter(usernameOptionsValue, {
+    postSet: [addNewOptionsToValue(selectedUsernamesValue), sortEntries],
+  });
+  const selectedUsernames = simpleGetterSetter(selectedUsernamesValue);
+
   return {
     subredditOptions,
     selectedSubreddits,
+    usernameOptions,
+    selectedUsernames,
   };
 };
