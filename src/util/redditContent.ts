@@ -1,6 +1,6 @@
 import { Dialog } from 'quasar';
-import { isImage } from 'src/util/mediaUrl';
 import ImageViewerPopupUrl from 'components/Media/ImageViewerPopupUrl.vue';
+import { isImageUrl } from 'src/util/media/image';
 
 export const processRedditContent = (el: HTMLElement) => {
   linksNewTab(el);
@@ -19,7 +19,7 @@ const linksNewTab = (el: HTMLElement): void => {
 const imageLinksInViewer = (el: HTMLElement): void => {
   const anchors = el.querySelectorAll('a');
   anchors.forEach((anchor) => {
-    if (isImage(anchor.href)) {
+    if (isImageUrl(anchor.href)) {
       anchor.addEventListener('click', (ev) => {
         console.log('open image viewer');
         ev.preventDefault();

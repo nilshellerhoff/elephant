@@ -60,11 +60,13 @@
 
 <script setup lang="ts">
 import { Post } from 'src/types/reddit/post';
-import { getVideoDuration, isGallery, isImage, isVideo } from 'src/util/media';
 import { computed } from 'vue';
 import { useSettingsStore } from 'stores/settings-store';
 import { getThumbnailUrl } from 'src/util/post';
 import { getDurationStr } from 'src/util/time';
+import { isImage } from 'src/util/media/image';
+import { isGallery } from 'src/util/media/gallery';
+import { getVideoDuration, isVideo } from 'src/util/media/video';
 
 interface Props {
   post: Post;

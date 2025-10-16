@@ -1,13 +1,11 @@
-export const urlTest = (expression: RegExp) => (url: string) =>
-  expression.test(url);
-export const imgurImageTest = (url: string) => {
+import { Post } from 'src/types/reddit/post';
+import { urlExtractor, urlTest } from 'src/util/media/general';
+
+export const imgurImageTestUrl = (url: string) => {
   if (url.includes('.gifv')) return false;
   return urlTest(/i.imgur.com/)(url);
 };
 
-const urlExtractor = (url: string): string => url;
-
-// Images
 export const IMAGE_EXTRACTORS_URL: {
   test: (url: string) => boolean;
   extractor: (url: string) => string;
@@ -21,7 +19,7 @@ export const IMAGE_EXTRACTORS_URL: {
     extractor: urlExtractor,
   },
   {
-    test: imgurImageTest,
+    test: imgurImageTestUrl,
     extractor: urlExtractor,
   },
   {
@@ -46,5 +44,16 @@ export const IMAGE_EXTRACTORS_URL: {
   },
 ];
 
-export const isImage = (url: string) =>
+export const IMAGE_EXTRACTORS: {
+  test: (post: Post) => boolean;
+  extractor: (post: Post) => string;
+}[] = IMAGE_EXTRACTORS_URL.map(({ test, extractor }) => ({
+  test: (post) => test(post.data.url),
+  extractor: (post) => extractor(post.data.url),
+}));
+
+export const isImage = (post: Post) =>
+  IMAGE_EXTRACTORS.some((extractor) => extractor.test(post));
+
+export const isImageUrl = (url: string) =>
   IMAGE_EXTRACTORS_URL.some((extractor) => extractor.test(url));

@@ -22,17 +22,13 @@ import { Post } from 'src/types/reddit/post';
 import type { Component } from 'vue';
 import { computed, onMounted, ref } from 'vue';
 import { useDialogPluginComponent } from 'quasar';
-import {
-  getGalleryUrls,
-  getVideoExtractor,
-  isGallery,
-  isImage,
-  isVideo,
-} from 'src/util/media';
 import GalleryViewer from 'components/Post/GalleryViewer.vue';
 import VideoPlayer from 'components/Media/VideoPlayer/VideoPlayer.vue';
 import { useStatusbar } from 'src/composables/statusbar';
 import ImageViewer from 'components/Post/ImageViewer.vue';
+import { isImage } from 'src/util/media/image';
+import { getGalleryUrls, isGallery } from 'src/util/media/gallery';
+import { getVideoExtractor, isVideo } from 'src/util/media/video';
 
 const { dialogRef, onDialogHide, onDialogOK } = useDialogPluginComponent();
 const statusBar = useStatusbar();

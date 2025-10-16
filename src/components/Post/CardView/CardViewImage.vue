@@ -41,7 +41,6 @@
 
 <script setup lang="ts">
 import { Post } from 'src/types/reddit/post';
-import { isImage } from 'src/util/media';
 import { Dialog } from 'quasar';
 import { displayTimeAgo } from 'src/util/time';
 import { useVisitedStore } from 'stores/visited-store';
@@ -52,6 +51,7 @@ import SubredditLink from 'components/Subreddit/SubredditLink.vue';
 import { postHasFlair } from 'src/util/flair';
 import MediaPopupPost from 'components/Media/MediaPopupPost.vue';
 import { computed } from 'vue';
+import { isImage } from 'src/util/media/image';
 
 interface Props {
   post: Post;
