@@ -23,6 +23,9 @@
           :src="post.data.url"
           style="margin: 10px 0; max-height: 60vh"
           fit="contain"
+          :img-style="{
+            filter: blurThumbnail ? 'blur(32px)' : 'none',
+          }"
           @click.stop="openMedia(post)"
         />
       </template>
@@ -48,6 +51,7 @@ import FlairRendererPost from 'components/Flair/FlairRendererPost.vue';
 import SubredditLink from 'components/Subreddit/SubredditLink.vue';
 import { postHasFlair } from 'src/util/flair';
 import MediaPopupPost from 'components/Media/MediaPopupPost.vue';
+import { computed } from 'vue';
 
 interface Props {
   post: Post;
@@ -55,12 +59,14 @@ interface Props {
   maxLines?: number;
 }
 
-withDefaults(defineProps<Props>(), {
-  maxLines: undefined,
-});
+const { post } = defineProps<Props>();
 
 const visitedStore = useVisitedStore();
 const settingsStore = useSettingsStore();
+
+const blurThumbnail = computed(
+  () => settingsStore.blurNsfwThumbnails && post.data.over_18
+);
 
 const openMedia = (post: Post) => {
   Dialog.create({
