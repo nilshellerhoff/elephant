@@ -54,6 +54,7 @@ import FlairRendererPost from 'components/Flair/FlairRendererPost.vue';
 import SubredditLink from 'components/Subreddit/SubredditLink.vue';
 import { postHasFlair } from 'src/util/flair';
 import MediaPopupPost from 'components/Media/MediaPopupPost.vue';
+import { isMedia } from 'src/util/media/general';
 
 interface Props {
   post: Post;
@@ -65,10 +66,11 @@ const visitedStore = useVisitedStore();
 const settingsStore = useSettingsStore();
 
 const openMedia = (post: Post) => {
-  Dialog.create({
-    component: MediaPopupPost,
-    componentProps: { post },
-  });
+  if (isMedia(post))
+    Dialog.create({
+      component: MediaPopupPost,
+      componentProps: { post },
+    });
 
   if (settingsStore.markPostsAsVisitedOnMediaClick)
     visitedStore.markVisited(post.data.name);

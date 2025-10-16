@@ -52,6 +52,7 @@ import { postHasFlair } from 'src/util/flair';
 import MediaPopupPost from 'components/Media/MediaPopupPost.vue';
 import { computed } from 'vue';
 import { isImage } from 'src/util/media/image';
+import { isMedia } from 'src/util/media/general';
 
 interface Props {
   post: Post;
@@ -69,10 +70,11 @@ const blurThumbnail = computed(
 );
 
 const openMedia = (post: Post) => {
-  Dialog.create({
-    component: MediaPopupPost,
-    componentProps: { post },
-  });
+  if (isMedia(post))
+    Dialog.create({
+      component: MediaPopupPost,
+      componentProps: { post },
+    });
 
   if (settingsStore.markPostsAsVisitedOnMediaClick)
     visitedStore.markVisited(post.data.name);

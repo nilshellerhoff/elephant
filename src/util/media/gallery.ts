@@ -1,5 +1,6 @@
 import { Post } from 'src/types/reddit/post';
-import { urlTestPost } from 'src/util/media/general';
+
+import { urlTestPost } from 'src/util/media/util';
 
 const redditGalleryExtractor = (post: Post): string[] => {
   // images need sorting based on gallery_data object

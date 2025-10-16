@@ -1,5 +1,5 @@
 import { Post } from 'src/types/reddit/post';
-import { urlExtractor, urlTest } from 'src/util/media/general';
+import { urlExtractor, urlTest } from 'src/util/media/util';
 
 export const imgurImageTestUrl = (url: string) => {
   if (url.includes('.gifv')) return false;

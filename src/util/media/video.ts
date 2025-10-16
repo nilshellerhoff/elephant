@@ -1,6 +1,7 @@
 import { Post } from 'src/types/reddit/post';
 import { VideoExtractor } from 'src/types/media';
-import { urlTestPost } from 'src/util/media/general';
+
+import { urlTestPost } from 'src/util/media/util';
 
 export const redditM3u8Extractor: VideoExtractor = (post) => {
   return {
