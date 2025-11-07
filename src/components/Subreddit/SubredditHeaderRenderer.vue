@@ -1,24 +1,13 @@
 <template>
   <div v-if="data">
     <div class="subreddit-header">
-      <q-btn
-        :icon="
-          listsStore.isSubscribed(subreddit)
-            ? 'notifications_active'
-            : 'o_add_alert'
-        "
-        flat
-        round
-        color="white"
-        style="
-          position: absolute;
-          top: 0;
-          right: 0;
-          z-index: 10;
-          background-color: #0003;
-        "
-        @click="onClickSubscription"
-      />
+      <div style="position: absolute; top: 0; right: 0; z-index: 10">
+        <SubredditSubscribeBellIcon
+          v-if="data"
+          :subreddit="subreddit"
+          :subreddit-data="data"
+        />
+      </div>
       <q-img
         :src="data.data.banner_background_image"
         height="100px"
@@ -52,23 +41,15 @@ import { SubredditAboutResponse } from 'src/types/reddit/subreddit';
 import { ref, watch } from 'vue';
 import { redditGetResponse } from 'src/util/api';
 import SubredditIconRenderer from 'components/Subreddit/SubredditIconRenderer.vue';
-import { useListsStore } from 'stores/lists-store';
-import { getSubredditIcon } from 'src/util/subreddit';
+import SubredditSubscribeBellIcon from 'components/Subreddit/SubredditSubscribeBellIcon.vue';
 
 interface Props {
   subreddit: string;
 }
 
 const props = defineProps<Props>();
-const listsStore = useListsStore();
 const data = ref<SubredditAboutResponse | undefined>();
 
-const onClickSubscription = () => {
-  if (!data.value) return;
-
-  const icon = getSubredditIcon(data.value);
-  listsStore.toggleSubscription({ code: props.subreddit, iconUrl: icon });
-};
 watch(
   () => props.subreddit,
   () => {
