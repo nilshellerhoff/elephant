@@ -1,15 +1,11 @@
 import { RemovableRef, useLocalStorage } from '@vueuse/core';
 import { defineStore } from 'pinia';
-
-export type Subscription = {
-  code: string;
-  iconUrl: string;
-};
+import { SubredditInfo } from 'src/types/custom';
 
 export type List = {
   id: number;
   name: string;
-  subreddits: Subscription[];
+  subreddits: SubredditInfo[];
 };
 
 export type ListsStore = {
@@ -21,7 +17,7 @@ export const useListsStore = defineStore('lists', {
     lists: useLocalStorage('lists', []),
   }),
   getters: {
-    subscriptions(): Subscription[] {
+    subscriptions(): SubredditInfo[] {
       return this.lists[0]?.subreddits ?? [];
     },
   },
@@ -29,7 +25,7 @@ export const useListsStore = defineStore('lists', {
     isSubscribed(subreddit: string): boolean {
       return this.lists[0]?.subreddits.some((s) => s.code === subreddit);
     },
-    subscribe(subscription: Subscription) {
+    subscribe(subscription: SubredditInfo) {
       if (this.lists.length == 0)
         this.lists.push({
           id: 0,
@@ -45,7 +41,7 @@ export const useListsStore = defineStore('lists', {
         (s) => s.code != code
       );
     },
-    toggleSubscription(subscription: Subscription) {
+    toggleSubscription(subscription: SubredditInfo) {
       if (this.isSubscribed(subscription.code))
         this.unsubscribe(subscription.code);
       else this.subscribe(subscription);

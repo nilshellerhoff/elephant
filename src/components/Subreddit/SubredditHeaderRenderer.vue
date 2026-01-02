@@ -5,7 +5,7 @@
         <SubredditSubscribeBellIcon
           v-if="data"
           :subreddit="subreddit"
-          :subreddit-data="data"
+          :icon-url="data.data.icon_img"
         />
       </div>
       <q-img
@@ -17,7 +17,7 @@
       <q-avatar
         style="position: absolute; bottom: 10px; left: calc(50% - 24px)"
       >
-        <SubredditIconRenderer :subreddit="data" />
+        <SubredditIconRenderer :icon-url="getSubredditIcon(data)" />
       </q-avatar>
     </div>
     <div>
@@ -42,6 +42,7 @@ import { ref, watch } from 'vue';
 import { redditGetResponse } from 'src/util/api';
 import SubredditIconRenderer from 'components/Subreddit/SubredditIconRenderer.vue';
 import SubredditSubscribeBellIcon from 'components/Subreddit/SubredditSubscribeBellIcon.vue';
+import { getSubredditIcon } from 'src/util/subreddit';
 
 interface Props {
   subreddit: string;

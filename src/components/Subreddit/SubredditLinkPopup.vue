@@ -1,8 +1,8 @@
 <template>
   <div style="margin: 50px 10px 10px 10px">
-    <template v-if="subredditData">
+    <template v-if="subredditInfo">
       <q-avatar style="position: relative; left: calc(50% - 24px)">
-        <SubredditIconRenderer :subreddit="subredditData" />
+        <SubredditIconRenderer :icon-url="subredditInfo.iconUrl" />
       </q-avatar>
     </template>
     <div class="row q-ma-md">
@@ -12,9 +12,9 @@
       </div>
       <div class="col-1">
         <SubredditSubscribeBellIcon
-          v-if="subredditData"
+          v-if="subredditInfo"
           :subreddit="subreddit"
-          :subreddit-data="subredditData"
+          :icon-url="subredditInfo.iconUrl"
         />
       </div>
     </div>
@@ -28,26 +28,24 @@
 </template>
 
 <script setup lang="ts">
-import { redditGetResponse } from 'src/util/api';
-import { SubredditAboutResponse } from 'src/types/reddit/subreddit';
 import { ref, watch } from 'vue';
 import SubredditIconRenderer from 'components/Subreddit/SubredditIconRenderer.vue';
 import SubredditSubscribeBellIcon from 'components/Subreddit/SubredditSubscribeBellIcon.vue';
+import { SubredditInfo } from 'src/types/custom';
+import { useContentStore } from 'stores/content-store';
 
 interface Props {
   subreddit: string;
 }
 const { subreddit } = defineProps<Props>();
+const { getSubredditInformation } = useContentStore();
+const subredditInfo = ref<SubredditInfo>();
 
-const subredditData = ref<SubredditAboutResponse>();
-
-const loadSubredditData = () => {
-  redditGetResponse<SubredditAboutResponse>(`/r/${subreddit}/about.json`).then(
-    (response) => {
-      subredditData.value = response.data;
-    }
-  );
-};
-
-watch(() => subreddit, loadSubredditData, { immediate: true });
+watch(
+  () => subreddit,
+  (code) => {
+    getSubredditInformation(code).then((info) => (subredditInfo.value = info));
+  },
+  { immediate: true }
+);
 </script>
