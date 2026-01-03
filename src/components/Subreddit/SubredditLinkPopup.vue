@@ -31,8 +31,8 @@
 import { ref, watch } from 'vue';
 import SubredditIconRenderer from 'components/Subreddit/SubredditIconRenderer.vue';
 import SubredditSubscribeBellIcon from 'components/Subreddit/SubredditSubscribeBellIcon.vue';
-import { SubredditInfo } from 'src/types/custom';
 import { useContentStore } from 'stores/content-store';
+import { SubredditInfo } from 'src/schemas/content-store';
 
 interface Props {
   subreddit: string;

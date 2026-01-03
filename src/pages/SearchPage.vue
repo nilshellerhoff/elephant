@@ -26,7 +26,7 @@
     >
       <q-item-section avatar>
         <q-avatar>
-          <SubredditIconRenderer :subreddit="subreddit" />
+          <SubredditIconRenderer :icon-url="getSubredditIcon(subreddit)" />
         </q-avatar>
       </q-item-section>
       <q-item-section>
@@ -51,6 +51,7 @@ import { SubredditsSearchResponse } from 'src/types/reddit/search';
 import { SubredditAboutResponse } from 'src/types/reddit/subreddit';
 import SubredditIconRenderer from 'components/Subreddit/SubredditIconRenderer.vue';
 import NsfwFlair from 'components/Flair/NsfwFlair.vue';
+import { getSubredditIcon } from 'src/util/subreddit';
 
 const title = usePageTitle();
 

@@ -24,10 +24,8 @@ interface Props {
 const {
   post,
   fontSize = undefined,
-  ignoreVisited,
-} = withDefaults(defineProps<Props>(), {
-  ignoreVisited: false,
-});
+  ignoreVisited = false,
+} = defineProps<Props>();
 
 const settingsStore = useSettingsStore();
 const visitedStore = useVisitedStore();

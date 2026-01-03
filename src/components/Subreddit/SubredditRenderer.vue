@@ -40,7 +40,9 @@
           <PostListItemLoading v-for="i in 5" :key="i" />
         </template>
         <template v-else>
-          <q-btn icon="chevron_down" @click="loadNext">Load more</q-btn>
+          <q-btn icon="chevron_down" @click="loadNext(0, () => void 0)">
+            Load more
+          </q-btn>
         </template>
       </q-list>
     </div>

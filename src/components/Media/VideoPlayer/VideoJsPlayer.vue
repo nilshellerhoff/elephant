@@ -55,6 +55,7 @@ const addMuteButton = (player: Player, muted = false) => {
   var Button = videojs.getComponent('Button');
   var button = new Button(player, {
     // no arrow-function here because of 'this'
+    // @ts-expect-error clickHandler does not exist on type
     clickHandler: function () {
       if (player) {
         if (player.muted()) {

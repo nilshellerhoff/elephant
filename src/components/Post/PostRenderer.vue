@@ -60,7 +60,7 @@ import { redditGetResponse } from 'src/util/api';
 import { Post, PostData, PostResponse } from 'src/types/reddit/post';
 import PostListItemLoading from 'components/Post/PostListItemLoading.vue';
 import CommentRepliesRenderer from 'components/Comments/CommentRepliesRenderer.vue';
-import { IComment } from '../types/reddit/comment';
+import { IComment } from 'src/types/reddit/comment';
 import RedditContentRenderer from 'components/General/RedditContentRenderer.vue';
 import PostListItem from 'components/Post/PostListItem.vue';
 import { useVisitedStore } from 'stores/visited-store';
