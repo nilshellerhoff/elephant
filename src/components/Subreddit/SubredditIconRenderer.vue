@@ -4,7 +4,7 @@
 
 <script setup lang="ts">
 interface Props {
-  iconUrl: string;
+  iconUrl?: string;
 }
 defineProps<Props>();
 

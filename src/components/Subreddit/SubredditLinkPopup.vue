@@ -1,10 +1,8 @@
 <template>
   <div style="margin: 50px 10px 10px 10px">
-    <template v-if="subredditInfo">
-      <q-avatar style="position: relative; left: calc(50% - 24px)">
-        <SubredditIconRenderer :icon-url="subredditInfo.iconUrl" />
-      </q-avatar>
-    </template>
+    <q-avatar style="position: relative; left: calc(50% - 24px)">
+      <SubredditIconRenderer :icon-url="subredditInfo?.iconUrl" />
+    </q-avatar>
     <div class="row q-ma-md">
       <div class="col-1"><!-- placeholder --></div>
       <div class="col-10">
