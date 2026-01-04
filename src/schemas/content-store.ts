@@ -1,11 +1,20 @@
 import * as z from 'zod/mini';
 
-export const CachedSubredditInfoSchema = z.object({
+export const CachingTimestampsSchema = z.object({
+  timestampCached: z.number(),
+  timestampAccessed: z.number(),
+});
+
+export const SubredditInfoSchema = z.object({
   code: z.string(),
   iconUrl: z.string(),
   backgroundImageUrl: z.string(),
-  timestampCached: z.number(),
+});
+
+export const CachedSubredditInfoSchema = z.object({
+  ...SubredditInfoSchema.shape,
+  ...CachingTimestampsSchema.shape,
 });
 
 export type CachedSubredditInfo = z.infer<typeof CachedSubredditInfoSchema>;
-export type SubredditInfo = Omit<CachedSubredditInfo, 'timestampCached'>;
+export type SubredditInfo = z.infer<typeof SubredditInfoSchema>;

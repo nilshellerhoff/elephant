@@ -26,8 +26,10 @@ export const useContentStore = defineStore('content', {
     getSubredditInformation(code: string): Promise<CachedSubredditInfo> {
       const subredditInfo: CachedSubredditInfo | undefined =
         this.subredditInformation[code];
-      if (CachedSubredditInfoSchema.safeParse(subredditInfo).success)
+      if (CachedSubredditInfoSchema.safeParse(subredditInfo).success) {
+        this.subredditInformation[code].timestampAccessed = Date.now();
         return Promise.resolve(subredditInfo);
+      }
       return this.loadSubredditInfoFromApi(code);
     },
     async loadSubredditInfoFromApi(code: string): Promise<CachedSubredditInfo> {
@@ -39,6 +41,7 @@ export const useContentStore = defineStore('content', {
         iconUrl: getSubredditIcon(response.data),
         backgroundImageUrl: response.data.data.banner_background_image,
         timestampCached: Date.now(),
+        timestampAccessed: Date.now(),
       };
       this.subredditInformation[code] = subredditInformation;
       return subredditInformation;
