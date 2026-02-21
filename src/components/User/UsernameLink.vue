@@ -1,7 +1,7 @@
 <template>
   <router-link :to="`u/${username}`">
     <span @click.prevent.stop="showPopup" :style="{ color }">
-      {{ username }}
+      <template v-if="prefix">u/</template>{{ username }}
     </span>
   </router-link>
 </template>
@@ -14,8 +14,9 @@ import BottomPopupSheetContent from 'components/General/BottomPopupSheetContent.
 interface Props {
   username: string;
   color?: string;
+  prefix?: boolean;
 }
-const { username } = defineProps<Props>();
+const { username, color = '#00796B', prefix = false } = defineProps<Props>();
 
 const showPopup = () => {
   Dialog.create({

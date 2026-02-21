@@ -10,11 +10,20 @@
       />
     </q-item-section>
     <q-item-section>
+      <q-item-label v-if="showAuthor">
+        <SubredditLink :subreddit="post.data.subreddit" />
+      </q-item-label>
       <q-item-label :lines="maxLines">
         <TitleRenderer :post="post" :ignore-visited="ignoreVisited" />
       </q-item-label>
       <q-item-label>
-        <SubredditLink :subreddit="post.data.subreddit" /> •
+        <template v-if="showAuthor">
+          <UsernameLink :username="post.data.author" :prefix="true" />
+        </template>
+        <template v-else>
+          <SubredditLink :subreddit="post.data.subreddit" />
+        </template>
+        •
         {{ displayTimeAgo(post.data.created_utc) }}
         <template v-if="postHasFlair(post)">
           • <FlairRendererPost :post="post" />
@@ -42,15 +51,18 @@ import SubredditLink from 'components/Subreddit/SubredditLink.vue';
 import { postHasFlair } from 'src/util/flair';
 import MediaPopupPost from 'components/Media/MediaPopupPost.vue';
 import { isMedia } from 'src/util/media/general';
+import UsernameLink from 'components/User/UsernameLink.vue';
 
 interface Props {
   post: Post;
   maxLines?: number;
   ignoreVisited?: boolean;
+  showAuthor?: boolean;
 }
 
 withDefaults(defineProps<Props>(), {
   maxLines: undefined,
+  showAuthor: false,
 });
 
 const visitedStore = useVisitedStore();

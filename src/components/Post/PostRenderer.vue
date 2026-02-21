@@ -4,7 +4,12 @@
       <PostListItemLoading />
     </template>
 
-    <PostListItem v-if="post" :post="post" :ignore-visited="true" />
+    <PostListItem
+      v-if="post"
+      :post="post"
+      :ignore-visited="true"
+      :show-author="true"
+    />
 
     <RedditContentRenderer
       style="padding: 4px"
