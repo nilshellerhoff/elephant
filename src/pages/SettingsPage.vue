@@ -73,16 +73,6 @@
             />
           </template>
         </q-input>
-        <q-item-label caption>
-          The Reddit auth endpoint does have CORS enabled, so authentication
-          needs to be passed through a proxy. You can customize the proxy URL
-          below.
-        </q-item-label>
-        <q-input
-          v-model="settingsStore.redditAuthenticationProxyUrl"
-          label="Auth proxy URL"
-          placeholder="(default)"
-        />
       </q-item-section>
     </q-item>
     <q-item>

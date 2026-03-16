@@ -23,7 +23,6 @@ export type SettingsStore = {
   useSentry: RemovableRef<boolean>;
   useRedditApplicationOnlyOauth: RemovableRef<boolean>;
   redditApplicationOnlyAppId: RemovableRef<string>;
-  redditAuthenticationProxyUrl: RemovableRef<string | null>;
   viewMode: RemovableRef<ViewMode>;
 };
 
@@ -47,11 +46,7 @@ export const useSettingsStore = defineStore('settings', {
     ),
     redditApplicationOnlyAppId: useLocalStorage(
       'settings_redditApplicationOnlyAppId',
-      ''
-    ),
-    redditAuthenticationProxyUrl: useLocalStorage(
-      'settings_redditAuthenticationProxyUrl',
-      null
+      'P98e-D1c7wUbcHDk7B92UA'
     ),
     viewMode: useLocalStorage('viewMode', ViewMode.LIST),
   }),
