@@ -1,6 +1,5 @@
 <template>
   <FlairBaseRenderer
-    v-if="flairType == 'richtext'"
     :background-color="backgroundColor"
     :foreground-color="foregroundColor"
   >
