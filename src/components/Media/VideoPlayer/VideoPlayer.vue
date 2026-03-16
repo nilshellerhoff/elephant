@@ -1,4 +1,5 @@
 <template>
+  <MediaPopupToolbar @close="$emit('close')" />
   <VideoJsPlayer
     :sources="[{ url, type }]"
     :options="options"
@@ -9,6 +10,7 @@
 
 <script setup lang="ts">
 import VideoJsPlayer from 'components/Media/VideoPlayer/VideoJsPlayer.vue';
+import MediaPopupToolbar from 'components/Media/MediaPopupToolbar.vue';
 
 interface Props {
   url: string;

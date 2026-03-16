@@ -1,4 +1,15 @@
 <template>
+  <MediaPopupToolbar @close="$emit('close')">
+    <template #additionalActions>
+      <q-btn
+        icon="fit_screen"
+        style="color: #fff; float: right"
+        size="20px"
+        @click="reset"
+        flat
+      />
+    </template>
+  </MediaPopupToolbar>
   <q-carousel
     animated
     v-model="slide"
@@ -29,6 +40,7 @@
 import { onMounted, ref } from 'vue';
 import ImageViewerZoomable from 'components/Post/ImageViewerZoomable.vue';
 import { useStatusbar } from 'src/composables/statusbar';
+import MediaPopupToolbar from 'components/Media/MediaPopupToolbar.vue';
 
 interface Props {
   urls: string[];

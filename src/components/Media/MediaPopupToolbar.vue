@@ -22,20 +22,13 @@
       @click="$emit('close')"
       flat
     />
-    <q-btn
-      icon="fit_screen"
-      style="color: #fff; float: right"
-      size="20px"
-      @click="$emit('resetZoom')"
-      flat
-    />
+    <slot name="additionalActions" />
   </div>
 </template>
 
 <script setup lang="ts">
 interface Emits {
   close: [];
-  resetZoom: [];
 }
 defineEmits<Emits>();
 </script>

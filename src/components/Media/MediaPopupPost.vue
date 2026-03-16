@@ -5,7 +5,6 @@
     maximized
     backdrop-filter="brightness(20%)"
   >
-    <MediaPopupToolbar @close="close" @reset-zoom="resetZoom" />
     <template v-if="media">
       <component
         ref="mediaComponent"
@@ -17,7 +16,6 @@
   </q-dialog>
 </template>
 <script setup lang="ts">
-import MediaPopupToolbar from 'components/Media/MediaPopupToolbar.vue';
 import { Post } from 'src/types/reddit/post';
 import type { Component } from 'vue';
 import { computed, onMounted, ref } from 'vue';
@@ -69,12 +67,6 @@ const media = computed<MediaComponent | undefined>(() => {
   console.warn('Unsupported media in MediaPopupPost.vue');
   return undefined;
 });
-
-const resetZoom = () => {
-  if (mediaComponent.value && 'reset' in mediaComponent.value) {
-    mediaComponent.value.reset();
-  }
-};
 
 const close = () => {
   statusBar.setDefaultColor();
