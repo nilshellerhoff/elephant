@@ -38,14 +38,14 @@ jobs:
           overwrite: 1
           strip_components: 2
 
-      - name: Copy proxy artifacts to server
-        uses: appleboy/scp-action@v0.1.7
-        with:
-          host: ${{ secrets.SERVER_ADDRESS }}
-          username: ${{ secrets.SERVER_USERNAME }}
-          key: ${{ secrets.SERVER_KEY }}
-          port: 22
-          source: "proxy/*"
-          target: ${{ secrets.SERVER_PATH }}/elephant.floreen.de
-          overwrite: 1
-          strip_components: 0
+#      - name: Copy proxy artifacts to server
+#        uses: appleboy/scp-action@v0.1.7
+#        with:
+#          host: ${{ secrets.SERVER_ADDRESS }}
+#          username: ${{ secrets.SERVER_USERNAME }}
+#          key: ${{ secrets.SERVER_KEY }}
+#          port: 22
+#          source: "proxy/*"
+#          target: ${{ secrets.SERVER_PATH }}/elephant.floreen.de
+#          overwrite: 1
+#          strip_components: 0
