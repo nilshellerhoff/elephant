@@ -34,6 +34,7 @@
           (post.data.upvote_ratio * 100).toFixed(0)
         }}%) • {{ post.data.num_comments }}
         <q-icon name="chat_bubble_outline" />
+        <template v-if="linkHost"> • {{ linkHost }} </template>
       </q-item-label>
     </q-item-section>
   </q-item>
@@ -53,6 +54,7 @@ import MediaPopupPost from 'components/Media/MediaPopupPost.vue';
 import { computed } from 'vue';
 import { isImage } from 'src/util/media/image';
 import { isMedia } from 'src/util/media/general';
+import { getPostLinkHost } from 'src/util/post';
 
 interface Props {
   post: Post;
@@ -79,4 +81,6 @@ const openMedia = (post: Post) => {
   if (settingsStore.markPostsAsVisitedOnMediaClick)
     visitedStore.markVisited(post.data.name);
 };
+
+const linkHost = computed(() => getPostLinkHost(post));
 </script>

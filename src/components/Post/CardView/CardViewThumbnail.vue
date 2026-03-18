@@ -37,6 +37,7 @@
           (post.data.upvote_ratio * 100).toFixed(0)
         }}%) • {{ post.data.num_comments }}
         <q-icon name="chat_bubble_outline" />
+        <template v-if="linkHost"> • {{ linkHost }} </template>
       </q-item-label>
     </div>
   </q-item>
@@ -55,13 +56,15 @@ import SubredditLink from 'components/Subreddit/SubredditLink.vue';
 import { postHasFlair } from 'src/util/flair';
 import MediaPopupPost from 'components/Media/MediaPopupPost.vue';
 import { isMedia } from 'src/util/media/general';
+import { computed } from 'vue';
+import { getPostLinkHost } from 'src/util/post';
 
 interface Props {
   post: Post;
   ignoreVisited?: boolean;
 }
 
-defineProps<Props>();
+const { post } = defineProps<Props>();
 const visitedStore = useVisitedStore();
 const settingsStore = useSettingsStore();
 
@@ -75,4 +78,6 @@ const openMedia = (post: Post) => {
   if (settingsStore.markPostsAsVisitedOnMediaClick)
     visitedStore.markVisited(post.data.name);
 };
+
+const linkHost = computed(() => getPostLinkHost(post));
 </script>

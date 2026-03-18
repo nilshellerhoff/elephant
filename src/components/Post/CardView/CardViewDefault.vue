@@ -31,6 +31,7 @@
           (post.data.upvote_ratio * 100).toFixed(0)
         }}%) • {{ post.data.num_comments }}
         <q-icon name="chat_bubble_outline" />
+        <template v-if="linkHost"> • {{ linkHost }} </template>
       </q-item-label>
     </div>
   </q-item>
@@ -43,11 +44,15 @@ import TitleRenderer from 'components/Post/TitleRenderer.vue';
 import FlairRendererPost from 'components/Flair/FlairRendererPost.vue';
 import SubredditLink from 'components/Subreddit/SubredditLink.vue';
 import { postHasFlair } from 'src/util/flair';
+import { getPostLinkHost } from 'src/util/post';
+import { computed } from 'vue';
 
 interface Props {
   post: Post;
   ignoreVisited?: boolean;
 }
 
-defineProps<Props>();
+const { post } = defineProps<Props>();
+
+const linkHost = computed(() => getPostLinkHost(post));
 </script>

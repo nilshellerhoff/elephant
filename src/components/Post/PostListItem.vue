@@ -34,6 +34,7 @@
           (post.data.upvote_ratio * 100).toFixed(0)
         }}%) • {{ post.data.num_comments }}
         <q-icon name="chat_bubble_outline" />
+        <template v-if="linkHost"> • {{ linkHost }} </template>
       </q-item-label>
     </q-item-section>
   </q-item>
@@ -52,6 +53,8 @@ import { postHasFlair } from 'src/util/flair';
 import MediaPopupPost from 'components/Media/MediaPopupPost.vue';
 import { isMedia } from 'src/util/media/general';
 import UsernameLink from 'components/User/UsernameLink.vue';
+import { computed } from 'vue';
+import { getPostLinkHost } from 'src/util/post';
 
 interface Props {
   post: Post;
@@ -60,10 +63,7 @@ interface Props {
   showAuthor?: boolean;
 }
 
-withDefaults(defineProps<Props>(), {
-  maxLines: undefined,
-  showAuthor: false,
-});
+const { post, maxLines, showAuthor = false } = defineProps<Props>();
 
 const visitedStore = useVisitedStore();
 const settingsStore = useSettingsStore();
@@ -78,4 +78,6 @@ const openMedia = (post: Post) => {
   if (settingsStore.markPostsAsVisitedOnMediaClick)
     visitedStore.markVisited(post.data.name);
 };
+
+const linkHost = computed(() => getPostLinkHost(post));
 </script>
